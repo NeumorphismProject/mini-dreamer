@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  /* font-size: 14px; */
+  /* overflow: hidden; */
+  /* background-color: rgb(0, 0, 0); */
+}
+
+body {
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+/* 滚动条整体样式 */
+::-webkit-scrollbar {
+  /* 控制垂直方向滚动条宽度 */
+  width: 2px;
+  /* 控制水平方向滚动条高度 */
+  height: 8px;
+}
+
+/* 滚动条里面小方块 */
+::-webkit-scrollbar-thumb {
+  background-color: #95aabb;
+  border-radius: 8px;
+}
+
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid gray;
+  border-radius: 4px;
+  background-color: blanchedalmond;
+  padding: 4px;
+}
+
+button:disabled {
+  cursor: not-allowed !important;
+  background-color: rgb(181, 180, 180) !important;
+  color: rgb(73, 70, 104) !important;
+}
+
+button:hover {
+  background-color: rgba(247, 215, 109, 0.8) !important;
+}
+
+button:active {
+  background-color: rgba(229, 179, 103, 0.8) !important;
+}
+
+.btn-delete {
+  background-color: rgb(255, 94, 0);
+  color: rgb(255, 255, 255);
+}
+
+.btn-delete:hover {
+  background-color: rgba(245, 71, 71, 0.8);
+}
+
+.btn-delete:active {
+  background-color: rgba(134, 21, 6, 0.8);
+}

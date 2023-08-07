@@ -1,0 +1,4071 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./global.css">
+  <style>
+    /* --------------------顶部工具栏------------------------- */
+
+    .creator-wrapper {
+      min-width: 550px;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .tools-wrapper {
+      /* border: 1px dashed blue; */
+      display: flex;
+      gap: 8px;
+      padding: 8px;
+      background-color: rgba(178, 8, 99, 0.5);
+    }
+
+    /* ---左侧 logo 区域--- */
+
+    .tools-wrapper .logo {
+      height: 50px;
+      border-radius: 8px;
+      border-bottom: 1px dashed rgb(255, 94, 0);
+      box-shadow: 0 2px 0px rgba(255, 217, 0);
+      /* border: 1px dashed red; */
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tools-wrapper .logo .logo-svg svg {
+      width: 32px;
+    }
+
+    .tools-wrapper .logo .logo-label {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    /* ---右侧工具区域--- */
+
+    .tools-wrapper .tools-area {
+      flex: 1;
+      /* border: 1px dashed green; */
+      display: flex;
+      gap: 8px;
+    }
+
+    .tools-wrapper .tools-area .menu-selection {
+      border-radius: 8px;
+      background-color: antiquewhite;
+      /* border: 1px dashed red; */
+      text-align: center;
+      padding: 2px 8px;
+    }
+
+    .tools-wrapper .tools-area .menu-selection .content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .tools-wrapper .tools-area .menu-selection .label {
+      font-size: 16px;
+      font-weight: 600px;
+    }
+
+    .tools-wrapper .tools-area .menu-selection .icon {
+      margin: 2px 0;
+    }
+
+    .tools-wrapper .tools-area .menu-selection .icon svg {
+      width: 32px;
+      height: auto;
+    }
+
+    .tools-wrapper .tools-area .menu-selection .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tools-wrapper .tools-area .menu-selection button {
+      display: block;
+      margin: 0 auto;
+      cursor: pointer;
+      min-width: 60px;
+      height: 26px;
+      line-height: 12px;
+      background-color: rgb(102, 251, 251);
+      border: 1px dotted black;
+      border-radius: 8px;
+    }
+
+    .tools-wrapper .tools-area .menu-selection button:disabled:active {
+      cursor: not-allowed;
+      background-color: rgb(181, 180, 180);
+      color: rgb(73, 70, 104);
+    }
+
+    .tools-wrapper .tools-area .menu-selection button:disabled:hover {
+      cursor: not-allowed;
+      background-color: rgb(181, 180, 180);
+      color: rgb(73, 70, 104);
+    }
+
+    .tools-wrapper .tools-area .menu-selection button:active {
+      background-color: rgb(75, 181, 181);
+    }
+
+    .tools-wrapper .tools-area .menu-selection button:hover {
+      color: rgb(131, 3, 105);
+    }
+
+    .action-buttons-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .action-buttons-wrapper button {
+      height: 50px;
+    }
+
+    .action-buttons-wrapper .group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex-wrap: wrap;
+      width: 80px;
+    }
+
+    .action-buttons-wrapper .group button {
+      flex: 1;
+      height: 30px;
+    }
+
+    /* ---物体选择下拉框菜单面板悬浮窗体--- */
+    .blocks-selection-pannel {
+      position: fixed;
+      top: 100px;
+      left: 246px;
+      display: flex;
+      gap: 8px;
+      background-color: aliceblue;
+      width: auto;
+      max-width: 136px;
+      padding: 8px;
+      border: 1px dotted rgb(5, 156, 138);
+      box-shadow: -2px 2px 8px rgb(2, 114, 101);
+      border-radius: 4px;
+      transition: opacity 100ms linear;
+    }
+
+    .blocks-selection-pannel .item {
+      cursor: pointer;
+      width: 36px;
+      border-radius: 4px;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+    }
+
+    .blocks-selection-pannel .item:hover {
+      background-color: rgb(41, 106, 93);
+      color: beige;
+    }
+
+    .blocks-selection-pannel .item:active {
+      background-color: rgb(91, 227, 200);
+      color: rgb(244, 160, 185);
+    }
+
+    .blocks-selection-pannel .item .label {
+      font-weight: 500px;
+    }
+
+    .blocks-selection-pannel .item .icon svg {
+      width: 32px;
+      height: auto;
+    }
+
+    /* ---物体参数调节面板悬浮窗体--- */
+    .setting-pannel {
+      position: fixed;
+      top: 100px;
+      right: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background-color: aliceblue;
+      width: auto;
+      padding: 8px;
+      border: 1px dotted rgb(5, 156, 138);
+      box-shadow: -2px 2px 8px rgb(2, 114, 101);
+      border-radius: 4px;
+      transition: opacity 100ms linear;
+    }
+
+    .btn-setting-tool-params-useto {
+      border: none;
+      box-shadow: 0px 2px 4px gray;
+      background-color: blanchedalmond;
+      color: black;
+    }
+
+    .btn-setting-tool-params-useto:active {
+      background-color: blanchedalmond;
+      color: black;
+    }
+
+    .btn-setting-tool-params-useto:hover {
+      color: black;
+    }
+
+    .btn-setting-tool-params-useto__active {
+      box-shadow: 0px 2px 4px inset gray;
+      background-color: rgb(243, 208, 155);
+    }
+
+    .setting-pannel .actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 8px 0 0;
+    }
+
+    .setting-pannel .actions>.buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .setting-pannel-type-title {
+      font-weight: 500;
+    }
+
+    .setting-pannel .contents {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: calc(100vh - 200px);
+      padding-right: 4px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .setting-pannel .group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .setting-pannel .group input {
+      outline: none;
+      border: none;
+      box-shadow: 0px 1px 2px rgb(62, 79, 224);
+      border-radius: 2px;
+      font-size: 22px;
+      width: 200px;
+    }
+
+    .setting-pannel .group input:disabled {
+      color: gray;
+    }
+
+    .setting-pannel .group .group-label {
+      width: 100%;
+      font-size: 18px;
+      font-weight: 1200px;
+      color: rgb(3, 3, 160);
+      padding: 2px;
+      box-shadow: 0px 1px 0px rgba(3, 3, 160, 0.5);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .setting-pannel .group .group-icon-shrink {
+      width: 24px;
+      height: 24px;
+      background-image: url('./imgs/icon-shrink.png');
+      background-size: cover;
+      cursor: pointer;
+      position: relative;
+      bottom: 2px;
+    }
+
+    .setting-pannel .group .row {
+      display: flex;
+    }
+
+    .setting-pannel .group label {
+      width: 100px;
+      font-size: 16px;
+      line-height: 18px;
+    }
+
+    .setting-pannel .group .row .input-wrapper {
+      display: flex;
+      gap: 4px;
+    }
+
+    .setting-pannel .group .row .input-wrapper>span {
+      position: relative;
+      top: 8px;
+    }
+
+    .setting-pannel .group .area {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .setting-pannel .group .area>label {
+      width: 100%;
+    }
+
+    .setting-pannel .group .area .img-selections-wrapper {
+      max-width: 300px;
+      overflow-x: auto;
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+      /* display: flex;
+      gap: 8px;
+      justify-content: space-around; */
+      padding: 8px 8px;
+    }
+
+    .setting-pannel .group .area .img-selections-wrapper>img {
+      width: 50px;
+      height: 50px;
+      padding: 4px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 4px rgb(46, 45, 133);
+      cursor: pointer;
+    }
+
+    .setting-pannel .group .area .img-selections-wrapper img:hover {
+      box-shadow: 0px 2px 4px rgb(235, 117, 6);
+    }
+
+    .setting-pannel .group .area .img-selections-wrapper img:active {
+      box-shadow: 0px 2px 4px inset rgb(46, 45, 133);
+    }
+
+    .setting-pannel .group .area .img-wrapper {
+      border: 1px dashed rgb(58, 51, 153);
+      width: 100%;
+      height: 100px;
+      text-align: center;
+    }
+
+    .setting-pannel .group .area .img-wrapper img {
+      width: 100px;
+      height: 100%;
+    }
+
+    .setting-pannel .group .area .animation-img-wrapper {
+      border: 1px dashed rgb(58, 51, 153);
+      width: 100%;
+      height: auto;
+      text-align: center;
+    }
+
+    .setting-pannel .group .area .animation-img-wrapper .img-box {
+      width: 50px;
+      height: 50px;
+      border: 1px dashed green;
+      margin: 0 auto;
+      transition: all 10ms steps(0, end);
+    }
+
+    /* ------------------------游戏场景---------------------- */
+
+    .game-sence {
+      width: 100%;
+      height: 600px;
+      border: 1px dashed gray;
+      background-repeat: no-repeat;
+    }
+  </style>
+
+  <style>
+    .level-pannel {
+      position: fixed;
+      top: 0;
+      z-index: 999;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* 背景样式 */
+      background:
+        repeating-linear-gradient(-45deg,
+          transparent 0,
+          transparent 25%,
+          rgba(181, 181, 181, 0.2) 0,
+          rgba(181, 181, 181, 0.2) 50%),
+        repeating-linear-gradient(45deg,
+          transparent 0,
+          transparent 25%,
+          rgba(181, 181, 181, 0.2) 0,
+          rgba(181, 181, 181, 0.2) 50%),
+        repeating-linear-gradient(transparent 0,
+          transparent 25%,
+          rgba(181, 181, 181, 0.2) 0,
+          rgba(181, 181, 181, 0.2) 50%), rgba(255, 255, 255, 0.6);
+      background-blend-mode: multiply;
+      background-size: 10px 10px;
+    }
+
+    .level-pannel .dialog {
+      background-color: rgb(243, 208, 155);
+      border-radius: 8px;
+      padding: 16px 32px;
+    }
+
+    /* --- 顶部区域 --- */
+
+    .level-pannel .dialog .top {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .level-pannel .dialog .top::after {
+      content: '';
+      display: flex;
+      position: absolute;
+      bottom: -30%;
+      width: 100%;
+      height: 1px;
+      background-color: rgba(77, 75, 75, 0.5);
+      box-shadow: 0px 0px 2px 1px rgba(77, 75, 75, 0.1);
+    }
+
+    .level-pannel .dialog .top .title {
+      color: rgb(247, 100, 15);
+      text-shadow: 1px 1px 2px rgb(38, 2, 138);
+    }
+
+    /* 关闭按钮 */
+
+    .level-pannel .dialog .top .btn-close {
+      cursor: pointer;
+      position: relative;
+      border: 1px dashed rgb(255, 170, 0);
+      border-radius: 100%;
+      box-shadow: 1px 1px 1px 1px rgb(136, 92, 4);
+      width: 16px;
+      height: 16px;
+    }
+
+    .level-pannel .dialog .top .btn-close::before {
+      content: "";
+      display: inline-block;
+      width: 12px;
+      height: 1px;
+      background-color: rgb(77, 75, 75);
+      transform: rotate(45deg);
+      position: absolute;
+      top: 50%;
+      left: 16%;
+    }
+
+    .level-pannel .dialog .top .btn-close::after {
+      content: "";
+      display: flex;
+      width: 12px;
+      height: 1px;
+      background-color: rgb(77, 75, 75);
+      transform: rotate(-45deg);
+      position: absolute;
+      top: 60%;
+      left: 20%;
+    }
+
+    .level-pannel .dialog .top .btn-close:active {
+      box-shadow: 1px 1px 1px 1px inset rgb(136, 92, 4);
+    }
+
+    /* --- 表单保存区域 --- */
+
+    .level-pannel .dialog .form-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .level-pannel .dialog .form-wrapper .row {
+      display: flex;
+    }
+
+    .level-pannel .dialog .form-wrapper .row .label-box {
+      width: 100px;
+      display: flex;
+      gap: 8px;
+      font-size: 16px;
+    }
+
+    .level-pannel .dialog .form-wrapper .row .label-box>label>span {
+      margin-left: 4px;
+    }
+
+    .level-pannel .dialog .form-wrapper input[type='text'] {
+      outline: none;
+      border: none;
+      background-color: rgba(0, 0, 0, 0);
+      border-bottom: 1px dashed rgba(0, 45, 245, 0.8);
+      font-size: 20px;
+    }
+
+    .level-pannel .dialog .form-wrapper .passs-rule-group>h5 {
+      width: auto;
+      display: inline;
+      padding: 2px 8px 2px 8px;
+      font-size: 16px;
+      color: rgb(4, 199, 20);
+      text-shadow: 1px 1px 1px rgba(77, 75, 75, 0.5);
+      border-top: 1px dashed rgba(77, 75, 75, 0.5);
+      border-left: 1px dashed rgba(77, 75, 75, 0.5);
+      border-right: 1px dashed rgba(77, 75, 75, 0.5);
+      background-color: rgb(243, 208, 155);
+      position: relative;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    .level-pannel .dialog .form-wrapper .passs-rule-group>.selections {
+      padding: 8px 0;
+      border: 1px dashed rgba(77, 75, 75, 0.5);
+      padding: 16px 8px;
+      border-top-right-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .level-pannel .dialog .form-wrapper .form-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .level-pannel .dialog .form-wrapper .form-buttons>button {
+      width: 120px;
+      font-size: 16px;
+      border: 1px dashed orange;
+      box-shadow: 0px 1px 2px rgba(77, 75, 75, 0.8);
+      color: rgb(255, 136, 0);
+      text-shadow: 1px 1px 0px rgba(77, 75, 75, 0.8);
+      letter-spacing: 8px;
+    }
+
+    .level-pannel .dialog .form-wrapper .form-buttons>button:active {
+      box-shadow: 0px 1px 2px rgba(77, 75, 75, 0.8) inset;
+      color: rgb(204, 204, 204);
+      text-shadow: 0px 1px 2px rgba(77, 75, 75, 0.8);
+    }
+
+    /* --- 关卡记录列表 --- */
+    .level-pannel .dialog .level-data-wrapper {
+      margin-top: 32px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 8px 2px rgba(77, 75, 75, 0.8);
+    }
+
+    .level-pannel .dialog .level-data-wrapper>h3 {
+      font-size: 18px;
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 6px 1px rgba(77, 75, 75, 0.5);
+      color: rgb(2, 23, 119);
+      letter-spacing: 8px;
+    }
+
+    .level-pannel .dialog .level-data-wrapper .card-list {
+      padding: 16px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 16px;
+      color: rgb(31, 31, 148);
+      max-height: calc(100vh - 500px);
+      overflow-y: auto;
+    }
+
+    .level-pannel .dialog .level-data-wrapper .card-list .level-data-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 6px rgba(77, 75, 75, 0.8) inset;
+      color: rgb(47, 0, 255);
+      letter-spacing: 2px;
+    }
+
+    .level-pannel .dialog .level-data-wrapper .card-list .level-data-card .level-data-contents {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 8px;
+    }
+
+    .level-pannel .dialog .level-data-wrapper .card-list .level-data-card .level-data-img {
+      border-radius: 8px;
+      border: 2px dashed rgb(245, 160, 1);
+      width: 50px;
+      height: 50px;
+      overflow: hidden;
+      box-shadow: 0px 2px 6px rgba(77, 75, 75, 0.8);
+    }
+
+    .level-pannel .dialog .level-data-wrapper .card-list .level-data-card .buttons {
+      flex:1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .level-pannel .dialog .level-data-wrapper .card-list .level-data-card .buttons>button {
+      width: 60px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="creator-wrapper">
+    <div id="tools-wrapper" class="tools-wrapper">
+      <div class="logo">
+        <div class="logo-svg">
+          <svg t="1690328244355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="26726" width="64" height="64" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <path
+              d="M926.464 633.9072h48.7936v48.7424h-48.7936zM926.464 585.1648h48.7936v48.7424h-48.7936zM926.464 536.3712h48.7936v48.7936h-48.7936zM877.7216 682.6496h48.7424v48.7936h-48.7424z"
+              fill="#012777" p-id="26727"></path>
+            <path
+              d="M877.7216 633.9072h48.7424v48.7424h-48.7424zM877.7216 585.1648h48.7424v48.7424h-48.7424zM877.7216 536.3712h48.7424v48.7936h-48.7424z"
+              fill="#DEE6FC" p-id="26728"></path>
+            <path d="M877.7216 487.6288h48.7424v48.7424h-48.7424zM828.928 731.4432h48.7936v48.7424h-48.7936z"
+              fill="#012777" p-id="26729"></path>
+            <path d="M828.928 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26730"></path>
+            <path
+              d="M828.928 633.9072h48.7936v48.7424h-48.7936zM828.928 585.1648h48.7936v48.7424h-48.7936zM828.928 536.3712h48.7936v48.7936h-48.7936z"
+              fill="#DD75A1" p-id="26731"></path>
+            <path d="M828.928 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26732"></path>
+            <path
+              d="M828.928 438.8352h48.7936v48.7936h-48.7936zM780.1856 877.7216h48.7424v48.7424h-48.7424zM780.1856 731.4432h48.7424v48.7424h-48.7424z"
+              fill="#012777" p-id="26733"></path>
+            <path d="M780.1856 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26734"></path>
+            <path d="M780.1856 633.9072h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="26735"></path>
+            <path d="M780.1856 585.1648h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="26736"></path>
+            <path d="M780.1856 536.3712h48.7424v48.7936h-48.7424z" fill="#DD75A1" p-id="26737"></path>
+            <path d="M780.1856 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26738"></path>
+            <path
+              d="M780.1856 438.8352h48.7424v48.7936h-48.7424zM780.1856 390.0928h48.7424v48.7424h-48.7424zM731.4432 926.464h48.7424v48.7936h-48.7424z"
+              fill="#012777" p-id="26739"></path>
+            <path d="M731.4432 877.7216h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="26740"></path>
+            <path d="M731.4432 828.928h48.7424v48.7936h-48.7424zM731.4432 731.4432h48.7424v48.7424h-48.7424z"
+              fill="#012777" p-id="26741"></path>
+            <path d="M731.4432 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26742"></path>
+            <path d="M731.4432 633.9072h48.7424v48.7424h-48.7424zM731.4432 585.1648h48.7424v48.7424h-48.7424z"
+              fill="#375AA4" p-id="26743"></path>
+            <path d="M731.4432 536.3712h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="26744"></path>
+            <path d="M731.4432 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26745"></path>
+            <path d="M731.4432 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26746"></path>
+            <path d="M731.4432 390.0928h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26747"></path>
+            <path
+              d="M731.4432 341.3504h48.7424v48.7424h-48.7424zM682.6496 877.7216h48.7936v48.7424h-48.7936zM682.6496 780.1856h48.7936v48.7424h-48.7936z"
+              fill="#012777" p-id="26748"></path>
+            <path d="M682.6496 731.4432h48.7936v48.7424h-48.7936z" fill="#012777" p-id="26749"></path>
+            <path d="M682.6496 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26750"></path>
+            <path d="M682.6496 633.9072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26751"></path>
+            <path d="M682.6496 585.1648h48.7936v48.7424h-48.7936z" fill="#A2D8EA" p-id="26752"></path>
+            <path d="M682.6496 536.3712h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="26753"></path>
+            <path d="M682.6496 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26754"></path>
+            <path d="M682.6496 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="26755"></path>
+            <path d="M682.6496 390.0928h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26756"></path>
+            <path d="M682.6496 341.3504h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26757"></path>
+            <path d="M682.6496 292.5568h48.7936v48.7936h-48.7936zM633.9072 731.4432h48.7424v48.7424h-48.7424z"
+              fill="#012777" p-id="26758"></path>
+            <path d="M633.9072 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26759"></path>
+            <path
+              d="M633.9072 633.9072h48.7424v48.7424h-48.7424zM633.9072 585.1648h48.7424v48.7424h-48.7424zM633.9072 536.3712h48.7424v48.7936h-48.7424z"
+              fill="#DD75A1" p-id="26760"></path>
+            <path d="M633.9072 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26761"></path>
+            <path d="M633.9072 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26762"></path>
+            <path d="M633.9072 390.0928h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="26763"></path>
+            <path d="M633.9072 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26764"></path>
+            <path d="M633.9072 292.5568h48.7424v48.7936h-48.7424zM585.1648 731.4432h48.7424v48.7424h-48.7424z"
+              fill="#012777" p-id="26765"></path>
+            <path d="M585.1648 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26766"></path>
+            <path
+              d="M585.1648 633.9072h48.7424v48.7424h-48.7424zM585.1648 585.1648h48.7424v48.7424h-48.7424zM585.1648 536.3712h48.7424v48.7936h-48.7424z"
+              fill="#DD75A1" p-id="26767"></path>
+            <path d="M585.1648 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26768"></path>
+            <path d="M585.1648 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26769"></path>
+            <path d="M585.1648 390.0928h48.7424v48.7424h-48.7424zM585.1648 341.3504h48.7424v48.7424h-48.7424z"
+              fill="#DD75A1" p-id="26770"></path>
+            <path d="M585.1648 292.5568h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26771"></path>
+            <path
+              d="M585.1648 243.8144h48.7424v48.7424h-48.7424zM536.3712 877.7216h48.7936v48.7424h-48.7936zM536.3712 731.4432h48.7936v48.7424h-48.7936z"
+              fill="#012777" p-id="26772"></path>
+            <path d="M536.3712 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26773"></path>
+            <path d="M536.3712 633.9072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26774"></path>
+            <path d="M536.3712 585.1648h48.7936v48.7424h-48.7936z" fill="#375AA4" p-id="26775"></path>
+            <path d="M536.3712 536.3712h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="26776"></path>
+            <path d="M536.3712 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26777"></path>
+            <path d="M536.3712 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="26778"></path>
+            <path d="M536.3712 390.0928h48.7936v48.7424h-48.7936zM536.3712 341.3504h48.7936v48.7424h-48.7936z"
+              fill="#DD75A1" p-id="26779"></path>
+            <path d="M536.3712 292.5568h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26780"></path>
+            <path
+              d="M536.3712 243.8144h48.7936v48.7424h-48.7936zM536.3712 97.536h48.7936v48.7424h-48.7936zM487.6288 926.464h48.7424v48.7936h-48.7424z"
+              fill="#012777" p-id="26781"></path>
+            <path d="M487.6288 877.7216h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="26782"></path>
+            <path d="M487.6288 828.928h48.7424v48.7936h-48.7424zM487.6288 780.1856h48.7424v48.7424h-48.7424z"
+              fill="#012777" p-id="26783"></path>
+            <path d="M487.6288 731.4432h48.7424v48.7424h-48.7424z" fill="#012777" p-id="26784"></path>
+            <path d="M487.6288 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26785"></path>
+            <path d="M487.6288 633.9072h48.7424v48.7424h-48.7424zM487.6288 585.1648h48.7424v48.7424h-48.7424z"
+              fill="#375AA4" p-id="26786"></path>
+            <path d="M487.6288 536.3712h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="26787"></path>
+            <path d="M487.6288 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26788"></path>
+            <path d="M487.6288 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26789"></path>
+            <path
+              d="M487.6288 390.0928h48.7424v48.7424h-48.7424zM487.6288 341.3504h48.7424v48.7424h-48.7424zM487.6288 292.5568h48.7424v48.7936h-48.7424z"
+              fill="#DD75A1" p-id="26790"></path>
+            <path d="M487.6288 243.8144h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26791"></path>
+            <path d="M487.6288 195.072h48.7424v48.7424h-48.7424zM487.6288 146.2784h48.7424v48.7936h-48.7424z"
+              fill="#012777" p-id="26792"></path>
+            <path d="M487.6288 97.536h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="26793"></path>
+            <path
+              d="M487.6288 48.7424h48.7424v48.7936h-48.7424zM438.8352 877.7216h48.7936v48.7424h-48.7936zM438.8352 731.4432h48.7936v48.7424h-48.7936z"
+              fill="#012777" p-id="26794"></path>
+            <path d="M438.8352 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26795"></path>
+            <path d="M438.8352 633.9072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26796"></path>
+            <path d="M438.8352 585.1648h48.7936v48.7424h-48.7936z" fill="#A2D8EA" p-id="26797"></path>
+            <path d="M438.8352 536.3712h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="26798"></path>
+            <path d="M438.8352 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26799"></path>
+            <path d="M438.8352 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="26800"></path>
+            <path d="M438.8352 390.0928h48.7936v48.7424h-48.7936zM438.8352 341.3504h48.7936v48.7424h-48.7936z"
+              fill="#DD75A1" p-id="26801"></path>
+            <path d="M438.8352 292.5568h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26802"></path>
+            <path
+              d="M438.8352 243.8144h48.7936v48.7424h-48.7936zM438.8352 97.536h48.7936v48.7424h-48.7936zM390.0928 731.4432h48.7424v48.7424h-48.7424z"
+              fill="#012777" p-id="26803"></path>
+            <path d="M390.0928 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26804"></path>
+            <path
+              d="M390.0928 633.9072h48.7424v48.7424h-48.7424zM390.0928 585.1648h48.7424v48.7424h-48.7424zM390.0928 536.3712h48.7424v48.7936h-48.7424z"
+              fill="#DD75A1" p-id="26805"></path>
+            <path d="M390.0928 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26806"></path>
+            <path d="M390.0928 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26807"></path>
+            <path d="M390.0928 390.0928h48.7424v48.7424h-48.7424zM390.0928 341.3504h48.7424v48.7424h-48.7424z"
+              fill="#DD75A1" p-id="26808"></path>
+            <path d="M390.0928 292.5568h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26809"></path>
+            <path d="M390.0928 243.8144h48.7424v48.7424h-48.7424zM341.3504 731.4432h48.7424v48.7424h-48.7424z"
+              fill="#012777" p-id="26810"></path>
+            <path d="M341.3504 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26811"></path>
+            <path
+              d="M341.3504 633.9072h48.7424v48.7424h-48.7424zM341.3504 585.1648h48.7424v48.7424h-48.7424zM341.3504 536.3712h48.7424v48.7936h-48.7424z"
+              fill="#DD75A1" p-id="26812"></path>
+            <path d="M341.3504 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26813"></path>
+            <path d="M341.3504 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26814"></path>
+            <path d="M341.3504 390.0928h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="26815"></path>
+            <path d="M341.3504 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26816"></path>
+            <path
+              d="M341.3504 292.5568h48.7424v48.7936h-48.7424zM292.5568 877.7216h48.7936v48.7424h-48.7936zM292.5568 780.1856h48.7936v48.7424h-48.7936z"
+              fill="#012777" p-id="26817"></path>
+            <path d="M292.5568 731.4432h48.7936v48.7424h-48.7936z" fill="#012777" p-id="26818"></path>
+            <path d="M292.5568 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26819"></path>
+            <path d="M292.5568 633.9072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26820"></path>
+            <path d="M292.5568 585.1648h48.7936v48.7424h-48.7936z" fill="#375AA4" p-id="26821"></path>
+            <path d="M292.5568 536.3712h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="26822"></path>
+            <path d="M292.5568 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26823"></path>
+            <path d="M292.5568 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="26824"></path>
+            <path d="M292.5568 390.0928h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26825"></path>
+            <path d="M292.5568 341.3504h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26826"></path>
+            <path d="M292.5568 292.5568h48.7936v48.7936h-48.7936zM243.8144 926.464h48.7424v48.7936h-48.7424z"
+              fill="#012777" p-id="26827"></path>
+            <path d="M243.8144 877.7216h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="26828"></path>
+            <path d="M243.8144 828.928h48.7424v48.7936h-48.7424zM243.8144 731.4432h48.7424v48.7424h-48.7424z"
+              fill="#012777" p-id="26829"></path>
+            <path d="M243.8144 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26830"></path>
+            <path d="M243.8144 633.9072h48.7424v48.7424h-48.7424zM243.8144 585.1648h48.7424v48.7424h-48.7424z"
+              fill="#375AA4" p-id="26831"></path>
+            <path d="M243.8144 536.3712h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="26832"></path>
+            <path d="M243.8144 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26833"></path>
+            <path d="M243.8144 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26834"></path>
+            <path d="M243.8144 390.0928h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26835"></path>
+            <path
+              d="M243.8144 341.3504h48.7424v48.7424h-48.7424zM195.072 877.7216h48.7424v48.7424H195.072zM195.072 731.4432h48.7424v48.7424H195.072z"
+              fill="#012777" p-id="26836"></path>
+            <path d="M195.072 682.6496h48.7424v48.7936H195.072z" fill="#DEE6FC" p-id="26837"></path>
+            <path d="M195.072 633.9072h48.7424v48.7424H195.072z" fill="#DD75A1" p-id="26838"></path>
+            <path d="M195.072 585.1648h48.7424v48.7424H195.072z" fill="#A2D8EA" p-id="26839"></path>
+            <path d="M195.072 536.3712h48.7424v48.7936H195.072z" fill="#DD75A1" p-id="26840"></path>
+            <path d="M195.072 487.6288h48.7424v48.7424H195.072z" fill="#DEE6FC" p-id="26841"></path>
+            <path
+              d="M195.072 438.8352h48.7424v48.7936H195.072zM195.072 390.0928h48.7424v48.7424H195.072zM146.2784 731.4432h48.7936v48.7424h-48.7936z"
+              fill="#012777" p-id="26842"></path>
+            <path d="M146.2784 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26843"></path>
+            <path
+              d="M146.2784 633.9072h48.7936v48.7424h-48.7936zM146.2784 585.1648h48.7936v48.7424h-48.7936zM146.2784 536.3712h48.7936v48.7936h-48.7936z"
+              fill="#DD75A1" p-id="26844"></path>
+            <path d="M146.2784 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26845"></path>
+            <path d="M146.2784 438.8352h48.7936v48.7936h-48.7936zM97.536 682.6496h48.7424v48.7936h-48.7424z"
+              fill="#012777" p-id="26846"></path>
+            <path
+              d="M97.536 633.9072h48.7424v48.7424h-48.7424zM97.536 585.1648h48.7424v48.7424h-48.7424zM97.536 536.3712h48.7424v48.7936h-48.7424z"
+              fill="#DEE6FC" p-id="26847"></path>
+            <path
+              d="M97.536 487.6288h48.7424v48.7424h-48.7424zM48.7424 633.9072h48.7936v48.7424H48.7424zM48.7424 585.1648h48.7936v48.7424H48.7424zM48.7424 536.3712h48.7936v48.7936H48.7424z"
+              fill="#012777" p-id="26848"></path>
+          </svg>
+        </div>
+        <div class="logo-label">迷你造梦人</div>
+      </div>
+      <div class="tools-area">
+        <!-- player selection -->
+        <div class="menu-selection">
+          <div class="content">
+            <div class="label">玩家</div>
+            <div class="icon">
+              <svg t="1690338861792" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="12910" xmlns:xlink="http://www.w3.org/1999/xlink" width="32"
+                height="32">
+                <path d="M472.615385 866.461538h78.76923v78.769231h-78.76923z" fill="#FFFFFF" p-id="12911"></path>
+                <path
+                  d="M157.538462 866.461538h78.76923v78.769231H157.538462zM787.692308 866.461538h78.76923v78.769231h-78.76923zM945.230769 630.153846h78.769231v78.769231h-78.769231zM945.230769 551.384615h78.769231v78.769231h-78.769231zM945.230769 472.615385h78.769231v78.76923h-78.769231zM945.230769 393.846154h78.769231v78.769231h-78.769231zM945.230769 315.076923h78.769231v78.769231h-78.769231zM866.461538 708.923077h78.769231v78.769231h-78.769231z"
+                  fill="#1E2028" p-id="12912"></path>
+                <path
+                  d="M866.461538 630.153846h78.769231v78.769231h-78.769231zM866.461538 551.384615h78.769231v78.769231h-78.769231zM866.461538 472.615385h78.769231v78.76923h-78.769231zM866.461538 393.846154h78.769231v78.769231h-78.769231zM866.461538 315.076923h78.769231v78.769231h-78.769231z"
+                  fill="#FF9343" p-id="12913"></path>
+                <path
+                  d="M866.461538 236.307692h78.769231v78.769231h-78.769231zM866.461538 157.538462h78.769231v78.76923h-78.769231zM866.461538 78.769231h78.769231v78.769231h-78.769231zM866.461538 0h78.769231v78.769231h-78.769231zM787.692308 787.692308h78.76923v78.76923h-78.76923z"
+                  fill="#1E2028" p-id="12914"></path>
+                <path d="M787.692308 708.923077h78.76923v78.769231h-78.76923z" fill="#FF9343" p-id="12915"></path>
+                <path
+                  d="M787.692308 630.153846h78.76923v78.769231h-78.76923zM787.692308 551.384615h78.76923v78.769231h-78.76923zM787.692308 472.615385h78.76923v78.76923h-78.76923zM787.692308 393.846154h78.76923v78.769231h-78.76923zM787.692308 315.076923h78.76923v78.769231h-78.76923z"
+                  fill="#FFDD4D" p-id="12916"></path>
+                <path
+                  d="M787.692308 236.307692h78.76923v78.769231h-78.76923zM787.692308 157.538462h78.76923v78.76923h-78.76923zM787.692308 78.769231h78.76923v78.769231h-78.76923z"
+                  fill="#FF9343" p-id="12917"></path>
+                <path
+                  d="M787.692308 0h78.76923v78.769231h-78.76923zM708.923077 787.692308h78.769231v78.76923h-78.769231z"
+                  fill="#1E2028" p-id="12918"></path>
+                <path d="M708.923077 708.923077h78.769231v78.769231h-78.769231z" fill="#FF9343" p-id="12919"></path>
+                <path
+                  d="M708.923077 630.153846h78.769231v78.769231h-78.769231zM708.923077 551.384615h78.769231v78.769231h-78.769231zM708.923077 472.615385h78.769231v78.76923h-78.769231zM708.923077 393.846154h78.769231v78.769231h-78.769231zM708.923077 315.076923h78.769231v78.769231h-78.769231zM708.923077 236.307692h78.769231v78.769231h-78.769231zM708.923077 157.538462h78.769231v78.76923h-78.769231z"
+                  fill="#FFDD4D" p-id="12920"></path>
+                <path
+                  d="M708.923077 78.769231h78.769231v78.769231h-78.769231zM630.153846 787.692308h78.769231v78.76923h-78.769231z"
+                  fill="#1E2028" p-id="12921"></path>
+                <path d="M630.153846 708.923077h78.769231v78.769231h-78.769231z" fill="#FF9343" p-id="12922"></path>
+                <path d="M630.153846 630.153846h78.769231v78.769231h-78.769231z" fill="#FFDD4D" p-id="12923"></path>
+                <path
+                  d="M630.153846 551.384615h78.769231v78.769231h-78.769231zM630.153846 472.615385h78.769231v78.76923h-78.769231z"
+                  fill="#1E2028" p-id="12924"></path>
+                <path d="M630.153846 393.846154h78.769231v78.769231h-78.769231z" fill="#FFDD4D" p-id="12925"></path>
+                <path
+                  d="M630.153846 315.076923h78.769231v78.769231h-78.769231zM630.153846 236.307692h78.769231v78.769231h-78.769231z"
+                  fill="#FF9343" p-id="12926"></path>
+                <path
+                  d="M630.153846 157.538462h78.769231v78.76923h-78.769231zM551.384615 787.692308h78.769231v78.76923h-78.769231z"
+                  fill="#1E2028" p-id="12927"></path>
+                <path d="M551.384615 708.923077h78.769231v78.769231h-78.769231z" fill="#FF9343" p-id="12928"></path>
+                <path
+                  d="M551.384615 630.153846h78.769231v78.769231h-78.769231zM551.384615 551.384615h78.769231v78.769231h-78.769231zM551.384615 472.615385h78.769231v78.76923h-78.769231zM551.384615 393.846154h78.769231v78.769231h-78.769231zM551.384615 315.076923h78.769231v78.769231h-78.769231zM551.384615 236.307692h78.769231v78.769231h-78.769231z"
+                  fill="#FFDD4D" p-id="12929"></path>
+                <path
+                  d="M551.384615 157.538462h78.769231v78.76923h-78.769231zM472.615385 787.692308h78.76923v78.76923h-78.76923z"
+                  fill="#1E2028" p-id="12930"></path>
+                <path d="M472.615385 708.923077h78.76923v78.769231h-78.76923z" fill="#FF9343" p-id="12931"></path>
+                <path d="M472.615385 630.153846h78.76923v78.769231h-78.76923z" fill="#1E2028" p-id="12932"></path>
+                <path
+                  d="M472.615385 551.384615h78.76923v78.769231h-78.76923zM472.615385 472.615385h78.76923v78.76923h-78.76923zM472.615385 393.846154h78.76923v78.769231h-78.76923z"
+                  fill="#FFDD4D" p-id="12933"></path>
+                <path
+                  d="M472.615385 315.076923h78.76923v78.769231h-78.76923zM472.615385 236.307692h78.76923v78.769231h-78.76923z"
+                  fill="#FF9343" p-id="12934"></path>
+                <path
+                  d="M472.615385 157.538462h78.76923v78.76923h-78.76923zM393.846154 787.692308h78.769231v78.76923h-78.769231z"
+                  fill="#1E2028" p-id="12935"></path>
+                <path d="M393.846154 708.923077h78.769231v78.769231h-78.769231z" fill="#FF9343" p-id="12936"></path>
+                <path
+                  d="M393.846154 630.153846h78.769231v78.769231h-78.769231zM393.846154 551.384615h78.769231v78.769231h-78.769231zM393.846154 472.615385h78.769231v78.76923h-78.769231zM393.846154 393.846154h78.769231v78.769231h-78.769231zM393.846154 315.076923h78.769231v78.769231h-78.769231zM393.846154 236.307692h78.769231v78.769231h-78.769231z"
+                  fill="#FFDD4D" p-id="12937"></path>
+                <path
+                  d="M393.846154 157.538462h78.769231v78.76923h-78.769231zM315.076923 787.692308h78.769231v78.76923h-78.769231z"
+                  fill="#1E2028" p-id="12938"></path>
+                <path d="M315.076923 708.923077h78.769231v78.769231h-78.769231z" fill="#FF9343" p-id="12939"></path>
+                <path d="M315.076923 630.153846h78.769231v78.769231h-78.769231z" fill="#FFDD4D" p-id="12940"></path>
+                <path
+                  d="M315.076923 551.384615h78.769231v78.769231h-78.769231zM315.076923 472.615385h78.769231v78.76923h-78.769231z"
+                  fill="#1E2028" p-id="12941"></path>
+                <path d="M315.076923 393.846154h78.769231v78.769231h-78.769231z" fill="#FFDD4D" p-id="12942"></path>
+                <path
+                  d="M315.076923 315.076923h78.769231v78.769231h-78.769231zM315.076923 236.307692h78.769231v78.769231h-78.769231z"
+                  fill="#FF9343" p-id="12943"></path>
+                <path
+                  d="M315.076923 157.538462h78.769231v78.76923h-78.769231zM236.307692 787.692308h78.769231v78.76923h-78.769231z"
+                  fill="#1E2028" p-id="12944"></path>
+                <path d="M236.307692 708.923077h78.769231v78.769231h-78.769231z" fill="#FFF1B6" p-id="12945"></path>
+                <path
+                  d="M236.307692 630.153846h78.769231v78.769231h-78.769231zM236.307692 551.384615h78.769231v78.769231h-78.769231zM236.307692 472.615385h78.769231v78.76923h-78.769231zM236.307692 393.846154h78.769231v78.769231h-78.769231zM236.307692 315.076923h78.769231v78.769231h-78.769231zM236.307692 236.307692h78.769231v78.769231h-78.769231zM236.307692 157.538462h78.769231v78.76923h-78.769231z"
+                  fill="#FFDD4D" p-id="12946"></path>
+                <path
+                  d="M236.307692 78.769231h78.769231v78.769231h-78.769231zM157.538462 787.692308h78.76923v78.76923H157.538462z"
+                  fill="#1E2028" p-id="12947"></path>
+                <path d="M157.538462 708.923077h78.76923v78.769231H157.538462z" fill="#FFF1B6" p-id="12948"></path>
+                <path
+                  d="M157.538462 630.153846h78.76923v78.769231H157.538462zM157.538462 551.384615h78.76923v78.769231H157.538462zM157.538462 472.615385h78.76923v78.76923H157.538462zM157.538462 393.846154h78.76923v78.769231H157.538462zM157.538462 315.076923h78.76923v78.769231H157.538462z"
+                  fill="#FFDD4D" p-id="12949"></path>
+                <path
+                  d="M157.538462 236.307692h78.76923v78.769231H157.538462zM157.538462 157.538462h78.76923v78.76923H157.538462zM157.538462 78.769231h78.76923v78.769231H157.538462z"
+                  fill="#FFF1B6" p-id="12950"></path>
+                <path
+                  d="M157.538462 0h78.76923v78.769231H157.538462zM78.769231 708.923077h78.769231v78.769231H78.769231z"
+                  fill="#1E2028" p-id="12951"></path>
+                <path
+                  d="M78.769231 630.153846h78.769231v78.769231H78.769231zM78.769231 551.384615h78.769231v78.769231H78.769231zM78.769231 472.615385h78.769231v78.76923H78.769231zM78.769231 393.846154h78.769231v78.769231H78.769231zM78.769231 315.076923h78.769231v78.769231H78.769231z"
+                  fill="#FFF1B6" p-id="12952"></path>
+                <path
+                  d="M78.769231 236.307692h78.769231v78.769231H78.769231zM78.769231 157.538462h78.769231v78.76923H78.769231zM78.769231 78.769231h78.769231v78.769231H78.769231zM78.769231 0h78.769231v78.769231H78.769231zM0 630.153846h78.769231v78.769231H0zM0 551.384615h78.769231v78.769231H0zM0 472.615385h78.769231v78.76923H0zM0 393.846154h78.769231v78.769231H0zM0 315.076923h78.769231v78.769231H0zM157.538462 945.230769h78.76923v78.769231H157.538462zM236.307692 945.230769h78.769231v78.769231h-78.769231zM315.076923 945.230769h78.769231v78.769231h-78.769231zM393.846154 945.230769h78.769231v78.769231h-78.769231z"
+                  fill="#1E2028" p-id="12953"></path>
+                <path d="M236.307692 866.461538h78.769231v78.769231h-78.769231z" fill="#AAF2C7" p-id="12954"></path>
+                <path
+                  d="M315.076923 866.461538h78.769231v78.769231h-78.769231zM393.846154 866.461538h78.769231v78.769231h-78.769231zM551.384615 866.461538h78.769231v78.769231h-78.769231zM630.153846 866.461538h78.769231v78.769231h-78.769231z"
+                  fill="#60EF9A" p-id="12955"></path>
+                <path d="M708.923077 866.461538h78.769231v78.769231h-78.769231z" fill="#38B269" p-id="12956"></path>
+                <path
+                  d="M472.615385 945.230769h78.76923v78.769231h-78.76923zM551.384615 945.230769h78.769231v78.769231h-78.769231zM630.153846 945.230769h78.769231v78.769231h-78.769231zM708.923077 945.230769h78.769231v78.769231h-78.769231zM787.692308 945.230769h78.76923v78.769231h-78.76923z"
+                  fill="#1E2028" p-id="12957"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button id="btn-player-mode-single" disabled>单人</button>
+            <button id="btn-player-mode-double" disabled>双人[待开发]</button>
+          </div>
+        </div>
+
+        <!-- block selection -->
+        <div class="menu-selection">
+          <div class="content">
+            <div class="label">添加物体</div>
+            <div class="icon">
+              <svg t="1690340617509" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="13483" xmlns:xlink="http://www.w3.org/1999/xlink" width="32"
+                height="32">
+                <path
+                  d="M926.464 877.7216h48.7936v48.7424h-48.7936zM926.464 828.928h48.7936v48.7936h-48.7936zM926.464 780.1856h48.7936v48.7424h-48.7936z"
+                  fill="#012777" p-id="13484"></path>
+                <path
+                  d="M926.464 731.4432h48.7936v48.7424h-48.7936zM926.464 682.6496h48.7936v48.7936h-48.7936zM926.464 633.9072h48.7936v48.7424h-48.7936zM877.7216 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="13485"></path>
+                <path
+                  d="M877.7216 877.7216h48.7424v48.7424h-48.7424zM877.7216 828.928h48.7424v48.7936h-48.7424zM877.7216 780.1856h48.7424v48.7424h-48.7424z"
+                  fill="#DEE6FC" p-id="13486"></path>
+                <path
+                  d="M877.7216 731.4432h48.7424v48.7424h-48.7424zM877.7216 682.6496h48.7424v48.7936h-48.7424zM877.7216 633.9072h48.7424v48.7424h-48.7424z"
+                  fill="#DEE6FC" p-id="13487"></path>
+                <path
+                  d="M877.7216 585.1648h48.7424v48.7424h-48.7424zM877.7216 536.3712h48.7424v48.7936h-48.7424zM877.7216 487.6288h48.7424v48.7424h-48.7424zM877.7216 438.8352h48.7424v48.7936h-48.7424zM877.7216 390.0928h48.7424v48.7424h-48.7424zM877.7216 341.3504h48.7424v48.7424h-48.7424zM828.928 926.464h48.7936v48.7936h-48.7936z"
+                  fill="#012777" p-id="13488"></path>
+                <path d="M828.928 877.7216h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13489"></path>
+                <path d="M828.928 828.928h48.7936v48.7936h-48.7936zM828.928 780.1856h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="13490"></path>
+                <path
+                  d="M828.928 731.4432h48.7936v48.7424h-48.7936zM828.928 682.6496h48.7936v48.7936h-48.7936zM828.928 633.9072h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="13491"></path>
+                <path
+                  d="M828.928 585.1648h48.7936v48.7424h-48.7936zM828.928 536.3712h48.7936v48.7936h-48.7936zM828.928 487.6288h48.7936v48.7424h-48.7936zM828.928 438.8352h48.7936v48.7936h-48.7936zM828.928 390.0928h48.7936v48.7424h-48.7936zM828.928 341.3504h48.7936v48.7424h-48.7936z"
+                  fill="#DEE6FC" p-id="13492"></path>
+                <path
+                  d="M828.928 292.5568h48.7936v48.7936h-48.7936zM828.928 243.8144h48.7936v48.7424h-48.7936zM780.1856 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="13493"></path>
+                <path d="M780.1856 877.7216h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13494"></path>
+                <path d="M780.1856 828.928h48.7424v48.7936h-48.7424zM780.1856 780.1856h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13495"></path>
+                <path
+                  d="M780.1856 731.4432h48.7424v48.7424h-48.7424zM780.1856 682.6496h48.7424v48.7936h-48.7424zM780.1856 633.9072h48.7424v48.7424h-48.7424zM780.1856 585.1648h48.7424v48.7424h-48.7424zM780.1856 536.3712h48.7424v48.7936h-48.7424zM780.1856 487.6288h48.7424v48.7424h-48.7424zM780.1856 438.8352h48.7424v48.7936h-48.7424zM780.1856 390.0928h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13496"></path>
+                <path d="M780.1856 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13497"></path>
+                <path d="M780.1856 292.5568h48.7424v48.7936h-48.7424z" fill="#012777" p-id="13498"></path>
+                <path d="M780.1856 243.8144h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13499"></path>
+                <path d="M780.1856 195.072h48.7424v48.7424h-48.7424zM731.4432 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="13500"></path>
+                <path d="M731.4432 877.7216h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13501"></path>
+                <path d="M731.4432 828.928h48.7424v48.7936h-48.7424zM731.4432 780.1856h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13502"></path>
+                <path d="M731.4432 731.4432h48.7424v48.7424h-48.7424zM731.4432 682.6496h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="13503"></path>
+                <path
+                  d="M731.4432 633.9072h48.7424v48.7424h-48.7424zM731.4432 585.1648h48.7424v48.7424h-48.7424zM731.4432 536.3712h48.7424v48.7936h-48.7424zM731.4432 487.6288h48.7424v48.7424h-48.7424z"
+                  fill="#012777" p-id="13504"></path>
+                <path d="M731.4432 438.8352h48.7424v48.7936h-48.7424zM731.4432 390.0928h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13505"></path>
+                <path d="M731.4432 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13506"></path>
+                <path d="M731.4432 292.5568h48.7424v48.7936h-48.7424z" fill="#012777" p-id="13507"></path>
+                <path d="M731.4432 243.8144h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="13508"></path>
+                <path d="M731.4432 195.072h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13509"></path>
+                <path d="M731.4432 146.2784h48.7424v48.7936h-48.7424zM682.6496 926.464h48.7936v48.7936h-48.7936z"
+                  fill="#012777" p-id="13510"></path>
+                <path d="M682.6496 877.7216h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13511"></path>
+                <path d="M682.6496 828.928h48.7936v48.7936h-48.7936zM682.6496 780.1856h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="13512"></path>
+                <path d="M682.6496 731.4432h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="13513"></path>
+                <path d="M682.6496 682.6496h48.7936v48.7936h-48.7936z" fill="#012777" p-id="13514"></path>
+                <path d="M682.6496 633.9072h48.7936v48.7424h-48.7936z" fill="#375AA4" p-id="13515"></path>
+                <path
+                  d="M682.6496 585.1648h48.7936v48.7424h-48.7936zM682.6496 536.3712h48.7936v48.7936h-48.7936zM682.6496 487.6288h48.7936v48.7424h-48.7936z"
+                  fill="#A2D8EA" p-id="13516"></path>
+                <path d="M682.6496 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="13517"></path>
+                <path d="M682.6496 390.0928h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="13518"></path>
+                <path d="M682.6496 341.3504h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13519"></path>
+                <path d="M682.6496 292.5568h48.7936v48.7936h-48.7936z" fill="#012777" p-id="13520"></path>
+                <path d="M682.6496 243.8144h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="13521"></path>
+                <path d="M682.6496 195.072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="13522"></path>
+                <path d="M682.6496 146.2784h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="13523"></path>
+                <path d="M682.6496 97.536h48.7936v48.7424h-48.7936zM633.9072 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="13524"></path>
+                <path d="M633.9072 877.7216h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13525"></path>
+                <path d="M633.9072 828.928h48.7424v48.7936h-48.7424zM633.9072 780.1856h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13526"></path>
+                <path d="M633.9072 731.4432h48.7424v48.7424h-48.7424z" fill="#012777" p-id="13527"></path>
+                <path d="M633.9072 682.6496h48.7424v48.7936h-48.7424z" fill="#375AA4" p-id="13528"></path>
+                <path d="M633.9072 633.9072h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="13529"></path>
+                <path
+                  d="M633.9072 585.1648h48.7424v48.7424h-48.7424zM633.9072 536.3712h48.7424v48.7936h-48.7424zM633.9072 487.6288h48.7424v48.7424h-48.7424z"
+                  fill="#012777" p-id="13530"></path>
+                <path d="M633.9072 438.8352h48.7424v48.7936h-48.7424zM633.9072 390.0928h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13531"></path>
+                <path d="M633.9072 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13532"></path>
+                <path d="M633.9072 292.5568h48.7424v48.7936h-48.7424z" fill="#012777" p-id="13533"></path>
+                <path d="M633.9072 243.8144h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="13534"></path>
+                <path d="M633.9072 195.072h48.7424v48.7424h-48.7424zM633.9072 146.2784h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="13535"></path>
+                <path d="M633.9072 97.536h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13536"></path>
+                <path d="M633.9072 48.7424h48.7424v48.7936h-48.7424zM585.1648 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="13537"></path>
+                <path d="M585.1648 877.7216h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13538"></path>
+                <path d="M585.1648 828.928h48.7424v48.7936h-48.7424z" fill="#DD75A1" p-id="13539"></path>
+                <path d="M585.1648 780.1856h48.7424v48.7424h-48.7424z" fill="#012777" p-id="13540"></path>
+                <path d="M585.1648 731.4432h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="13541"></path>
+                <path d="M585.1648 682.6496h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="13542"></path>
+                <path d="M585.1648 633.9072h48.7424v48.7424h-48.7424z" fill="#012777" p-id="13543"></path>
+                <path
+                  d="M585.1648 585.1648h48.7424v48.7424h-48.7424zM585.1648 536.3712h48.7424v48.7936h-48.7424zM585.1648 487.6288h48.7424v48.7424h-48.7424zM585.1648 438.8352h48.7424v48.7936h-48.7424zM585.1648 390.0928h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13544"></path>
+                <path d="M585.1648 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13545"></path>
+                <path d="M585.1648 292.5568h48.7424v48.7936h-48.7424z" fill="#012777" p-id="13546"></path>
+                <path d="M585.1648 243.8144h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="13547"></path>
+                <path d="M585.1648 195.072h48.7424v48.7424h-48.7424zM585.1648 146.2784h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="13548"></path>
+                <path d="M585.1648 97.536h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13549"></path>
+                <path d="M585.1648 48.7424h48.7424v48.7936h-48.7424zM536.3712 926.464h48.7936v48.7936h-48.7936z"
+                  fill="#012777" p-id="13550"></path>
+                <path d="M536.3712 877.7216h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13551"></path>
+                <path d="M536.3712 828.928h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="13552"></path>
+                <path d="M536.3712 780.1856h48.7936v48.7424h-48.7936z" fill="#012777" p-id="13553"></path>
+                <path d="M536.3712 731.4432h48.7936v48.7424h-48.7936z" fill="#375AA4" p-id="13554"></path>
+                <path d="M536.3712 682.6496h48.7936v48.7936h-48.7936z" fill="#012777" p-id="13555"></path>
+                <path
+                  d="M536.3712 633.9072h48.7936v48.7424h-48.7936zM536.3712 585.1648h48.7936v48.7424h-48.7936zM536.3712 536.3712h48.7936v48.7936h-48.7936zM536.3712 487.6288h48.7936v48.7424h-48.7936zM536.3712 438.8352h48.7936v48.7936h-48.7936zM536.3712 390.0928h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="13556"></path>
+                <path d="M536.3712 341.3504h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13557"></path>
+                <path d="M536.3712 292.5568h48.7936v48.7936h-48.7936z" fill="#012777" p-id="13558"></path>
+                <path d="M536.3712 243.8144h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13559"></path>
+                <path d="M536.3712 195.072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="13560"></path>
+                <path d="M536.3712 146.2784h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="13561"></path>
+                <path d="M536.3712 97.536h48.7936v48.7424h-48.7936zM487.6288 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="13562"></path>
+                <path d="M487.6288 877.7216h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13563"></path>
+                <path d="M487.6288 828.928h48.7424v48.7936h-48.7424z" fill="#DD75A1" p-id="13564"></path>
+                <path d="M487.6288 780.1856h48.7424v48.7424h-48.7424z" fill="#012777" p-id="13565"></path>
+                <path d="M487.6288 731.4432h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="13566"></path>
+                <path d="M487.6288 682.6496h48.7424v48.7936h-48.7424z" fill="#012777" p-id="13567"></path>
+                <path
+                  d="M487.6288 633.9072h48.7424v48.7424h-48.7424zM487.6288 585.1648h48.7424v48.7424h-48.7424zM487.6288 536.3712h48.7424v48.7936h-48.7424zM487.6288 487.6288h48.7424v48.7424h-48.7424zM487.6288 438.8352h48.7424v48.7936h-48.7424zM487.6288 390.0928h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13568"></path>
+                <path d="M487.6288 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13569"></path>
+                <path d="M487.6288 292.5568h48.7424v48.7936h-48.7424zM487.6288 243.8144h48.7424v48.7424h-48.7424z"
+                  fill="#012777" p-id="13570"></path>
+                <path d="M487.6288 195.072h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13571"></path>
+                <path d="M487.6288 146.2784h48.7424v48.7936h-48.7424zM438.8352 926.464h48.7936v48.7936h-48.7936z"
+                  fill="#012777" p-id="13572"></path>
+                <path d="M438.8352 877.7216h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13573"></path>
+                <path d="M438.8352 828.928h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="13574"></path>
+                <path d="M438.8352 780.1856h48.7936v48.7424h-48.7936z" fill="#012777" p-id="13575"></path>
+                <path d="M438.8352 731.4432h48.7936v48.7424h-48.7936z" fill="#375AA4" p-id="13576"></path>
+                <path d="M438.8352 682.6496h48.7936v48.7936h-48.7936z" fill="#012777" p-id="13577"></path>
+                <path
+                  d="M438.8352 633.9072h48.7936v48.7424h-48.7936zM438.8352 585.1648h48.7936v48.7424h-48.7936zM438.8352 536.3712h48.7936v48.7936h-48.7936zM438.8352 487.6288h48.7936v48.7424h-48.7936zM438.8352 438.8352h48.7936v48.7936h-48.7936zM438.8352 390.0928h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="13578"></path>
+                <path d="M438.8352 341.3504h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13579"></path>
+                <path d="M438.8352 292.5568h48.7936v48.7936h-48.7936z" fill="#012777" p-id="13580"></path>
+                <path d="M438.8352 243.8144h48.7936v48.7424h-48.7936z" fill="#A2D8EA" p-id="13581"></path>
+                <path d="M438.8352 195.072h48.7936v48.7424h-48.7936zM390.0928 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="13582"></path>
+                <path d="M390.0928 877.7216h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13583"></path>
+                <path d="M390.0928 828.928h48.7424v48.7936h-48.7424z" fill="#DD75A1" p-id="13584"></path>
+                <path d="M390.0928 780.1856h48.7424v48.7424h-48.7424z" fill="#012777" p-id="13585"></path>
+                <path d="M390.0928 731.4432h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="13586"></path>
+                <path d="M390.0928 682.6496h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="13587"></path>
+                <path d="M390.0928 633.9072h48.7424v48.7424h-48.7424z" fill="#012777" p-id="13588"></path>
+                <path
+                  d="M390.0928 585.1648h48.7424v48.7424h-48.7424zM390.0928 536.3712h48.7424v48.7936h-48.7424zM390.0928 487.6288h48.7424v48.7424h-48.7424zM390.0928 438.8352h48.7424v48.7936h-48.7424zM390.0928 390.0928h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13589"></path>
+                <path d="M390.0928 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13590"></path>
+                <path d="M390.0928 292.5568h48.7424v48.7936h-48.7424z" fill="#012777" p-id="13591"></path>
+                <path d="M390.0928 243.8144h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="13592"></path>
+                <path d="M390.0928 195.072h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="13593"></path>
+                <path d="M390.0928 146.2784h48.7424v48.7936h-48.7424zM341.3504 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="13594"></path>
+                <path d="M341.3504 877.7216h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13595"></path>
+                <path d="M341.3504 828.928h48.7424v48.7936h-48.7424zM341.3504 780.1856h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13596"></path>
+                <path d="M341.3504 731.4432h48.7424v48.7424h-48.7424z" fill="#012777" p-id="13597"></path>
+                <path d="M341.3504 682.6496h48.7424v48.7936h-48.7424z" fill="#375AA4" p-id="13598"></path>
+                <path d="M341.3504 633.9072h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="13599"></path>
+                <path
+                  d="M341.3504 585.1648h48.7424v48.7424h-48.7424zM341.3504 536.3712h48.7424v48.7936h-48.7424zM341.3504 487.6288h48.7424v48.7424h-48.7424z"
+                  fill="#012777" p-id="13600"></path>
+                <path d="M341.3504 438.8352h48.7424v48.7936h-48.7424zM341.3504 390.0928h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13601"></path>
+                <path d="M341.3504 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13602"></path>
+                <path d="M341.3504 292.5568h48.7424v48.7936h-48.7424z" fill="#012777" p-id="13603"></path>
+                <path d="M341.3504 243.8144h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="13604"></path>
+                <path d="M341.3504 195.072h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="13605"></path>
+                <path d="M341.3504 146.2784h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="13606"></path>
+                <path d="M341.3504 97.536h48.7424v48.7424h-48.7424zM292.5568 926.464h48.7936v48.7936h-48.7936z"
+                  fill="#012777" p-id="13607"></path>
+                <path d="M292.5568 877.7216h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13608"></path>
+                <path d="M292.5568 828.928h48.7936v48.7936h-48.7936zM292.5568 780.1856h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="13609"></path>
+                <path d="M292.5568 731.4432h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="13610"></path>
+                <path d="M292.5568 682.6496h48.7936v48.7936h-48.7936z" fill="#012777" p-id="13611"></path>
+                <path d="M292.5568 633.9072h48.7936v48.7424h-48.7936z" fill="#375AA4" p-id="13612"></path>
+                <path
+                  d="M292.5568 585.1648h48.7936v48.7424h-48.7936zM292.5568 536.3712h48.7936v48.7936h-48.7936zM292.5568 487.6288h48.7936v48.7424h-48.7936z"
+                  fill="#A2D8EA" p-id="13613"></path>
+                <path d="M292.5568 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="13614"></path>
+                <path d="M292.5568 390.0928h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="13615"></path>
+                <path d="M292.5568 341.3504h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13616"></path>
+                <path d="M292.5568 292.5568h48.7936v48.7936h-48.7936z" fill="#012777" p-id="13617"></path>
+                <path d="M292.5568 243.8144h48.7936v48.7424h-48.7936z" fill="#375AA4" p-id="13618"></path>
+                <path d="M292.5568 195.072h48.7936v48.7424h-48.7936zM292.5568 146.2784h48.7936v48.7936h-48.7936z"
+                  fill="#375AA4" p-id="13619"></path>
+                <path d="M292.5568 97.536h48.7936v48.7424h-48.7936z" fill="#A2D8EA" p-id="13620"></path>
+                <path d="M292.5568 48.7424h48.7936v48.7936h-48.7936zM243.8144 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="13621"></path>
+                <path d="M243.8144 877.7216h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13622"></path>
+                <path d="M243.8144 828.928h48.7424v48.7936h-48.7424zM243.8144 780.1856h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13623"></path>
+                <path d="M243.8144 731.4432h48.7424v48.7424h-48.7424zM243.8144 682.6496h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="13624"></path>
+                <path
+                  d="M243.8144 633.9072h48.7424v48.7424h-48.7424zM243.8144 585.1648h48.7424v48.7424h-48.7424zM243.8144 536.3712h48.7424v48.7936h-48.7424zM243.8144 487.6288h48.7424v48.7424h-48.7424z"
+                  fill="#012777" p-id="13625"></path>
+                <path d="M243.8144 438.8352h48.7424v48.7936h-48.7424zM243.8144 390.0928h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="13626"></path>
+                <path d="M243.8144 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="13627"></path>
+                <path d="M243.8144 292.5568h48.7424v48.7936h-48.7424z" fill="#012777" p-id="13628"></path>
+                <path d="M243.8144 243.8144h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="13629"></path>
+                <path d="M243.8144 195.072h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="13630"></path>
+                <path d="M243.8144 146.2784h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="13631"></path>
+                <path d="M243.8144 97.536h48.7424v48.7424h-48.7424zM195.072 926.464h48.7424v48.7936H195.072z"
+                  fill="#012777" p-id="13632"></path>
+                <path d="M195.072 877.7216h48.7424v48.7424H195.072z" fill="#DEE6FC" p-id="13633"></path>
+                <path d="M195.072 828.928h48.7424v48.7936H195.072zM195.072 780.1856h48.7424v48.7424H195.072z"
+                  fill="#DD75A1" p-id="13634"></path>
+                <path
+                  d="M195.072 731.4432h48.7424v48.7424H195.072zM195.072 682.6496h48.7424v48.7936H195.072zM195.072 633.9072h48.7424v48.7424H195.072zM195.072 585.1648h48.7424v48.7424H195.072zM195.072 536.3712h48.7424v48.7936H195.072zM195.072 487.6288h48.7424v48.7424H195.072zM195.072 438.8352h48.7424v48.7936H195.072zM195.072 390.0928h48.7424v48.7424H195.072z"
+                  fill="#DD75A1" p-id="13635"></path>
+                <path d="M195.072 341.3504h48.7424v48.7424H195.072z" fill="#DEE6FC" p-id="13636"></path>
+                <path d="M195.072 292.5568h48.7424v48.7936H195.072zM195.072 243.8144h48.7424v48.7424H195.072z"
+                  fill="#012777" p-id="13637"></path>
+                <path d="M195.072 195.072h48.7424v48.7424H195.072z" fill="#A2D8EA" p-id="13638"></path>
+                <path d="M195.072 146.2784h48.7424v48.7936H195.072zM146.2784 926.464h48.7936v48.7936h-48.7936z"
+                  fill="#012777" p-id="13639"></path>
+                <path d="M146.2784 877.7216h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="13640"></path>
+                <path d="M146.2784 828.928h48.7936v48.7936h-48.7936zM146.2784 780.1856h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="13641"></path>
+                <path
+                  d="M146.2784 731.4432h48.7936v48.7424h-48.7936zM146.2784 682.6496h48.7936v48.7936h-48.7936zM146.2784 633.9072h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="13642"></path>
+                <path
+                  d="M146.2784 585.1648h48.7936v48.7424h-48.7936zM146.2784 536.3712h48.7936v48.7936h-48.7936zM146.2784 487.6288h48.7936v48.7424h-48.7936zM146.2784 438.8352h48.7936v48.7936h-48.7936zM146.2784 390.0928h48.7936v48.7424h-48.7936zM146.2784 341.3504h48.7936v48.7424h-48.7936z"
+                  fill="#DEE6FC" p-id="13643"></path>
+                <path
+                  d="M146.2784 292.5568h48.7936v48.7936h-48.7936zM146.2784 195.072h48.7936v48.7424h-48.7936zM97.536 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="13644"></path>
+                <path
+                  d="M97.536 877.7216h48.7424v48.7424h-48.7424zM97.536 828.928h48.7424v48.7936h-48.7424zM97.536 780.1856h48.7424v48.7424h-48.7424z"
+                  fill="#DEE6FC" p-id="13645"></path>
+                <path
+                  d="M97.536 731.4432h48.7424v48.7424h-48.7424zM97.536 682.6496h48.7424v48.7936h-48.7424zM97.536 633.9072h48.7424v48.7424h-48.7424z"
+                  fill="#DEE6FC" p-id="13646"></path>
+                <path
+                  d="M97.536 585.1648h48.7424v48.7424h-48.7424zM97.536 536.3712h48.7424v48.7936h-48.7424zM97.536 487.6288h48.7424v48.7424h-48.7424zM97.536 438.8352h48.7424v48.7936h-48.7424zM97.536 390.0928h48.7424v48.7424h-48.7424zM97.536 341.3504h48.7424v48.7424h-48.7424zM48.7424 877.7216h48.7936v48.7424H48.7424zM48.7424 828.928h48.7936v48.7936H48.7424zM48.7424 780.1856h48.7936v48.7424H48.7424z"
+                  fill="#012777" p-id="13647"></path>
+                <path
+                  d="M48.7424 731.4432h48.7936v48.7424H48.7424zM48.7424 682.6496h48.7936v48.7936H48.7424zM48.7424 633.9072h48.7936v48.7424H48.7424z"
+                  fill="#012777" p-id="13648"></path>
+              </svg>
+            </div>
+          </div>
+          <button onclick="onBlocksSelectionClick(event)">选择</button>
+        </div>
+        <!-- game level preview -->
+        <div class="menu-selection">
+          <div class="content">
+            <div class="label">游戏关卡预览</div>
+            <div class="icon">
+              <svg t="1690597783217" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="6568" xmlns:xlink="http://www.w3.org/1999/xlink" width="64"
+                height="64">
+                <path
+                  d="M926.464 390.0928h48.7936v48.7424h-48.7936zM926.464 341.3504h48.7936v48.7424h-48.7936zM926.464 292.5568h48.7936v48.7936h-48.7936zM926.464 243.8144h48.7936v48.7424h-48.7936z"
+                  fill="#012777" p-id="6569"></path>
+                <path
+                  d="M926.464 195.072h48.7936v48.7424h-48.7936zM926.464 146.2784h48.7936v48.7936h-48.7936zM926.464 97.536h48.7936v48.7424h-48.7936zM877.7216 487.6288h48.7424v48.7424h-48.7424zM877.7216 438.8352h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="6570"></path>
+                <path
+                  d="M877.7216 390.0928h48.7424v48.7424h-48.7424zM877.7216 341.3504h48.7424v48.7424h-48.7424zM877.7216 292.5568h48.7424v48.7936h-48.7424zM877.7216 243.8144h48.7424v48.7424h-48.7424z"
+                  fill="#DEE6FC" p-id="6571"></path>
+                <path
+                  d="M877.7216 195.072h48.7424v48.7424h-48.7424zM877.7216 146.2784h48.7424v48.7936h-48.7424zM877.7216 97.536h48.7424v48.7424h-48.7424z"
+                  fill="#DEE6FC" p-id="6572"></path>
+                <path
+                  d="M877.7216 48.7424h48.7424v48.7936h-48.7424zM828.928 731.4432h48.7936v48.7424h-48.7936zM828.928 682.6496h48.7936v48.7936h-48.7936zM828.928 536.3712h48.7936v48.7936h-48.7936z"
+                  fill="#012777" p-id="6573"></path>
+                <path d="M828.928 487.6288h48.7936v48.7424h-48.7936zM828.928 438.8352h48.7936v48.7936h-48.7936z"
+                  fill="#DEE6FC" p-id="6574"></path>
+                <path
+                  d="M828.928 390.0928h48.7936v48.7424h-48.7936zM828.928 341.3504h48.7936v48.7424h-48.7936zM828.928 292.5568h48.7936v48.7936h-48.7936zM828.928 243.8144h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="6575"></path>
+                <path d="M828.928 195.072h48.7936v48.7424h-48.7936zM828.928 146.2784h48.7936v48.7936h-48.7936z"
+                  fill="#DD75A1" p-id="6576"></path>
+                <path d="M828.928 97.536h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="6577"></path>
+                <path d="M828.928 48.7424h48.7936v48.7936h-48.7936zM780.1856 780.1856h48.7424v48.7424h-48.7424z"
+                  fill="#012777" p-id="6578"></path>
+                <path d="M780.1856 731.4432h48.7424v48.7424h-48.7424zM780.1856 682.6496h48.7424v48.7936h-48.7424z"
+                  fill="#DEE6FC" p-id="6579"></path>
+                <path d="M780.1856 633.9072h48.7424v48.7424h-48.7424zM780.1856 585.1648h48.7424v48.7424h-48.7424z"
+                  fill="#012777" p-id="6580"></path>
+                <path d="M780.1856 536.3712h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="6581"></path>
+                <path d="M780.1856 487.6288h48.7424v48.7424h-48.7424zM780.1856 438.8352h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="6582"></path>
+                <path
+                  d="M780.1856 390.0928h48.7424v48.7424h-48.7424zM780.1856 341.3504h48.7424v48.7424h-48.7424zM780.1856 292.5568h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="6583"></path>
+                <path d="M780.1856 243.8144h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="6584"></path>
+                <path d="M780.1856 195.072h48.7424v48.7424h-48.7424zM780.1856 146.2784h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="6585"></path>
+                <path d="M780.1856 97.536h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6586"></path>
+                <path d="M780.1856 48.7424h48.7424v48.7936h-48.7424zM731.4432 828.928h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="6587"></path>
+                <path d="M731.4432 780.1856h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6588"></path>
+                <path d="M731.4432 731.4432h48.7424v48.7424h-48.7424zM731.4432 682.6496h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="6589"></path>
+                <path d="M731.4432 633.9072h48.7424v48.7424h-48.7424zM731.4432 585.1648h48.7424v48.7424h-48.7424z"
+                  fill="#DEE6FC" p-id="6590"></path>
+                <path d="M731.4432 536.3712h48.7424v48.7936h-48.7424zM731.4432 487.6288h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="6591"></path>
+                <path d="M731.4432 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="6592"></path>
+                <path
+                  d="M731.4432 390.0928h48.7424v48.7424h-48.7424zM731.4432 341.3504h48.7424v48.7424h-48.7424zM731.4432 292.5568h48.7424v48.7936h-48.7424z"
+                  fill="#375AA4" p-id="6593"></path>
+                <path d="M731.4432 243.8144h48.7424v48.7424h-48.7424z" fill="#012777" p-id="6594"></path>
+                <path d="M731.4432 195.072h48.7424v48.7424h-48.7424zM731.4432 146.2784h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="6595"></path>
+                <path d="M731.4432 97.536h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6596"></path>
+                <path d="M731.4432 48.7424h48.7424v48.7936h-48.7424zM682.6496 877.7216h48.7936v48.7424h-48.7936z"
+                  fill="#012777" p-id="6597"></path>
+                <path d="M682.6496 828.928h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="6598"></path>
+                <path d="M682.6496 780.1856h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="6599"></path>
+                <path
+                  d="M682.6496 731.4432h48.7936v48.7424h-48.7936zM682.6496 682.6496h48.7936v48.7936h-48.7936zM682.6496 633.9072h48.7936v48.7424h-48.7936zM682.6496 585.1648h48.7936v48.7424h-48.7936zM682.6496 536.3712h48.7936v48.7936h-48.7936zM682.6496 487.6288h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="6600"></path>
+                <path d="M682.6496 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="6601"></path>
+                <path
+                  d="M682.6496 390.0928h48.7936v48.7424h-48.7936zM682.6496 341.3504h48.7936v48.7424h-48.7936zM682.6496 292.5568h48.7936v48.7936h-48.7936z"
+                  fill="#375AA4" p-id="6602"></path>
+                <path d="M682.6496 243.8144h48.7936v48.7424h-48.7936z" fill="#A2D8EA" p-id="6603"></path>
+                <path d="M682.6496 195.072h48.7936v48.7424h-48.7936z" fill="#012777" p-id="6604"></path>
+                <path d="M682.6496 146.2784h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="6605"></path>
+                <path d="M682.6496 97.536h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="6606"></path>
+                <path d="M682.6496 48.7424h48.7936v48.7936h-48.7936zM633.9072 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="6607"></path>
+                <path d="M633.9072 877.7216h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6608"></path>
+                <path d="M633.9072 828.928h48.7424v48.7936h-48.7424zM633.9072 780.1856h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="6609"></path>
+                <path
+                  d="M633.9072 731.4432h48.7424v48.7424h-48.7424zM633.9072 682.6496h48.7424v48.7936h-48.7424zM633.9072 633.9072h48.7424v48.7424h-48.7424zM633.9072 585.1648h48.7424v48.7424h-48.7424zM633.9072 536.3712h48.7424v48.7936h-48.7424zM633.9072 487.6288h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="6610"></path>
+                <path d="M633.9072 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="6611"></path>
+                <path d="M633.9072 390.0928h48.7424v48.7424h-48.7424zM633.9072 341.3504h48.7424v48.7424h-48.7424z"
+                  fill="#375AA4" p-id="6612"></path>
+                <path d="M633.9072 292.5568h48.7424v48.7936h-48.7424zM633.9072 243.8144h48.7424v48.7424h-48.7424z"
+                  fill="#A2D8EA" p-id="6613"></path>
+                <path d="M633.9072 195.072h48.7424v48.7424h-48.7424z" fill="#012777" p-id="6614"></path>
+                <path d="M633.9072 146.2784h48.7424v48.7936h-48.7424z" fill="#DD75A1" p-id="6615"></path>
+                <path d="M633.9072 97.536h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6616"></path>
+                <path d="M633.9072 48.7424h48.7424v48.7936h-48.7424zM585.1648 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="6617"></path>
+                <path d="M585.1648 877.7216h48.7424v48.7424h-48.7424zM585.1648 828.928h48.7424v48.7936h-48.7424z"
+                  fill="#DEE6FC" p-id="6618"></path>
+                <path d="M585.1648 780.1856h48.7424v48.7424h-48.7424z" fill="#012777" p-id="6619"></path>
+                <path d="M585.1648 731.4432h48.7424v48.7424h-48.7424zM585.1648 682.6496h48.7424v48.7936h-48.7424z"
+                  fill="#DEE6FC" p-id="6620"></path>
+                <path
+                  d="M585.1648 633.9072h48.7424v48.7424h-48.7424zM585.1648 585.1648h48.7424v48.7424h-48.7424zM585.1648 536.3712h48.7424v48.7936h-48.7424zM585.1648 487.6288h48.7424v48.7424h-48.7424zM585.1648 438.8352h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="6621"></path>
+                <path d="M585.1648 390.0928h48.7424v48.7424h-48.7424z" fill="#012777" p-id="6622"></path>
+                <path
+                  d="M585.1648 341.3504h48.7424v48.7424h-48.7424zM585.1648 292.5568h48.7424v48.7936h-48.7424zM585.1648 243.8144h48.7424v48.7424h-48.7424z"
+                  fill="#A2D8EA" p-id="6623"></path>
+                <path d="M585.1648 195.072h48.7424v48.7424h-48.7424z" fill="#012777" p-id="6624"></path>
+                <path d="M585.1648 146.2784h48.7424v48.7936h-48.7424z" fill="#DD75A1" p-id="6625"></path>
+                <path d="M585.1648 97.536h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6626"></path>
+                <path
+                  d="M585.1648 48.7424h48.7424v48.7936h-48.7424zM536.3712 877.7216h48.7936v48.7424h-48.7936zM536.3712 828.928h48.7936v48.7936h-48.7936zM536.3712 731.4432h48.7936v48.7424h-48.7936zM536.3712 682.6496h48.7936v48.7936h-48.7936z"
+                  fill="#012777" p-id="6627"></path>
+                <path d="M536.3712 633.9072h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="6628"></path>
+                <path
+                  d="M536.3712 585.1648h48.7936v48.7424h-48.7936zM536.3712 536.3712h48.7936v48.7936h-48.7936zM536.3712 487.6288h48.7936v48.7424h-48.7936zM536.3712 438.8352h48.7936v48.7936h-48.7936zM536.3712 390.0928h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="6629"></path>
+                <path
+                  d="M536.3712 341.3504h48.7936v48.7424h-48.7936zM536.3712 292.5568h48.7936v48.7936h-48.7936zM536.3712 243.8144h48.7936v48.7424h-48.7936z"
+                  fill="#012777" p-id="6630"></path>
+                <path d="M536.3712 195.072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="6631"></path>
+                <path d="M536.3712 146.2784h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="6632"></path>
+                <path d="M536.3712 97.536h48.7936v48.7424h-48.7936zM487.6288 731.4432h48.7424v48.7424h-48.7424z"
+                  fill="#012777" p-id="6633"></path>
+                <path d="M487.6288 682.6496h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="6634"></path>
+                <path d="M487.6288 633.9072h48.7424v48.7424h-48.7424z" fill="#012777" p-id="6635"></path>
+                <path d="M487.6288 585.1648h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6636"></path>
+                <path
+                  d="M487.6288 536.3712h48.7424v48.7936h-48.7424zM487.6288 487.6288h48.7424v48.7424h-48.7424zM487.6288 438.8352h48.7424v48.7936h-48.7424zM487.6288 390.0928h48.7424v48.7424h-48.7424zM487.6288 341.3504h48.7424v48.7424h-48.7424zM487.6288 292.5568h48.7424v48.7936h-48.7424zM487.6288 243.8144h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="6637"></path>
+                <path d="M487.6288 195.072h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="6638"></path>
+                <path d="M487.6288 146.2784h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="6639"></path>
+                <path d="M487.6288 97.536h48.7424v48.7424h-48.7424zM438.8352 731.4432h48.7936v48.7424h-48.7936z"
+                  fill="#012777" p-id="6640"></path>
+                <path d="M438.8352 682.6496h48.7936v48.7936h-48.7936z" fill="#375AA4" p-id="6641"></path>
+                <path d="M438.8352 633.9072h48.7936v48.7424h-48.7936z" fill="#A2D8EA" p-id="6642"></path>
+                <path d="M438.8352 585.1648h48.7936v48.7424h-48.7936z" fill="#012777" p-id="6643"></path>
+                <path d="M438.8352 536.3712h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="6644"></path>
+                <path
+                  d="M438.8352 487.6288h48.7936v48.7424h-48.7936zM438.8352 438.8352h48.7936v48.7936h-48.7936zM438.8352 390.0928h48.7936v48.7424h-48.7936zM438.8352 341.3504h48.7936v48.7424h-48.7936zM438.8352 292.5568h48.7936v48.7936h-48.7936zM438.8352 243.8144h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="6645"></path>
+                <path d="M438.8352 195.072h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="6646"></path>
+                <path
+                  d="M438.8352 146.2784h48.7936v48.7936h-48.7936zM390.0928 828.928h48.7424v48.7936h-48.7424zM390.0928 682.6496h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="6647"></path>
+                <path d="M390.0928 633.9072h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="6648"></path>
+                <path d="M390.0928 585.1648h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="6649"></path>
+                <path d="M390.0928 536.3712h48.7424v48.7936h-48.7424z" fill="#012777" p-id="6650"></path>
+                <path d="M390.0928 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6651"></path>
+                <path
+                  d="M390.0928 438.8352h48.7424v48.7936h-48.7424zM390.0928 390.0928h48.7424v48.7424h-48.7424zM390.0928 341.3504h48.7424v48.7424h-48.7424zM390.0928 292.5568h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="6652"></path>
+                <path d="M390.0928 243.8144h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6653"></path>
+                <path
+                  d="M390.0928 195.072h48.7424v48.7424h-48.7424zM341.3504 877.7216h48.7424v48.7424h-48.7424zM341.3504 633.9072h48.7424v48.7424h-48.7424z"
+                  fill="#012777" p-id="6654"></path>
+                <path d="M341.3504 585.1648h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="6655"></path>
+                <path d="M341.3504 536.3712h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="6656"></path>
+                <path d="M341.3504 487.6288h48.7424v48.7424h-48.7424z" fill="#012777" p-id="6657"></path>
+                <path d="M341.3504 438.8352h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="6658"></path>
+                <path
+                  d="M341.3504 390.0928h48.7424v48.7424h-48.7424zM341.3504 341.3504h48.7424v48.7424h-48.7424zM341.3504 292.5568h48.7424v48.7936h-48.7424z"
+                  fill="#DD75A1" p-id="6659"></path>
+                <path d="M341.3504 243.8144h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6660"></path>
+                <path
+                  d="M341.3504 195.072h48.7424v48.7424h-48.7424zM292.5568 926.464h48.7936v48.7936h-48.7936zM292.5568 780.1856h48.7936v48.7424h-48.7936z"
+                  fill="#012777" p-id="6661"></path>
+                <path d="M292.5568 731.4432h48.7936v48.7424h-48.7936zM292.5568 585.1648h48.7936v48.7424h-48.7936z"
+                  fill="#012777" p-id="6662"></path>
+                <path d="M292.5568 536.3712h48.7936v48.7936h-48.7936z" fill="#375AA4" p-id="6663"></path>
+                <path d="M292.5568 487.6288h48.7936v48.7424h-48.7936z" fill="#A2D8EA" p-id="6664"></path>
+                <path d="M292.5568 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="6665"></path>
+                <path d="M292.5568 390.0928h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="6666"></path>
+                <path
+                  d="M292.5568 341.3504h48.7936v48.7424h-48.7936zM292.5568 292.5568h48.7936v48.7936h-48.7936zM292.5568 243.8144h48.7936v48.7424h-48.7936z"
+                  fill="#DD75A1" p-id="6667"></path>
+                <path d="M292.5568 195.072h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="6668"></path>
+                <path d="M292.5568 146.2784h48.7936v48.7936h-48.7936zM243.8144 828.928h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="6669"></path>
+                <path d="M243.8144 780.1856h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6670"></path>
+                <path d="M243.8144 731.4432h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="6671"></path>
+                <path
+                  d="M243.8144 682.6496h48.7424v48.7936h-48.7424zM243.8144 536.3712h48.7424v48.7936h-48.7424zM243.8144 487.6288h48.7424v48.7424h-48.7424zM243.8144 438.8352h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="6672"></path>
+                <path d="M243.8144 390.0928h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6673"></path>
+                <path
+                  d="M243.8144 341.3504h48.7424v48.7424h-48.7424zM243.8144 292.5568h48.7424v48.7936h-48.7424zM243.8144 243.8144h48.7424v48.7424h-48.7424z"
+                  fill="#DD75A1" p-id="6674"></path>
+                <path d="M243.8144 195.072h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="6675"></path>
+                <path d="M243.8144 146.2784h48.7424v48.7936h-48.7424zM195.072 877.7216h48.7424v48.7424H195.072z"
+                  fill="#012777" p-id="6676"></path>
+                <path d="M195.072 828.928h48.7424v48.7936H195.072z" fill="#DEE6FC" p-id="6677"></path>
+                <path d="M195.072 780.1856h48.7424v48.7424H195.072z" fill="#DD75A1" p-id="6678"></path>
+                <path d="M195.072 731.4432h48.7424v48.7424H195.072z" fill="#DEE6FC" p-id="6679"></path>
+                <path d="M195.072 682.6496h48.7424v48.7936H195.072zM195.072 390.0928h48.7424v48.7424H195.072z"
+                  fill="#012777" p-id="6680"></path>
+                <path d="M195.072 341.3504h48.7424v48.7424H195.072zM195.072 292.5568h48.7424v48.7936H195.072z"
+                  fill="#DD75A1" p-id="6681"></path>
+                <path d="M195.072 243.8144h48.7424v48.7424H195.072z" fill="#DEE6FC" p-id="6682"></path>
+                <path d="M195.072 195.072h48.7424v48.7424H195.072zM146.2784 926.464h48.7936v48.7936h-48.7936z"
+                  fill="#012777" p-id="6683"></path>
+                <path d="M146.2784 877.7216h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="6684"></path>
+                <path d="M146.2784 828.928h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="6685"></path>
+                <path d="M146.2784 780.1856h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="6686"></path>
+                <path
+                  d="M146.2784 731.4432h48.7936v48.7424h-48.7936zM146.2784 585.1648h48.7936v48.7424h-48.7936zM146.2784 438.8352h48.7936v48.7936h-48.7936z"
+                  fill="#012777" p-id="6687"></path>
+                <path d="M146.2784 390.0928h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="6688"></path>
+                <path d="M146.2784 341.3504h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="6689"></path>
+                <path d="M146.2784 292.5568h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="6690"></path>
+                <path d="M146.2784 243.8144h48.7936v48.7424h-48.7936zM97.536 926.464h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="6691"></path>
+                <path d="M97.536 877.7216h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="6692"></path>
+                <path d="M97.536 828.928h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="6693"></path>
+                <path
+                  d="M97.536 780.1856h48.7424v48.7424h-48.7424zM97.536 633.9072h48.7424v48.7424h-48.7424zM97.536 438.8352h48.7424v48.7936h-48.7424z"
+                  fill="#012777" p-id="6694"></path>
+                <path d="M97.536 390.0928h48.7424v48.7424h-48.7424zM97.536 341.3504h48.7424v48.7424h-48.7424z"
+                  fill="#DEE6FC" p-id="6695"></path>
+                <path
+                  d="M97.536 292.5568h48.7424v48.7936h-48.7424zM48.7424 877.7216h48.7936v48.7424H48.7424zM48.7424 828.928h48.7936v48.7936H48.7424zM48.7424 682.6496h48.7936v48.7936H48.7424zM48.7424 390.0928h48.7936v48.7424H48.7424zM48.7424 341.3504h48.7936v48.7424H48.7424z"
+                  fill="#012777" p-id="6696"></path>
+              </svg>
+            </div>
+          </div>
+          <button id="btn-game-level-preview" onclick="onGameLevelPreviewClick()">预览</button>
+        </div>
+      </div>
+
+      <div class="action-buttons-wrapper">
+        <button id="btn-remove-rect" class="btn-delete" disabled onclick="onRemoveSelecteBlockClick()">移除物体</button>
+        <button onclick="onSettingSwitchClick()">显示/隐藏<br />参数面板</button>
+        <div class="group">
+          <button onclick="onOpenSaveDataButtonClick()">保存/读取</button>
+          <button onclick="onPlayGameClick()">进入游戏</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 游戏绘制区域 -->
+    <div class="game-sence"></div>
+
+    <!-- 物体选择下拉框菜单 -->
+    <div class="blocks-selection-pannel" style="opacity: 0;">
+      <div class="item" onclick="onBlockSelectionClick('block')">
+        <div class="icon">
+          <svg t="1690328792051" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="28093" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64">
+            <path
+              d="M2.11134 528.986692h261.230366v230.392002H2.11134z m770.927085 0h248.466355v230.392002H773.038425zM2.11134 264.493346h488.519338v221.914652H2.11134zM773.038425 221.786692h248.466355V96.129959A95.970009 95.970009 0 0 0 925.82268 0H773.038425z m-240.020993 42.706654h488.487348v221.914652h-488.487348z m-227.288972 264.493346h424.795251v230.392002H305.72846z m186.981568 273.098656H2.14333v125.752703a95.970009 95.970009 0 0 0 95.74608 96.161949h394.852608z m-229.368322-580.298656V0H97.69747A95.938019 95.938019 0 0 0 2.01537 96.129959v125.656733z m271.755076 580.298656v221.914652h390.789878a95.906029 95.906029 0 0 0 95.6821-96.129959v-125.784693zM305.72846 0h424.795251v221.914652H305.72846z"
+              fill="#e89abe" p-id="28094"></path>
+          </svg>
+        </div>
+        <div class="label">
+          砖块
+        </div>
+      </div>
+      <div class="item" onclick="onBlockSelectionClick('coin')">
+        <div class="icon">
+          <svg t="1690350253199" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="18454" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32">
+            <path
+              d="M787.692308 787.692308h78.76923v78.76923h-78.76923zM787.692308 708.923077h78.76923v78.769231h-78.76923zM787.692308 630.153846h78.76923v78.769231h-78.76923zM787.692308 551.384615h78.76923v78.769231h-78.76923zM787.692308 472.615385h78.76923v78.76923h-78.76923zM787.692308 393.846154h78.76923v78.769231h-78.76923zM787.692308 315.076923h78.76923v78.769231h-78.76923zM787.692308 236.307692h78.76923v78.769231h-78.76923zM787.692308 157.538462h78.76923v78.76923h-78.76923zM708.923077 866.461538h78.769231v78.769231h-78.769231z"
+              fill="#1E2028" p-id="18455"></path>
+            <path
+              d="M708.923077 787.692308h78.769231v78.76923h-78.769231zM708.923077 708.923077h78.769231v78.769231h-78.769231zM708.923077 630.153846h78.769231v78.769231h-78.769231zM708.923077 551.384615h78.769231v78.769231h-78.769231zM708.923077 472.615385h78.769231v78.76923h-78.769231zM708.923077 393.846154h78.769231v78.769231h-78.769231zM708.923077 315.076923h78.769231v78.769231h-78.769231zM708.923077 236.307692h78.769231v78.769231h-78.769231zM708.923077 157.538462h78.769231v78.76923h-78.769231z"
+              fill="#FF9343" p-id="18456"></path>
+            <path
+              d="M708.923077 78.769231h78.769231v78.769231h-78.769231zM630.153846 945.230769h78.769231v78.769231h-78.769231z"
+              fill="#1E2028" p-id="18457"></path>
+            <path
+              d="M630.153846 866.461538h78.769231v78.769231h-78.769231zM630.153846 787.692308h78.769231v78.76923h-78.769231z"
+              fill="#FF9343" p-id="18458"></path>
+            <path
+              d="M630.153846 708.923077h78.769231v78.769231h-78.769231zM630.153846 630.153846h78.769231v78.769231h-78.769231zM630.153846 551.384615h78.769231v78.769231h-78.769231zM630.153846 472.615385h78.769231v78.76923h-78.769231zM630.153846 393.846154h78.769231v78.769231h-78.769231z"
+              fill="#FFDD4D" p-id="18459"></path>
+            <path
+              d="M630.153846 315.076923h78.769231v78.769231h-78.769231zM630.153846 236.307692h78.769231v78.769231h-78.769231z"
+              fill="#FFFFFF" p-id="18460"></path>
+            <path
+              d="M630.153846 157.538462h78.769231v78.76923h-78.769231zM630.153846 78.769231h78.769231v78.769231h-78.769231z"
+              fill="#FFDD4D" p-id="18461"></path>
+            <path
+              d="M630.153846 0h78.769231v78.769231h-78.769231zM551.384615 945.230769h78.769231v78.769231h-78.769231z"
+              fill="#1E2028" p-id="18462"></path>
+            <path d="M551.384615 866.461538h78.769231v78.769231h-78.769231z" fill="#FF9343" p-id="18463"></path>
+            <path d="M551.384615 787.692308h78.769231v78.76923h-78.769231z" fill="#1E2028" p-id="18464"></path>
+            <path
+              d="M551.384615 708.923077h78.769231v78.769231h-78.769231zM551.384615 630.153846h78.769231v78.769231h-78.769231zM551.384615 551.384615h78.769231v78.769231h-78.769231zM551.384615 472.615385h78.769231v78.76923h-78.769231zM551.384615 393.846154h78.769231v78.769231h-78.769231zM551.384615 315.076923h78.769231v78.769231h-78.769231zM551.384615 236.307692h78.769231v78.769231h-78.769231z"
+              fill="#FFDD4D" p-id="18465"></path>
+            <path d="M551.384615 157.538462h78.769231v78.76923h-78.769231z" fill="#FFFFFF" p-id="18466"></path>
+            <path d="M551.384615 78.769231h78.769231v78.769231h-78.769231z" fill="#FFDD4D" p-id="18467"></path>
+            <path d="M551.384615 0h78.769231v78.769231h-78.769231zM472.615385 945.230769h78.76923v78.769231h-78.76923z"
+              fill="#1E2028" p-id="18468"></path>
+            <path d="M472.615385 866.461538h78.76923v78.769231h-78.76923z" fill="#FF9343" p-id="18469"></path>
+            <path d="M472.615385 787.692308h78.76923v78.76923h-78.76923z" fill="#1E2028" p-id="18470"></path>
+            <path
+              d="M472.615385 708.923077h78.76923v78.769231h-78.76923zM472.615385 630.153846h78.76923v78.769231h-78.76923zM472.615385 551.384615h78.76923v78.769231h-78.76923zM472.615385 472.615385h78.76923v78.76923h-78.76923zM472.615385 393.846154h78.76923v78.769231h-78.76923zM472.615385 315.076923h78.76923v78.769231h-78.76923zM472.615385 236.307692h78.76923v78.769231h-78.76923zM472.615385 157.538462h78.76923v78.76923h-78.76923zM472.615385 78.769231h78.76923v78.769231h-78.76923z"
+              fill="#FFDD4D" p-id="18471"></path>
+            <path d="M472.615385 0h78.76923v78.769231h-78.76923zM393.846154 945.230769h78.769231v78.769231h-78.769231z"
+              fill="#1E2028" p-id="18472"></path>
+            <path d="M393.846154 866.461538h78.769231v78.769231h-78.769231z" fill="#FF9343" p-id="18473"></path>
+            <path d="M393.846154 787.692308h78.769231v78.76923h-78.769231z" fill="#1E2028" p-id="18474"></path>
+            <path
+              d="M393.846154 708.923077h78.769231v78.769231h-78.769231zM393.846154 630.153846h78.769231v78.769231h-78.769231zM393.846154 551.384615h78.769231v78.769231h-78.769231zM393.846154 472.615385h78.769231v78.76923h-78.769231zM393.846154 393.846154h78.769231v78.769231h-78.769231zM393.846154 315.076923h78.769231v78.769231h-78.769231zM393.846154 236.307692h78.769231v78.769231h-78.769231z"
+              fill="#FF9343" p-id="18475"></path>
+            <path d="M393.846154 157.538462h78.769231v78.76923h-78.769231z" fill="#1E2028" p-id="18476"></path>
+            <path d="M393.846154 78.769231h78.769231v78.769231h-78.769231z" fill="#FFDD4D" p-id="18477"></path>
+            <path
+              d="M393.846154 0h78.769231v78.769231h-78.769231zM315.076923 945.230769h78.769231v78.769231h-78.769231z"
+              fill="#1E2028" p-id="18478"></path>
+            <path
+              d="M315.076923 866.461538h78.769231v78.769231h-78.769231zM315.076923 787.692308h78.769231v78.76923h-78.769231z"
+              fill="#FFF1B6" p-id="18479"></path>
+            <path
+              d="M315.076923 708.923077h78.769231v78.769231h-78.769231zM315.076923 630.153846h78.769231v78.769231h-78.769231zM315.076923 551.384615h78.769231v78.769231h-78.769231zM315.076923 472.615385h78.769231v78.76923h-78.769231zM315.076923 393.846154h78.769231v78.769231h-78.769231zM315.076923 315.076923h78.769231v78.769231h-78.769231zM315.076923 236.307692h78.769231v78.769231h-78.769231z"
+              fill="#1E2028" p-id="18480"></path>
+            <path
+              d="M315.076923 157.538462h78.769231v78.76923h-78.769231zM315.076923 78.769231h78.769231v78.769231h-78.769231z"
+              fill="#FFF1B6" p-id="18481"></path>
+            <path
+              d="M315.076923 0h78.769231v78.769231h-78.769231zM236.307692 866.461538h78.769231v78.769231h-78.769231z"
+              fill="#1E2028" p-id="18482"></path>
+            <path
+              d="M236.307692 787.692308h78.769231v78.76923h-78.769231zM236.307692 708.923077h78.769231v78.769231h-78.769231zM236.307692 630.153846h78.769231v78.769231h-78.769231zM236.307692 551.384615h78.769231v78.769231h-78.769231zM236.307692 472.615385h78.769231v78.76923h-78.769231zM236.307692 393.846154h78.769231v78.769231h-78.769231zM236.307692 315.076923h78.769231v78.769231h-78.769231zM236.307692 236.307692h78.769231v78.769231h-78.769231zM236.307692 157.538462h78.769231v78.76923h-78.769231z"
+              fill="#FFF1B6" p-id="18483"></path>
+            <path
+              d="M236.307692 78.769231h78.769231v78.769231h-78.769231zM157.538462 787.692308h78.76923v78.76923H157.538462zM157.538462 708.923077h78.76923v78.769231H157.538462zM157.538462 630.153846h78.76923v78.769231H157.538462zM157.538462 551.384615h78.76923v78.769231H157.538462zM157.538462 472.615385h78.76923v78.76923H157.538462zM157.538462 393.846154h78.76923v78.769231H157.538462zM157.538462 315.076923h78.76923v78.769231H157.538462zM157.538462 236.307692h78.76923v78.769231H157.538462zM157.538462 157.538462h78.76923v78.76923H157.538462z"
+              fill="#1E2028" p-id="18484"></path>
+          </svg>
+        </div>
+        <div class="label">
+          金币
+        </div>
+      </div>
+    </div>
+
+    <!-- 参数设置悬浮窗体 -->
+    <div class="setting-pannel" style="opacity: 1;">
+      <div class="actions">
+        <div class="buttons">
+          <button class="btn-setting-tool-params-useto btn-setting-tool-params-useto__active">同化工具</button>
+          <button id="btn-setting-tool-reset">重置</button>
+        </div>
+        <h3 class="setting-pannel-type-title">画布</h3>
+      </div>
+      <div class="contents">
+        <!-- 画布设置 -->
+        <div setting-id="canvas-area-setting-group" class="group">
+          <label class="group-label">画布设置<div class="group-icon-shrink" onclick="onSettingPannelShrinkClick(event)">
+            </div></label>
+          <div setting-id="canvas-setting-row-width" class="row">
+            <label>宽：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" disabled>
+              <span>px</span>
+            </div>
+          </div>
+          <div setting-id="canvas-setting-row-height" class="row">
+            <label>高：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" disabled>
+              <span>px</span>
+            </div>
+          </div>
+        </div>
+        <!-- 隐形设置 -->
+        <div setting-id="hidden-setting-group" class="group">
+          <label class="group-label">隐形设置<div class="group-icon-shrink" onclick="onSettingPannelShrinkClick(event)">
+            </div></label>
+          <div setting-id="hidden-setting-row-opacity" class="row">
+            <label>透明度：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" onchange="onHiddenSettingOpacityChange(event)">
+              <span>(0~1)</span>
+            </div>
+          </div>
+        </div>
+        <!-- 基础设置 -->
+        <div setting-id="base-setting-group" class="group">
+          <label class="group-label">基础设置<div class="group-icon-shrink" onclick="onSettingPannelShrinkClick(event)">
+            </div></label>
+          <div setting-id="base-setting-row-id" class="row">
+            <label>ID：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" disabled>
+            </div>
+          </div>
+          <div setting-id="base-setting-position-row-x" class="row">
+            <label>坐标 X：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" onchange="onBasesetingPositionXChange(event)">
+              <span>px</span>
+            </div>
+          </div>
+          <div setting-id="base-setting-position-row-y" class="row">
+            <label>坐标 Y：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" onchange="onBasesetingPositionYChange(event)">
+              <span>px</span>
+            </div>
+          </div>
+          <div setting-id="base-setting-row-width" class="row">
+            <label>宽：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" onchange="onBasesetingWidthChange(event)">
+              <span>px</span>
+            </div>
+          </div>
+          <div setting-id="base-setting-row-height" class="row">
+            <label>高：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" onchange="onBasesetingHeightChange(event)">
+              <span>px</span>
+            </div>
+          </div>
+        </div>
+        <!-- 得分设置 -->
+        <div setting-id="score-setting-group" class="group">
+          <label class="group-label">分值设置<div class="group-icon-shrink" onclick="onSettingPannelShrinkClick(event)">
+            </div></label>
+          <div setting-id="score-setting-row-score" class="row">
+            <label>金币分值：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" onchange="onScoreSettingScoreChange(event)">
+            </div>
+          </div>
+        </div>
+        <!-- 图片设置 -->
+        <div setting-id="image-setting-group" class="group">
+          <label class="group-label">图片设置<div class="group-icon-shrink" onclick="onSettingPannelShrinkClick(event)">
+            </div></label>
+          <div setting-id="image-setting-row-image" class="row">
+            <label>图片 Url：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" onchange="onImageSettingImageUrlChange(event)">
+            </div>
+          </div>
+          <div setting-id="image-setting-row-image-selections" class="area">
+            <label>选择预制图片：</label>
+            <div setting-unit="img-list" class="img-selections-wrapper">
+              <img draggable="false" src="./imgs/coin.png" alt="背景图片">
+              <img draggable="false" src="./imgs/coin-fish.png" alt="背景图片">
+              <img draggable="false" src="./imgs/coin-carrot.png" alt="背景图片">
+            </div>
+          </div>
+          <div setting-id="image-setting-row-preview" class="area">
+            <label>图片预览：</label>
+            <div class="img-wrapper">
+              <img draggable="false" setting-unit="img" src="./imgs/coin.png" alt="背景图片">
+            </div>
+          </div>
+        </div>
+        <!-- 玩家参数设置 -->
+        <div setting-id="player-role-setting-group" class="group">
+          <label class="group-label">玩家参数设置<div class="group-icon-shrink" onclick="onSettingPannelShrinkClick(event)">
+            </div></label>
+          <!-- <div setting-id="player-role-setting-row-borth-position-x" class="row">
+            <label>出生坐标 X：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="">
+            </div>
+          </div>
+          <div setting-id="player-role-setting-row-borth-position-y" class="row">
+            <label>出生坐标 Y：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="">
+            </div>
+          </div> -->
+          <div setting-id="player-role-setting-row-run-speed" class="row">
+            <label>跑步速度：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" onchange="onPlayerRoleRunSpeedChange(event)">
+            </div>
+          </div>
+          <div setting-id="player-role-setting-row-jump-start-speed" class="row">
+            <label>起跳速度：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" onchange="onPlayerRoleJumpStartSpeedChange(event)">
+            </div>
+          </div>
+        </div>
+        <!-- 玩家雪碧图设置（跑步动作） -->
+        <div setting-id="player-sprites-setting-group" class="group">
+          <label class="group-label">玩家雪碧图设置（跑步动作）<div class="group-icon-shrink"
+              onclick="onSettingPannelShrinkClick(event)"></div></label>
+          <!-- <div setting-id="player-sprites-setting-row-image" class="row">
+            <label>图片 Url：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="">
+            </div>
+          </div> -->
+          <!-- <div setting-id="player-sprites-setting-row-width" class="row">
+            <label>宽：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="">
+            </div>
+          </div>
+          <div setting-id="player-sprites-setting-row-height" class="row">
+            <label>高：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="">
+            </div>
+          </div> -->
+          <div setting-id="player-sprites-setting-row-position-start-x" class="row">
+            <label>起始坐标 X：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value=""
+                onchange="onPlayerSpritesSettingPositionStartXChange(event)">
+              <span>%</span>
+            </div>
+          </div>
+          <div setting-id="player-sprites-setting-row-position-start-y" class="row">
+            <label>起始坐标 Y：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value=""
+                onchange="onPlayerSpritesSettingPositionStartYChange(event)">
+              <span>%</span>
+            </div>
+          </div>
+          <div setting-id="player-sprites-setting-row-position-end-x" class="row">
+            <label>结束坐标 X：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value=""
+                onchange="onPlayerSpritesSettingPositionEndXChange(event)">
+              <span>%</span>
+            </div>
+          </div>
+          <div setting-id="player-sprites-setting-row-position-end-y" class="row">
+            <label>结束坐标 Y：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value=""
+                onchange="onPlayerSpritesSettingPositionEndYChange(event)">
+              <span>%</span>
+            </div>
+          </div>
+          <div setting-id="player-sprites-setting-row-position-rendx" class="row">
+            <label>行尾坐标 X：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value=""
+                onchange="onPlayerSpritesSettingPositionRowEndXChange(event)">
+              <span>%</span>
+            </div>
+          </div>
+          <div setting-id="player-sprites-setting-row-frame-x" class="row">
+            <label>单帧步长 X：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value=""
+                onchange="onPlayerSpritesSettingPositionFrameXChange(event)">
+              <span>%</span>
+            </div>
+          </div>
+          <div setting-id="player-sprites-setting-row-frame-y" class="row">
+            <label>单帧步长 Y：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value=""
+                onchange="onPlayerSpritesSettingPositionFrameYChange(event)">
+              <span>%</span>
+            </div>
+          </div>
+          <div setting-id="player-sprites-setting-row-frame-unit-ms" class="row">
+            <label>切换速度：</label>
+            <div class="input-wrapper">
+              <input setting-unit="input" type="text" value="" disabled>
+              <span>ms</span>
+            </div>
+          </div>
+          <div setting-id="player-sprites-setting-row-animation-preivew" class="area">
+            <label>图片预览：</label>
+            <button onclick="onPlayerSpritesSettingAnimationClick()">【启动/停止】动画</button>
+            <div class="animation-img-wrapper">
+              <div class="img-box" setting-unit="img" style="background-image: url('./imgs/coin.png');"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 关卡保存弹窗 -->
+  <div class="level-pannel">
+    <div class="dialog">
+      <div class="top">
+        <h3 class="title">游戏关卡</h3>
+        <div class="btn-close" onclick="onLevelPannelCloseClick(event)"></div>
+      </div>
+      <!-- 关卡保存信息 -->
+      <div class="form-wrapper">
+        <div class="row">
+          <label class="label-box">关卡名称</label>
+          <input type="text" id="input-level-name" value="" />
+        </div>
+        <div class="passs-rule-group">
+          <h5>过关条件</h5>
+          <div class="selections">
+            <div class="row">
+              <div class="label-box">
+                <input type="radio" id="input-pass-rule-score" save-level-pass-rule-id="input-pass-rule-selection"
+                  name="pass-rule" value="input-pass-rule-score" checked>
+                <label save-level-pass-rule-id="input-pass-rule-selection-label"
+                  for="input-pass-rule-score">得分<span>达到</span></label>
+              </div>
+              <input type="text" save-level-pass-rule-id="input-pass-rule-selection-value" id="input-pass-rule-score-value"
+                value="10" />
+            </div>
+
+            <div class="row">
+              <div class="label-box">
+                <input disabled type="radio" id="input-pass-rule-timeout" save-level-pass-rule-id="input-pass-rule-selection"
+                  name="pass-rule" value="input-pass-rule-timeout">
+                <label save-level-pass-rule-id="input-pass-rule-selection-label"
+                  for="input-pass-rule-timeout">限时<span>(秒)</span></label>
+              </div>
+              <input disabled type="text" save-level-pass-rule-id="input-pass-rule-selection-value" id="input-pass-rule-timeout-value"
+                value="60暂不支持" />
+            </div>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <button id="btn-save-level-create" onclick="onLevelPannelSaveClick('create')"
+            style="display: none;">创建</button>
+          <button id="btn-save-level-save" onclick="onLevelPannelSaveClick('save')">保存</button>
+          <button id="btn-save-level-remove" onclick="onLevelPannelSaveClick('remove')"
+            style="display: none;">删除</button>
+        </div>
+      </div>
+      <!-- 已保存的关卡列表 -->
+      <div class="level-data-wrapper">
+        <h3>关卡记录</h3>
+        <div class="card-list">
+          <!-- 关卡数据卡片 -->
+          <!-- <div class="level-data-card">
+            <div class="level-data-index">序号<span>1</span></div>
+            <div class="level-data-img"><img draggable="false" width="50" height="50" src="./imgs/game-bg.jpg"
+                alt="关卡背景图" /></div>
+            <div class="level-data-contents">
+              <label class="level-data-name">第1关</label>
+              <label class="level-data-pass-rule">过关条件：分值达到10</label>
+            </div>
+            <div class="buttons">
+              <button id="btn-read-level">读取</button>
+              <button id="btn-read-level">删除</button>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./player-roles/player-run-animation.js"></script>
+<!-- 全局变量 -->
+<script>
+  // 把相对路径转为绝对路径
+  let absURLImg = null
+  function toAbsURL(url) {
+    try {
+      let result
+      let img = absURLImg
+      if (!img) {
+        img = document.createElement('img')
+        absURLImg = img
+      }
+      img.src = url
+      result = img.src
+      return result
+    } catch (error) { }
+  }
+
+  const CANVAS_CURSOR_DEFALUT = 'auto' // 鼠标在 canvas 上的默认光标
+  const CANVAS_CURSOR_NWSERESIZE = 'nwse-resize'
+
+  let levelPannelDom = undefined
+  let toolsWrapper = undefined
+  let gameSenceDom = undefined
+  let canvasDom = undefined
+  let canvasContext = undefined
+  let blocksSelectionPannelDom = undefined
+  let blockSelectedFrameDom = undefined
+  let btnRemoveRectDom = undefined
+  let btnPlayerModeSingleDom = undefined
+  let btnPlayerModeDoubleDom = undefined
+  let btnGameLevelPreviewDom = undefined
+  let btnSettingToolParamsUsetoDom = undefined
+  let btnSettingToolResetDom = undefined
+  let settingPannelTypeTitleDom = undefined
+
+  let inputLevelNameDom = undefined
+
+  // 玩家跑步动画控制器
+  let playerController = new PlatformPlayer()
+
+  // 参数面板悬浮窗体Dom
+  let settingPannelDom = undefined
+  // 参数面板悬浮窗体中的子元素Dom会根据自定义的 属性 存入，key就是这些自定义的 属性
+  let settingPannelDoms = {}
+  // 不同类型图形对应的 参数面板上相应 dom 的在 settingPannelDoms 中存放的 key（可以通过这些key直接找到dom并进行更新操作）
+  const settingPannelCommonKeysMap = {
+    // blockIndex: 'base-setting-row-id',
+    // blockId: 'base-setting-row-id',
+    id: 'base-setting-row-id',
+    size: ['base-setting-row-width', 'base-setting-row-height'],
+    position: ['base-setting-position-row-x', 'base-setting-position-row-y'],
+    backgroundImage: 'image-setting-row-image'
+  }
+  let settingPannelKeysMap = {
+    global: {
+      size: ['canvas-setting-row-width', 'canvas-setting-row-height'],
+      backgroundImage: 'image-setting-row-image'
+    },
+    player: {
+      ...settingPannelCommonKeysMap,
+      // PLAYER_BORTH_POSITION: ['player-role-setting-row-borth-position-x','player-role-setting-row-borth-position-y']
+      PLAYER_X_START_SPEED: 'player-role-setting-row-run-speed',
+      PLAYER_Y_JUMP_START_SPEED: 'player-role-setting-row-jump-start-speed',
+      playerSpritesRunActionAnimationOptions: {
+        start: ['player-sprites-setting-row-position-start-x', 'player-sprites-setting-row-position-start-y'], // 开始坐标
+        end: ['player-sprites-setting-row-position-end-x', 'player-sprites-setting-row-position-end-y'], // 结束坐标
+        rowEndX: 'player-sprites-setting-row-position-rendx', // 行尾坐标
+        frameLen: ['player-sprites-setting-row-frame-x', 'player-sprites-setting-row-frame-y'], // 切换一帧对应的x和y的步长（动画目前从start坐标依次向左切换，若当前行切换x在坐标到了设置的rowEndX，则切换到下一行的最左侧，再继续，直到到达坐标end）
+        playMs: 'player-sprites-setting-row-frame-unit-ms' // 动画播放速度（单位：毫秒）
+      }
+    },
+    block: {
+      ...settingPannelCommonKeysMap,
+      opacity: 'hidden-setting-row-opacity'
+    },
+    coin: {
+      ...settingPannelCommonKeysMap,
+      score: 'score-setting-row-score',
+      opacity: 'hidden-setting-row-opacity'
+    }
+  }
+
+  const loadSettingBaseData = (selectedRectData, keysMap) => {
+    // 将基础参数填入对应的输入框中（这里对应上面 settingPannelKeysMap 和 settingPannelDoms 的map映射规则）
+    for (const k of Object.keys(keysMap)) {
+      domKey = keysMap[k]
+      if (typeof domKey === 'object' && !Array.isArray(domKey)) {
+        loadSettingBaseData(selectedRectData[k], domKey)
+      } else if (Array.isArray(domKey)) {
+        domKey.forEach((dk, i) => {
+          settingPannelDoms[dk].value = selectedRectData[k][i]
+        })
+      } else {
+        settingPannelDoms[domKey].value = selectedRectData[k]
+      }
+    }
+  }
+
+  // 不同的选中对象，在参数设置面板中加载相应的数据
+  let loadSettingPannelActions = {
+    // 游戏场景数据
+    global: () => {
+      const rectId = 'canvas-sence'
+      const keysMap = settingPannelKeysMap.global
+      const backgroundImage = gameSenceData.global.GAME_SENCE_BACKGROUND_IMAGE
+      const selectedRectData = { size: [canvasDom.width, canvasDom.height], backgroundImage }
+      loadSettingBaseData(selectedRectData, keysMap)
+
+      // ** 图片处理
+      settingPannelDoms['image-setting-row-preview'].src = selectedRectData.backgroundImage
+      const imgListDom = settingPannelDoms['image-setting-row-image-selections']
+      const lastRectId = imgListDom.getAttribute('rect-id')
+      // *** 若id没变，那么预制选项图片就不需要重新加载
+      if (lastRectId && String(lastRectId) === String(rectId)) return
+
+      // 更新选项图片相关dom
+      settingPannelTypeTitleDom.innerText = '画布'
+      // 预制的图片列表加载
+      let htmlStr = ''
+      const bgImg = selectedRectData.backgroundImage
+      for (const imgUrl of gameBlockPreimgs.global) {
+        htmlStr += `<img draggable="false" src="${imgUrl}" alt="场景图片" onclick="onPreimgSelectionsSelectChange(event)">`
+      }
+      imgListDom.innerHTML = htmlStr
+      imgListDom.setAttribute('rect-id', String(rectId))
+    },
+    // 玩家数据
+    player: (selectedRectData) => {
+      // ** 基础数据处理
+      const rectId = selectedRectData.id
+      let domKey = null
+      const keysMap = settingPannelKeysMap.player
+      loadSettingBaseData(selectedRectData, keysMap)
+
+      // ** 绘制玩家动画预览图片
+      const bgImgUrl = selectedRectData.backgroundImage.includes('url(') ? selectedRectData.backgroundImage : `url(${selectedRectData.backgroundImage})`
+      const playerPreviewImgBoxDom = settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box']
+      playerPreviewImgBoxDom.style.backgroundImage = bgImgUrl
+      const [psx, psy] = selectedRectData.playerSpritesRunActionAnimationOptions.start
+      playerPreviewImgBoxDom.style.backgroundPosition = `${psx}% ${psy}%`
+      playerPreviewImgBoxDom.style.width = `${selectedRectData.size[0]}px`
+      playerPreviewImgBoxDom.style.height = `${selectedRectData.size[1]}px`
+
+      // ** 图片处理
+      settingPannelDoms['image-setting-row-preview'].src = selectedRectData.backgroundImage
+      const imgListDom = settingPannelDoms['image-setting-row-image-selections']
+      const lastRectId = imgListDom.getAttribute('rect-id')
+      // *** 若id没变，那么预制选项图片就不需要重新加载
+      if (lastRectId && String(lastRectId) === String(rectId)) return
+
+      // 更新选项图片相关dom
+      settingPannelTypeTitleDom.innerText = '玩家'
+      // 预制的图片列表加载
+      let htmlStr = ''
+      const bgImg = selectedRectData.backgroundImage
+      for (const imgUrl of gameBlockPreimgs.player) {
+        htmlStr += `<img draggable="false" src="${imgUrl}" alt="玩家图片" onclick="onPreimgSelectionsSelectChange(event)">`
+      }
+      imgListDom.innerHTML = htmlStr
+      imgListDom.setAttribute('rect-id', String(rectId))
+    },
+    // 普通砖块数据
+    block: (selectedRectData) => {
+      // ** 基础数据处理
+      const rectId = selectedRectData.id
+      let domKey = null
+      const keysMap = settingPannelKeysMap.block
+      loadSettingBaseData(selectedRectData, keysMap)
+
+      // ** 图片处理
+      settingPannelDoms['image-setting-row-preview'].src = selectedRectData.backgroundImage
+      const imgListDom = settingPannelDoms['image-setting-row-image-selections']
+      const lastRectId = imgListDom.getAttribute('rect-id')
+      // *** 若id没变，那么预制选项图片就不需要重新加载
+      if (lastRectId && String(lastRectId) === String(rectId)) return
+
+      // 更新选项图片相关dom
+      settingPannelTypeTitleDom.innerText = '砖块'
+      // 预制的图片列表加载
+      let htmlStr = ''
+      const bgImg = selectedRectData.backgroundImage
+      for (const imgUrl of gameBlockPreimgs.block) {
+        htmlStr += `<img draggable="false" src="${imgUrl}" alt="砖块图片" onclick="onPreimgSelectionsSelectChange(event)">`
+      }
+      imgListDom.innerHTML = htmlStr
+      imgListDom.setAttribute('rect-id', String(rectId))
+    },
+    // 金币数据
+    coin: (selectedRectData) => {
+      // ** 基础数据处理
+      const rectId = selectedRectData.id
+      let domKey = null
+      const keysMap = settingPannelKeysMap.coin
+      loadSettingBaseData(selectedRectData, keysMap)
+
+      // ** 图片处理
+      settingPannelDoms['image-setting-row-preview'].src = selectedRectData.backgroundImage
+      const imgListDom = settingPannelDoms['image-setting-row-image-selections']
+      const lastRectId = imgListDom.getAttribute('rect-id')
+      // *** 若id没变，那么预制选项图片就不需要重新加载
+      if (lastRectId && String(lastRectId) === String(rectId)) return
+
+      // 更新选项图片相关dom
+      settingPannelTypeTitleDom.innerText = '金币'
+      // 预制的图片列表加载
+      let htmlStr = ''
+      const bgImg = selectedRectData.backgroundImage
+      for (const imgUrl of gameBlockPreimgs.coin) {
+        htmlStr += `<img draggable="false" src="${imgUrl}" alt="金币图片" onclick="onPreimgSelectionsSelectChange(event)">`
+      }
+      imgListDom.innerHTML = htmlStr
+      imgListDom.setAttribute('rect-id', String(rectId))
+    },
+  }
+
+  // 参数设置面板中的所有分组dom都以 setting-id 属性值为key，批量存在这里
+  let settingPannelGroupDoms = {}
+  const loadSettingPannelGroupDomsFilter = (groupKeys) => {
+    for (const k of Object.keys(settingPannelGroupDoms)) {
+      settingPannelGroupDoms[k].style.display = groupKeys.includes(k) ? '' : 'none'
+    }
+  }
+  // 不同的选中对象，在参数设置面板中加载相应的分组
+  let loadSettingPannelGroupActions = {
+    // 游戏场景数据
+    global: () => {
+      const groupKeys = ['canvas-area-setting-group', 'image-setting-group']
+      loadSettingPannelGroupDomsFilter(groupKeys)
+    },
+    // 玩家数据
+    player: () => {
+      const groupKeys = ['canvas-area-setting-group', 'base-setting-group', 'image-setting-group', 'player-role-setting-group', 'player-sprites-setting-group']
+      loadSettingPannelGroupDomsFilter(groupKeys)
+    },
+    // 普通砖块数据
+    block: () => {
+      const groupKeys = ['canvas-area-setting-group', 'hidden-setting-group', 'base-setting-group', 'image-setting-group']
+      loadSettingPannelGroupDomsFilter(groupKeys)
+    },
+    // 金币数据
+    coin: () => {
+      const groupKeys = ['canvas-area-setting-group', 'hidden-setting-group', 'base-setting-group', 'score-setting-group', 'image-setting-group']
+      loadSettingPannelGroupDomsFilter(groupKeys)
+    }
+  }
+
+
+  // 玩家人数模式：单人/双人 （双人的待开发，此版本仅支持单人模式...）
+  // TODO: 该变量的 set 功能暂未使用，因为目前仅支持单人模式，所以模式切换功能后续再开发
+  const PlayerModeType = { single: 'single', double: 'double' }
+  let playerMode = {
+    value: PlayerModeType.single
+  }
+  let playerModeProxy = new Proxy(playerMode, {
+    get: function (target, _value) {
+      return target.value
+    },
+    set: function (target, key, value) {
+      const errorHint = 'set canvasGraphicsPositions Error: '
+      try {
+        if (value === PlayerModeType.single) {
+          btnPlayerModeSingleDom.setAttribute('disabled', 'true')
+          btnPlayerModeDoubleDom.removeAttribute('disabled')
+          return true
+        } else if (value === PlayerModeType.double) {
+          btnPlayerModeSingleDom.removeAttribute('disabled')
+          btnPlayerModeDoubleDom.setAttribute('disabled', 'true')
+          return true
+        }
+        throw new Error(`${errorHint}玩家模式仅支持设置为：'single', 'double' }`)
+      } catch (error) {
+        throw new Error(`${errorHint}${err}`)
+      }
+    }
+  })
+
+  // 加载画面时，记录顶部工具栏的高度，鼠标在画布中的Y坐标值需要减去整个偏差
+  let toolsWrapperHeight = null
+
+  // canvas 上被选中的图形
+  let canvasRectSelected = undefined
+  let canvasRectSelectedProxy = new Proxy({ value: undefined }, {
+    get: function (target, value) {
+      return canvasRectSelected
+    },
+    set: function (target, key, value) {
+      // 玩家图形是不能被删除的，只能通过模式修改玩家图形数量
+      if (!value || value.type === 'player') btnRemoveRectDom.setAttribute('disabled', 'true')
+      else btnRemoveRectDom.removeAttribute('disabled')
+      canvasRectSelected = value
+      return true
+    }
+  })
+
+  let mouseStartPosition = [null, null]
+  let mousePosition = [null, null]
+
+  const BLOCK_TYPES = ['player', 'block', 'coin']
+
+  // 玩家的默认参数
+  const playerDefault = {
+    PLAYER_X_START_SPEED: 4, // 这里参数面板上的“跑步速度”
+    Y_FREE_FALL_STEP_SPEED: 8,
+    PLAYER_Y_JUMP_START_SPEED: 20, // 这里参数面板上的“起跳速度”
+    PLAYER_BORTH_POSITION: [50, 50],
+    playerSize: [54, 32],
+    playerSpritesBackgrundImageUrl: toAbsURL('./imgs/cat-sprites.jpg'),
+    playerSpritesRunActionAnimationOptions: {
+      // 角色动画新方案
+      start: [5.5, 7], // 开始坐标
+      end: [95.5, 30], // 结束坐标
+      rowEndX: 95.5, // 行尾坐标
+      frameLen: [30, 23], // 切换一帧对应的x和y的步长（动画目前从start坐标依次向左切换，若当前行切换x在坐标到了设置的rowEndX，则切换到下一行的最左侧，再继续，直到到达坐标end）
+      playMs: 80 // 动画播放速度（单位：毫秒）
+    },
+  }
+
+  // 一个砖块物体的默认参数
+  const blockDefault = {
+    blockIndex: 0,
+    blockId: 'block-0', // 唯一id
+    size: [50, 50],
+    position: [50, 50],
+    backgroundImage: toAbsURL('./imgs/block.png'),
+    opacity: 1
+  }
+
+  // 一个金币物体的默认参数
+  const coinDefault = {
+    coinIndex: 0,
+    coinId: 'coin-0', // 唯一id
+    size: [50, 50],
+    position: [50, 50],
+    score: 1, // 金币代表的分数值
+    backgroundImage: toAbsURL('./imgs/coin.png'), // 金币如果想添加动画，可以使用gif图即可（雪碧图控制代码有点麻烦，后续再计划是否加入支持雪碧图动画功能）
+    opacity: 1
+  }
+
+  // 默认参数统一这里到该对象中，方便部分函数中直接根据key进行取用
+  const gameBoxDefaultParams = {
+    player: playerDefault,
+    block: blockDefault,
+    coin: coinDefault
+  }
+
+  // 物体的预制图片
+  const gameBlockPreimgs = {
+    global: [toAbsURL('./imgs/game-bg.jpg'), toAbsURL('./imgs/shan-bg.png'), toAbsURL('./imgs/shamo-bg.png')],
+    player: [toAbsURL('./imgs/cat-sprites.jpg'), toAbsURL('./imgs/blackwhite-cat-sprites.png'), toAbsURL('./imgs/horse-sprites.png')],
+    block: [toAbsURL('./imgs/block.png'), toAbsURL('./imgs/block-grass.png'), toAbsURL('./imgs/block-water.png')],
+    coin: [toAbsURL('./imgs/coin.png'), toAbsURL('./imgs/coin-fish.png'), toAbsURL('./imgs/coin-carrot.png')],
+  }
+
+  // 因为 player 是雪碧图，所以需要对不同的雪碧图预制一些默认的动画切换参数
+  const playerAnimationsDefaultParams = {
+    'cat-sprites.jpg': {
+      size: [54, 32],
+      start: [5.5, 7], // 开始坐标
+      end: [95.5, 30], // 结束坐标
+      rowEndX: 95.5, // 行尾坐标
+      frameLen: [30, 23], // 切换一帧对应的x和y的步长（动画目前从start坐标依次向左切换，若当前行切换x在坐标到了设置的rowEndX，则切换到下一行的最左侧，再继续，直到到达坐标end）
+      playMs: 100 // 动画播放速度（单位：毫秒）
+    },
+    'blackwhite-cat-sprites.png': {
+      size: [72, 72],
+      start: [15.5, 7], // 开始坐标
+      end: [195.5, 130], // 结束坐标
+      rowEndX: 195.5, // 行尾坐标
+      frameLen: [130, 123], // 切换一帧对应的x和y的步长（动画目前从start坐标依次向左切换，若当前行切换x在坐标到了设置的rowEndX，则切换到下一行的最左侧，再继续，直到到达坐标end）
+      playMs: 100 // 动画播放速度（单位：毫秒）
+    },
+    'horse-sprites.png': {
+      size: [62, 52],
+      start: [25.5, 27], // 开始坐标
+      end: [295.5, 20], // 结束坐标
+      rowEndX: 295.5, // 行尾坐标
+      frameLen: [230, 223], // 切换一帧对应的x和y的步长（动画目前从start坐标依次向左切换，若当前行切换x在坐标到了设置的rowEndX，则切换到下一行的最左侧，再继续，直到到达坐标end）
+      playMs: 100 // 动画播放速度（单位：毫秒）
+    },
+
+  }
+
+  // --- 游戏关键数据 ---
+  // 其中的数据属性会与 start-game-data-vars.js 中保持一致，这样便于后续生产一个新的 start-game-data-vars.js 文件，从而打包出新的游戏关卡
+  let gameSenceData = {
+    // 游戏场景数据
+    global: {
+      size: [0, 0], // TODO: 目前暂不支持用户自定义canvas尺寸
+      GAME_SENCE_BACKGROUND_IMAGE: toAbsURL('./imgs/game-bg.jpg')
+    },
+    // 玩家数据
+    player: playerDefault,
+    // 普通砖块数据
+    block: {
+      blocksData: []
+    },
+    // 金币数据
+    coin: {
+      COIN_COLLISION_OFFSET: 10,
+      coinsData: []
+    }
+  }
+
+  // 每次在 canvas 上绘制的图像信息都会记录在这里
+  // TODO: 做导出数据功能的时候，会把这里的数据抽离到 gameSenceData 相应的数据中
+  let canvasGraphicsPositions = { value: [] }
+
+  const RectTexts = {
+    player: '玩家',
+    block: '',
+    coin: '金币分值:'
+  }
+
+  /**
+   * canvas 为一个矩形上绘制文本
+   * @params options: ctx=画布上下文；position=矩形的左上角坐标；size=矩形的尺寸；top=在矩形的上方绘制的文本内容
+   * */
+  const drawCanvasTextForRect = (ctx, { position, size, top = '' }) => {
+    const margin = 14
+    const [x, y] = position
+    ctx.save()
+    ctx.font = "16px serif"
+    if (top) {
+      ctx.fillText(top, x, y - margin)
+    }
+    ctx.restore()
+  }
+
+  // { canvas, ctx, id, notRemoveData:true } 传递图形id，删除对应的图形和数据
+  // 注意：该函数只会重新绘制排除需要 被移除图形 以外的其他图形，而目前使用的移除方案是需要先对 canvas 清空
+  // 所以要想清楚目标图形，调用此函数前一定要自己清空canvas先，这是为了性能考虑，避免和其他函数组合使用的时候，这里多做一次清空画布操作
+  const removeGraphicsInCanvas = (value) => {
+    const { canvas, ctx, id, notRemoveData = true } = value
+    const target = canvasGraphicsPositions
+    const errorHint = 'set canvasGraphicsPositions Error: '
+    try {
+      // 删除对应的图形和数据
+      const { ctx, id: rmId, notRemoveData } = value
+      const findIndex = target.value.findIndex(g => g.id === rmId)
+      // debugger
+      if (findIndex === -1) {
+        throw new Error(`${errorHint}通过 id=${rmId} 未找到相应的图形数据`)
+      }
+      // 筛选出排除目标数据的所有其他数据
+      const othersData = target.value.filter(g => g.id !== rmId)
+      // 把其他数据进行全局重新绘制
+      for (const d of othersData) {
+        redrawCanvasImage(ctx, d)
+        const hiddenText = Object.hasOwnProperty.call(d, 'opacity') && Number(d.opacity) < 1 ? `(透:${Number(d.opacity ?? 0) * 100}%)` : ''
+        // 绘制text文本
+        let topTexts = {
+          player: RectTexts.player,
+          block: RectTexts.block + hiddenText,
+          coin: `${RectTexts.coin}${d.score ?? ''}` + hiddenText
+        }
+        if (topTexts[d.type]) drawCanvasTextForRect(ctx, { position: d.position, size: d.size, top: topTexts[d.type] })
+      }
+
+      // 移除数据
+      if (!notRemoveData) target.value.splice(findIndex, 1)
+    } catch (err) {
+      throw new Error(`${errorHint}${err}`)
+    }
+  }
+
+  // { type, id, ctx, customDraw, imgInstance, imgSrc, svgDom, position, size, ...others } --> 这里的 ...others 表示添加图形时允许根据需要添加一些可选属性数据，也会同时存入数据中
+  const updateGraphicsInCanvas = (value) => {
+    const { type, id, ctx, customDraw, imgInstance, imgSrc, svgDom, position, size: newSize } = value
+    let size = [].concat(newSize) // 避免地址引用
+    const [oldW, oldH] = canvasRectSelectedProxy.value.size
+    if (Math.abs(oldW - newSize[0]) > 200 || Math.abs(oldH - newSize[1]) > 200) {
+      // 这步判断，是为了解决拖拽移动过程中，图形一瞬间变得特别大的bug
+      size = [oldW, oldH]
+    }
+
+    const target = canvasGraphicsPositions
+    const errorHint = 'set canvasGraphicsPositions Error: '
+    try {
+      if (!Object.hasOwnProperty.call(value, 'type') || typeof value.type !== 'string') {
+        throw new Error(`${errorHint}append 中的参数 type 是必传的, 且必须是字符串类型`)
+      }
+      if (!Object.hasOwnProperty.call(value, 'id') || typeof value.id !== 'string') {
+        throw new Error(`${errorHint}append 中的参数 id 是必传的, 且必须是字符串类型`)
+      }
+      if (!BLOCK_TYPES.includes(value.type)) {
+        throw new Error(`${errorHint}type 值仅支持 player/block/coin`)
+      }
+      const updateVal = { ...value }
+      // 记录到总数据中
+      let findIndex = null
+      if (updateVal.id && (findIndex = target.value.findIndex(g => g.id === updateVal.id)) !== -1) {
+        // 这里获取 imgInstance 图像实例，可避免每次都创建新的图像实例，对于移动已绘制过的图形，则使用已有的图像实例即可
+        const options = updateVal // { id, type, ctx, customDraw, imgInstance, imgSrc, svgDom, position, size }
+        if (options.backgroundImage !== options.imgInstance.src) {
+          options['updateImgSrc'] = options.backgroundImage
+        }
+        redrawCanvasImage(options.ctx, options)
+        // 绘制text文本
+        const hiddenText = Object.hasOwnProperty.call(updateVal, 'opacity') && Number(updateVal.opacity) < 1 ? `(透:${Number(updateVal.opacity ?? 0) * 100}%)` : ''
+        let topTexts = {
+          player: RectTexts.player,
+          block: RectTexts.block + hiddenText,
+          coin: `${RectTexts.coin}${updateVal.score ?? ''}` + hiddenText
+        }
+        if (topTexts[type]) drawCanvasTextForRect(ctx, { position, size, top: topTexts[type] })
+        const targetVal = target.value[findIndex]
+        // 找出最大的 zIndex 并加1得到最新的zIndex
+        const zIndex = [...target.value].sort((a, b) => b.zIndex - a.zIndex)[0].zIndex + 1
+        const updateSize = Array.isArray(size) && size.length > 1 ? size : targetVal.size
+        let updateData = { ...targetVal, position: options.position, size: updateSize, zIndex }
+        // 若存在选中数据，则可能有最新的数据需要，则这里填入
+        if (!!canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.id === targetVal.id) {
+          updateData = { ...targetVal, ...canvasRectSelectedProxy.value, position: options.position, size: updateSize, zIndex }
+        }
+        // 移除原来的数据
+        target.value.splice(findIndex, 1)
+        // 再追加
+        target.value.push(updateData)
+      } else {
+        throw new Error(`${errorHint} 未找到 id=${updateVal.id} 的数据`)
+      }
+    } catch (err) {
+      throw new Error(`${errorHint}${err}`)
+    }
+  }
+
+  // { type, ctx, customDraw, imgInstance, imgSrc, svgDom, position, size, ...others }
+  // --> 这里的 ...others 表示添加图形时允许根据需要添加一些可选属性数据，也会同时存入数据中
+  const appendGraphicsInCanvas = async (value) => {
+    const { type, ctx, customDraw, imgInstance, imgSrc, svgDom, position, size } = value
+    const target = canvasGraphicsPositions
+    const errorHint = 'set canvasGraphicsPositions Error: '
+    try {
+      if (!Object.hasOwnProperty.call(value, 'type') || typeof value.type !== 'string') {
+        throw new Error(`${errorHint}append 中的参数 type 是必传的, 且必须是字符串类型`)
+      }
+      if (!BLOCK_TYPES.includes(value.type)) {
+        throw new Error(`${errorHint}type 值仅支持 player/block/coin`)
+      }
+      const newVal = { ...value }
+      const options = newVal
+      // 这里获取 imgInstance 图像实例，可避免每次都创建新的图像实例，对于移动已绘制过的图形，则使用已有的图像实例即可
+      const { cvsImg: imgInstance } = await drawCanvasImage(options.ctx, options)
+      // 绘制text文本
+      const hiddenText = Object.hasOwnProperty.call(newVal, 'opacity') && Number(newVal.opacity) < 1 ? `(透:${Number(newVal.opacity ?? 0) * 100}%)` : ''
+      let topTexts = {
+        player: RectTexts.player,
+        block: RectTexts.block + hiddenText,
+        coin: `${RectTexts.coin}${newVal.score ?? ''}` + hiddenText
+      }
+      if (topTexts[type]) drawCanvasTextForRect(ctx, { position, size, top: topTexts[type] })
+      // 记录到总数据中
+      // 新增则需要新建id
+      const newId = `${value.type}-${target.value.filter(t => t.type === value.type).length + 1}`
+      // 找出最大的 zIndex 并加1得到最新的zIndex
+      const zIndex = target.value.length > 0 ? [...target.value].sort((a, b) => b.zIndex - a.zIndex)[0].zIndex + 1 : 1
+      target.value.push({ ...newVal, imgInstance, id: newId, zIndex })
+    } catch (err) {
+      throw new Error(`${errorHint}${err}`)
+    }
+  }
+
+  // TODO：把读取的游戏记录数据 转换成 绘制到 canvas 画布时需要使用的数据结构
+  const convertGameDataRecordToCanvasData = (gameSenceData) => {
+    const ctx = canvasContext
+    let canvasRectsData = []
+    if (gameSenceData && Object.keys(gameSenceData).length > 0) {
+      Object.keys(gameSenceData).forEach(k => {
+        let gItem = gameSenceData[k]
+        if (k === 'player') {
+          // 因为画布中必然会优先加载一个玩家图形，所以遇到玩家数据的话，需要对已存在的数据进行更新，而不是直接追加新的数据到数组中
+          let item = {
+            ...gItem,
+            ctx,
+            type: k,
+            size: gItem.playerSize,
+            position: gItem.PLAYER_BORTH_POSITION,
+            backgroundImage: gItem.playerSpritesBackgrundImageUrl
+          }
+          canvasRectsData.push(item)
+        } else if (k === 'block') {
+          gItem.blocksData.forEach(d => { canvasRectsData.push({ ...d, ctx, type: k }) })
+        } else if (k === 'coin') {
+          gItem.coinsData.forEach(d => { canvasRectsData.push({ ...d, ctx, type: k }) })
+        }
+      })
+    }
+
+    console.log('-- canvasRectsData = ', canvasRectsData)
+
+    return canvasRectsData
+  }
+
+  // 根据游戏数据 反向转换成 画布绘制所需的数据结构 (即下面的 collectGameData() 函数的反向转换)，这用于根据读取的记录数据绘制到 canvas 画布上
+  const loadCanvasRectDataByGameData = () => {
+    storageLevelsData = readLevelsData()
+    let findKey = null
+    // 验证记录 id 是否真实存在于记录中
+    if (storageLevelItem && Object.hasOwnProperty.call(storageLevelItem, 'id') && storageLevelItem.id && storageLevelsData && Object.keys(storageLevelsData).length > 0) {
+      findKey = Object.keys(storageLevelsData).find(k => k === storageLevelItem.id)
+    }
+
+    // 根据记录数据加载画布
+    if (findKey) {
+      gameSenceData = { ...storageLevelItem.gameData }
+      const canvasRectsData = convertGameDataRecordToCanvasData(storageLevelItem.gameData)
+      canvasContext.clearRect(0, 0, canvasDom.width, canvasDom.height)
+      canvasGraphicsPositions.value = []
+      // TODO: 加载画布数据
+      canvasRectsData.forEach(itemValue => {
+        appendGraphicsInCanvas(itemValue)
+      })
+
+      // 根据读取的记录设置背景图
+      settingPannelDoms['image-setting-row-image'].value = gameSenceData.global.GAME_SENCE_BACKGROUND_IMAGE
+      gameSenceDom.style.backgroundImage = `url("${gameSenceData.global.GAME_SENCE_BACKGROUND_IMAGE}")`
+    }
+  }
+
+  // 收集当前画布绘制的所有游戏数据
+  const collectGameData = () => {
+    console.log('--- before save canvasGraphicsPositions.value = ', canvasGraphicsPositions.value)
+    const COIN_COLLISION_OFFSET = 10 // TODO:金币碰撞检测范围暂时不提供用户自定义
+
+    // 排除非 game.html 页面所需的数据，当然这些 html canvas 之类的引用数据在 Channel 里也是不能传递的
+    const rectData = canvasGraphicsPositions.value.map(g => {
+      const newG = { ...g }
+      delete newG.ctx
+      delete newG.customDraw
+      for (const k of Object.keys(newG)) {
+        if (newG[k] instanceof HTMLElement) {
+          delete newG[k]
+        }
+      }
+      return newG
+    })
+
+    let player = {}
+    let blocksData = []
+    let coinsData = []
+    rectData.forEach((g, index) => {
+      if (g.type === 'player') {
+        player = {
+          ...g,
+          playerSize: [...g.size],
+          PLAYER_BORTH_POSITION: [...g.position],
+          playerSpritesBackgrundImageUrl: g.backgroundImage
+        }
+      } else if (g.type === 'block') {
+        blocksData.push({
+          ...g
+        })
+      } else if (g.type === 'coin') {
+        coinsData.push({
+          ...g
+        })
+      }
+    })
+
+    const GAME_SENCE_BACKGROUND_IMAGE = gameSenceData.global.GAME_SENCE_BACKGROUND_IMAGE
+
+    gameSenceData = {
+      // 游戏场景数据
+      global: {
+        size: [canvasDom.width, canvasDom.height],
+        GAME_SENCE_BACKGROUND_IMAGE
+      },
+      // 玩家数据
+      player,
+      // 普通砖块数据
+      block: {
+        blocksData
+      },
+      // 金币数据
+      coin: {
+        COIN_COLLISION_OFFSET,
+        coinsData
+      }
+    }
+
+    return gameSenceData
+  }
+</script>
+
+<!-- 通用函数 -->
+<script>
+
+  // 把 window.location.search 里这样的 '?level=preview&a=123' 字符串转成 json
+  function parseSearchToJson(search) {
+    const json = {}
+    const regex = /[?&]([\w-]*)=([\w-]*)/g
+    let match
+
+    while (match = regex.exec(search)) {
+      json[match[1]] = match[2]
+    }
+
+    return Object.keys(json).length > 0 ? json : null
+  }
+
+  // 获取json格式的把 window.location.search
+  function getRouteQuery() {
+    return parseSearchToJson(window.location.search)
+  }
+
+  // 检测是否为数值
+  function checkNumberStr(val) {
+    return val === 0 || (!!val && !isNaN(Number(val)))
+  }
+
+  function displayOrHiddenPannel(dom, left) {
+    let styleOpacity = dom.style.opacity
+    if (styleOpacity === '' || parseInt(styleOpacity) > 0) {
+      dom.style.opacity = '0'
+      requestAnimationFrame(() => {
+        dom.style.display = 'none'
+      })
+    } else {
+      dom.style.display = 'flex'
+      requestAnimationFrame(() => {
+        if (left) dom.style.left = left
+        dom.style.opacity = '1'
+      })
+    }
+  }
+
+  // 检测图片url是否有效
+  function checkImgUrl(imgurl) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image()
+      img.src = imgurl
+      img.onload = function (res) {
+        resolve(res)
+      }
+      img.onerror = function (err) {
+        reject(err)
+      }
+    })
+  }
+</script>
+
+<!-- 游戏绘制区域控制 -->
+<script>
+
+  // -------- canvas 通用函数 -----------
+
+  // 检查一个坐标点是否在一个方框区域内
+  function checkPointInRect(position, targetRect) {
+    const { position: targetPosition, size } = targetRect
+
+    const [px, py] = position
+    const [tx, ty] = targetPosition
+    const [tw, th] = size
+    const [tEndx, tEndy] = [tx + tw, ty + th]
+
+    const inRect = (px >= tx && px <= tEndx) && (py >= ty && py <= tEndy)
+
+    return inRect
+  }
+
+  function drawCanvasImageAction(ctx, img, { position, size }) {
+    ctx.save()
+    const p = Array.isArray(position) && position.length > 1 ? position : [0, 0]
+    const s = Array.isArray(size) && size.length > 1 ? size : []
+    ctx.translate(...p)
+    ctx.drawImage(img, 0, 0, ...s)
+    ctx.restore()
+  }
+
+  /**
+   * 绘制图片到canvas上
+   * @params ctx: 画布上下文
+   * @params options: { customDraw, imgInstance, imgSrc, svgDom, position size }
+   * customDraw=是否自己把img实例绘制到canvas上；
+   * imgInstance=如果不传递的话，就会自动 new Image() 实例；
+   * imgSrc和svgDom 传其中一个，表示你想绘制的图像原始类型，即你想把svg还是普通图片绘制到canvas上
+   * position=图像在画布上绘制的坐标位置，是个数组，[numberX,numberY]
+   * size=图像的尺寸
+   *
+   * @return Promise
+   * */
+  function drawCanvasImage(ctx, { customDraw, imgInstance, imgSrc, svgDom, position, size }) {
+    return new Promise((resolve, reject) => {
+      try {
+        let img = imgInstance
+        if (!img) {
+          img = new Image()
+          img.onload = () => {
+            // canvas 一定要等图像加载完成后才可以绘制
+            if (!customDraw) drawCanvasImageAction(ctx, img, { position, size })
+            resolve({ cvsImg: img })
+          }
+          // svg 需要转成 base64 才可解析（btoa() 是 js 用于转换 base64 函数）
+          if (imgSrc) img.src = imgSrc
+          else if (svgDom) {
+            // 将 svg 元素对象序列化成字符串，这样交给 canvas 去解析绘制
+            const svgDomStr = (new XMLSerializer()).serializeToString(svgDom)
+            img.src = 'data:image/svg+xml;base64,' + btoa(svgDomStr)
+          }
+        } else {
+          if (!customDraw) drawCanvasImageAction(ctx, img, { position, size })
+          resolve({ cvsImg: img })
+        }
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  function redrawCanvasImage(ctx, { imgInstance, position, size, updateImgSrc }) {
+    let img = imgInstance
+    if (!img) {
+      throw new Error('[function] redrawCanvasImage Error: imgInstance 参数不存在，是必传的')
+    }
+    if (updateImgSrc) {
+      img.onload = () => {
+        drawCanvasImageAction(ctx, img, { position, size })
+      }
+      img.src = updateImgSrc
+    } else {
+      drawCanvasImageAction(ctx, img, { position, size })
+    }
+  }
+
+  // 根据目标图形的左上角坐标和尺寸，计算出绘制 图形右下角 尺寸调节三角标记的 绘制所需参数
+  // 鼠标悬浮时，可以根据这些参数判断是否进入调节尺寸区域
+  function getRectSizeAdjustTrangleParams({ position, size }) {
+    const [x, y] = position
+    const [w, h] = size
+    const tsP = [x + w + 4, y + h - 4] // 数值 4 是一定的偏移量，为了确保小三角在选中举行右下角的合适位置
+    const tw = 8 // 直角三角形边长
+
+    // 这是该直角三角形所在矩形的左上角坐标，这是为了扩大鼠标调节图形尺寸时的识别范围需要用到的
+    const rectStartPosition = [tsP[0] - tw, tsP[1]]
+    return {
+      rectStartPosition,
+      tsP,// 绘制直角三角形的起始点坐标（也就是根据给到的 position, size 所代表的矩形的右下角的坐标而计算得出的）
+      tw // 直角三角形的边长
+    }
+  }
+
+  // 检测一个坐标是否在选中图形的 尺寸调节 区域内
+  // 用于鼠标悬浮时判断是否进入图形尺寸可调节区域内
+  function checkInRectSizeAdjustRect({ position, selectedRect }) {
+    const { rectStartPosition, tw } = getRectSizeAdjustTrangleParams(selectedRect)
+    const adjustRect = { position: rectStartPosition, size: [tw, tw] }
+    return checkPointInRect(position, adjustRect)
+  }
+
+  /**
+   * 绘制图形选中的边框
+   * @params ctx: canvas的上下文
+   * @params options: color=边框颜色; position=边框坐标=[numberX,numberY]; size=边框尺寸=[numberW,numberH]
+   * */
+  const drawGraphicsSelectedFrame = (ctx, { shadowColor = '#bd4800', color = 'red', position, size }) => {
+    ctx.save()
+    // 矩形边框绘制案例
+    // 设置阴影
+    ctx.shadowColor = shadowColor
+    ctx.shadowBlur = 1
+    ctx.shadowOffsetX = 2
+    ctx.shadowOffsetY = 2
+    // 设置线条样式
+    ctx.strokeStyle = color
+    // 设置虚线样式（其中的数组参数是虚线的间距）
+    ctx.setLineDash([5, 2])
+    // 设置线条宽度
+    ctx.lineWidth = 3
+    // 绘制矩形边框
+    ctx.strokeRect(...position, ...size)
+
+    // 右下角画个小三角图标，鼠标点击这个区域可以对选中图形修改尺寸
+    const { tsP, tw } = getRectSizeAdjustTrangleParams({ position, size })
+    // 绘制三角标
+    const [t1, t2] = tsP // 绘制直角三角形的起始点坐标
+    ctx.beginPath()
+    ctx.moveTo(t1, t2)
+    ctx.lineTo(t1, t2 + tw)
+    ctx.lineTo(t1 - tw, t2 + tw)
+    ctx.lineTo(t1, t2)
+    ctx.closePath()//闭合路径
+    ctx.lineWidth = 2//线的边框为10像素
+    ctx.strokeStyle = '#00ff00'
+    // var grd = ctx.createLinearGradient(0, 0, 0, 190) //从上到下
+    // grd.addColorStop(0, "#4CE8B2") //起始颜色
+    // grd.addColorStop(1, "#EFD458") //终点颜色
+    // ctx.strokeStyle = grd
+    // ctx.stroke()
+    ctx.fillStyle = 'black'
+    ctx.fill()
+
+    ctx.restore()
+  }
+
+  // TODO: 用于实验的案例
+  const drawCanvasDemo = (ctx) => {
+    // // 实心矩形绘制案例
+    // ctx.fillStyle = "rgba(145,145,145,0.5)"
+    // ctx.fillRect(110, 110, 100, 100)
+
+    // 矩形边框绘制案例
+    // 设置线条样式
+    ctx.strokeStyle = 'red'
+    // 设置虚线样式（其中的数组参数是虚线的间距）
+    ctx.setLineDash([5, 2])
+    // 设置线条宽度
+    ctx.lineWidth = 1
+    // 绘制矩形边框
+    ctx.strokeRect(110, 110, 100, 100)
+  }
+
+  // 获取光标相对 canvas 的坐标（光标坐标原点[0,0]位于视口左上角，所以要想原点[0,0]在canvas的左上角，需要把y坐标值减去顶部工具栏的高度值）
+  const getMousePositionInCanvas = (mousePosition) => {
+    const pOffset = toolsWrapperHeight + 2
+    return [mousePosition[0], mousePosition[1] - pOffset]
+  }
+
+  // ------------------------------------
+
+  const registerCanvasEvents = (canvas) => {
+    // mouse listener
+    canvas.addEventListener('mousedown', handleMouseDown)
+    canvas.addEventListener('mousemove', handleMouseMove)
+    canvas.addEventListener('mouseup', handleMouseUp)
+  }
+
+  const loadCanvas = () => {
+
+    // 在游戏绘制区域创建 canvas 并获取其context
+    blockSelectedFrameDom = document.getElementById('game-block-selected-frame')
+    gameSenceDom = document.querySelector('.game-sence')
+    gameSenceDom.style.backgroundImage = `url("${gameSenceData.global.GAME_SENCE_BACKGROUND_IMAGE}")`
+    const canvas = document.createElement('canvas', { id: 'game-sence-canvas' })
+    canvasDom = canvas
+    // 设置默认样式
+    canvasDom.style.cursor = CANVAS_CURSOR_DEFALUT
+    // 事件注册
+    registerCanvasEvents(canvas)
+    // 这个用于解决canvas清晰度的问题，待研究
+    // Set actual size in memory (scaled to account for extra pixel density).
+    // const scale = window.devicePixelRatio // Change to 1 on retina screens to see blurry canvas.
+    // canvas.setAttribute('width', gameSenceDom.clientWidth * scale)
+    // canvas.setAttribute('height', gameSenceDom.clientHeight * scale)
+    canvas.setAttribute('width', gameSenceDom.clientWidth)
+    canvas.setAttribute('height', gameSenceDom.clientHeight)
+
+    gameSenceDom.appendChild(canvas)
+    canvasContext = canvas.getContext("2d")
+
+    // 根据玩法模式添加玩家图形到画布上
+    loadPlayerRectByMode()
+
+    // TODO: 用于实验的案例
+    // drawCanvasDemo(canvasContext)
+  }
+
+  const appendNewBlockToCanvas = (type) => {
+    const params = gameBoxDefaultParams[type]
+    appendGraphicsInCanvas({
+      type,
+      ctx: canvasContext,
+      ...params,
+      imgSrc: params.backgroundImage,
+      position: params.position,
+      size: params.size
+    })
+  }
+
+  // 添加一个玩家到画布上
+  const appendSinglePlayerToCanvas = () => {
+    const type = 'player'
+    const playerParams = gameBoxDefaultParams[type]
+    // 把物体绘制到 canvas 上
+    appendGraphicsInCanvas({
+      type,
+      ctx: canvasContext,
+      ...playerParams,
+      position: playerParams.PLAYER_BORTH_POSITION,
+      backgroundImage: playerParams.playerSpritesBackgrundImageUrl,
+      imgSrc: playerParams.playerSpritesBackgrundImageUrl,
+      size: playerParams.playerSize,
+    })
+  }
+
+  // 根据模式添加玩家图形到画布上
+  const loadPlayerRectByMode = () => {
+    const LevelsData = readLevelsData()
+    let levelid = null
+    const queryData = getRouteQuery()
+    if (queryData && Object.hasOwnProperty.call(queryData, 'levelid') && queryData.levelid) {
+      const findKey = Object.keys(storageLevelsData).find(k => k === queryData.levelid)
+      if (findKey) {
+        levelid = queryData.levelid
+      }
+    }
+
+    // 若当前路由中的id是有效的，那么这里不会创建玩家，玩家会在读取记录数据后一起加载
+    if (!levelid && playerModeProxy.value === PlayerModeType.single) appendSinglePlayerToCanvas()
+  }
+
+  const removeSelectedBlockInCanvas = () => {
+    if (canvasRectSelectedProxy.value) {
+      const canvas = canvasDom
+      const ctx = canvasContext
+      // 清屏
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      removeGraphicsInCanvas({ canvas, ctx, id: canvasRectSelectedProxy.value.id, notRemoveData: false })
+      canvasRectSelectedProxy.value = undefined
+    }
+  }
+
+  const drawOtherRects = (ctx, { targetRect }) => {
+    removeGraphicsInCanvas({ canvas: canvasDom, ctx, id: targetRect.id, notRemoveData: true })
+  }
+
+  const redrawTargetRect = (canvas, ctx, targetRect) => {
+    updateGraphicsInCanvas(targetRect)
+  }
+
+  // 绘制移动过程中的图形包含选中框
+  const drawMoveSelectedRect = (canvas, ctx, { targetRect }) => {
+    // 清屏
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // 绘制除目标图形外的其他所有图形
+    drawOtherRects(ctx, { targetRect })
+    // 重新绘制上一步被排除的图形，从而实现拖拽图形效果
+    redrawTargetRect(canvas, ctx, { ...targetRect })
+    // 根据目标图形参数绘制边框，从而实现拖拽图形的同时，确保选中边框也跟随
+    drawGraphicsSelectedFrame(ctx, { position: targetRect.position, size: targetRect.size })
+  }
+
+  // 移除图形的选中框
+  const removeSelectedFrame = (canvas, ctx, { targetRect }) => {
+    // 清屏
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // 绘制除目标图形外的其他所有图形
+    drawOtherRects(ctx, { targetRect })
+    // 重新绘制上一步被排除的图形，从而实现拖拽图形效果
+    redrawTargetRect(canvas, ctx, { ...targetRect })
+  }
+
+  // TODO:根据当前选中的图形数据，把参数显示到参数配置面板上
+  const loadSettingPannelForm = (selectedRectData) => {
+    const { type } = selectedRectData
+    loadSettingPannelActions[type](selectedRectData)
+    loadSettingPannelGroupActions[type]()
+  }
+
+  // 选中图形（给图形加上选中边框）
+  const selectCanvasRect = (mousePosition) => {
+    const mp = getMousePositionInCanvas(mousePosition)
+    // 根据鼠标按下的坐标点，判断是否当前坐标下是否存在图形
+    const rects = canvasGraphicsPositions.value.filter(g => checkPointInRect(mp, { position: g.position, size: g.size }))
+    // 点击区域存在图形的话，取出最上层的图形，设为选中图形
+    if (rects.length > 0) {
+      // 对数组进行 zIndex 的递减排序，zIndex 表示图像绘制顺序，即认定为层级，鼠标点击的区域则取层级最高的图形
+      rects.sort((a, b) => b.zIndex - a.zIndex)
+      let targetRect = rects[0]
+      // 记录选中图形数据(选中图形时，把当前位置记录到一个额外的属性中 moveStartposition ，这个属性用于拖拽图形时计算移动位置，当拖拽完成后会移除该属性)
+      let selectedRectData = { ...targetRect, moveStartposition: targetRect.position }
+      if (!canvasRectSelectedProxy.value || canvasRectSelectedProxy.value.id !== selectedRectData.id) {
+        canvasRectSelectedProxy.value = selectedRectData
+      } else {
+        selectedRectData = { ...canvasRectSelectedProxy.value, moveStartposition: targetRect.position }
+        canvasRectSelectedProxy.value = selectedRectData
+        targetRect = { ...canvasRectSelectedProxy.value }
+      }
+      loadSettingPannelForm(selectedRectData)
+      const [px, py] = mp
+      const [tw, th] = targetRect.size
+      // 为选中图形绘制边框(需要清除其他选中的边框)
+      const ctx = canvasContext
+      drawMoveSelectedRect(canvasDom, ctx, { targetRect })
+    } else {
+      if (canvasRectSelectedProxy.value) {
+        // 若鼠标点击区域没有任何图形，则去除当前图形的选中框
+        const ctx = canvasContext
+        removeSelectedFrame(canvasDom, ctx, { targetRect: canvasRectSelectedProxy.value })
+        canvasRectSelectedProxy.value = undefined
+        // 参数面板分组加载设置
+        loadSettingPannelActions.global()
+        loadSettingPannelGroupActions.global()
+      }
+    }
+  }
+
+  // 获取拖拽移动图形时，图形移动的坐标
+  const getCanvasRectDropMovePosition = (targetRect) => {
+    const mpStart = getMousePositionInCanvas(mouseStartPosition)
+    const mp = getMousePositionInCanvas(mousePosition)
+    const [psx, psy] = mpStart
+    const [px, py] = mp
+    const [tx, ty] = targetRect.moveStartposition
+    const [tw, th] = targetRect.size
+
+    // 为选中图形绘制边框(需要清除其他选中的边框)
+    const ctx = canvasContext
+    // 图形移动的位置，会根据 鼠标的开始坐标 和 当前坐标的 偏移量进行计算
+    const position = [tx + px - psx, ty + py - psy]
+    return position
+  }
+
+  // 拖拽 canvas 上的图形
+  const dropCanvasRect = (mousePosition) => {
+    if (!canvasRectSelectedProxy.value) return
+    // Canvas 实现拖拽指定图像思路：（1）根据鼠标坐标位置，找到canvas中对应的图像坐标；（2）擦除整个canvas；（3）重绘排除该图像后的整个画布内容；（4）再绘制以鼠标坐标为准的该图像；
+    const [px, py] = getMousePositionInCanvas(mousePosition)
+    const targetRect = canvasRectSelectedProxy.value
+
+    const [tw, th] = targetRect.size
+    // 拖拽移动鼠标点击选中的图形
+    const ctx = canvasContext
+    const position = getCanvasRectDropMovePosition(canvasRectSelectedProxy.value)
+    const newTargetRect = { ...targetRect, position }
+    drawMoveSelectedRect(canvasDom, ctx, { targetRect: newTargetRect })
+    canvasRectSelectedProxy.value = newTargetRect
+  }
+
+  // 根据鼠标移动距离计算图形尺寸
+  const getAdjustRectSize = (clientPosition) => {
+    // 根据鼠标移动距离计算图形尺寸
+    const [sx, sy] = mouseStartPosition
+    const [cx, cy] = clientPosition
+
+    const canvas = canvasDom
+    const ctx = canvasContext
+    const targetRect = canvasRectSelectedProxy.value
+    const [tw, th] = targetRect.size
+
+    const nw = tw + cx - sx
+    const nh = th + cy - sy
+    const size = [nw > 0 ? nw : 0, nh > 0 ? nh : 0]
+
+    return size
+  }
+
+  // 修改图形尺寸
+  const ajdustCanvasRectSize = (clientPosition) => {
+    if (!canvasRectSelectedProxy.value) return
+    const canvas = canvasDom
+    const ctx = canvasContext
+    const targetRect = canvasRectSelectedProxy.value
+    // 根据鼠标移动距离计算图形尺寸
+    const size = getAdjustRectSize(clientPosition)
+    // 清屏
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // 绘制除目标图形外的其他所有图形
+    drawOtherRects(ctx, { targetRect })
+    // 重新绘制上一步被排除的图形，从而实现拖拽图形效果
+    redrawTargetRect(canvas, ctx, { ...targetRect, size })
+    // 根据目标图形参数绘制边框，从而实现拖拽图形的同时，确保选中边框也跟随
+    drawGraphicsSelectedFrame(ctx, { position: targetRect.position, size })
+  }
+</script>
+
+<!-- 事件注册 -->
+<script>
+
+  const initDoms = () => {
+    levelPannelDom = document.querySelector('.level-pannel')
+    toolsWrapper = document.querySelector('.tools-wrapper')
+    toolsWrapperHeight = toolsWrapper.clientHeight
+    blocksSelectionPannelDom = document.querySelector('.blocks-selection-pannel')
+    btnRemoveRectDom = document.querySelector('#btn-remove-rect')
+    btnPlayerModeSingleDom = document.querySelector('#btn-player-mode-single')
+    btnPlayerModeDoubleDom = document.querySelector('#btn-player-mode-double')
+    btnGameLevelPreviewDom = document.querySelector('#btn-game-level-preview')
+    btnSettingToolParamsUsetoDom = document.querySelector('.btn-setting-tool-params-useto')
+    btnSettingToolResetDom = document.querySelector('#btn-setting-tool-reset')
+    settingPannelTypeTitleDom = document.querySelector('.setting-pannel-type-title')
+    inputLevelNameDom = document.querySelector('#input-level-name')
+
+    // 参数设置面板相关dom
+    settingPannelDom = document.querySelector('.setting-pannel')
+    // 获取分组dom
+    const groupDoms = document.querySelectorAll('.setting-pannel .contents [setting-id*="setting-group"]')
+    for (const gdom of groupDoms) {
+      settingPannelGroupDoms[gdom.getAttribute('setting-id')] = gdom
+    }
+    // 获取表单dom
+    const settingInputDomList = document.querySelectorAll('[setting-id] [setting-unit="input"]')
+    let domKey = ''
+    // 查找并获取参数面板中所有的 input 元素
+    for (const inputDom of settingInputDomList) {
+      domKey = inputDom.parentNode.parentNode.getAttribute('setting-id')
+      if (Object.hasOwnProperty.call(settingPannelDoms, domKey)) {
+        throw new Error(`query setting-pannel>input doms Error：setting-id=["${domKey}"] 重复了，请查找原因进行修复`)
+      }
+      settingPannelDoms[domKey] = inputDom
+    }
+    // 查找并获取
+    // settingPannelDoms['player-role-setting-row-borth-position-x'].value = '100'
+    // player播放动画测试按钮和图片的dom
+    settingPannelDoms['player-sprites-setting-row-animation-preivew-button'] = document.querySelector('[setting-id="player-sprites-setting-row-animation-preivew"]>button')
+    settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box'] = document.querySelector('[setting-id="player-sprites-setting-row-animation-preivew"]>.animation-img-wrapper>.img-box')
+    const imgSelectionsDom = document.querySelector('[setting-id="image-setting-row-image-selections"]>[setting-unit="img-list"]')
+    const imgSelectionsDomKey = imgSelectionsDom.parentNode.getAttribute('setting-id')
+    settingPannelDoms[imgSelectionsDomKey] = imgSelectionsDom
+    const imgPreviewDom = document.querySelector('[setting-id="image-setting-row-preview"] [setting-unit="img"]')
+    const imgPreviewDomKey = imgPreviewDom.parentNode.parentNode.getAttribute('setting-id')
+    settingPannelDoms[imgPreviewDomKey] = imgPreviewDom
+    console.log(settingPannelDoms)
+
+    // 为玩家动画控制器设置对应的dom元素
+    playerController.setSpritesBox(settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box'])
+  }
+
+  const onBlocksSelectionClick = (event) => {
+    // 显示/隐藏 物体选择面板 悬浮窗体
+    displayOrHiddenPannel(blocksSelectionPannelDom, `${event.target.parentNode.offsetLeft}px`)
+  }
+
+  const onSettingSwitchClick = () => {
+    // 显示/隐藏 物体参数调节面板 悬浮窗体
+    displayOrHiddenPannel(settingPannelDom)
+  }
+
+  // 添加物品面板悬浮窗体的 选项 点击事件
+  const onBlockSelectionClick = (type) => {
+    // 把选择的物体绘制到 canvas 上
+    appendNewBlockToCanvas(type)
+  }
+
+  const onRemoveSelecteBlockClick = () => {
+    // 把选中的物体移除
+    removeSelectedBlockInCanvas()
+  }
+
+  // 游戏关卡预览
+  const onGameLevelPreviewClick = () => {
+    // 收集当前画布上绘制的所有数据，打开并传递给 game.html 页面
+    openGameLevelPage()
+  }
+
+  // #region ----------------参数面板相关事件---------------
+
+  const updateSelectedRectData = (updateOptions) => {
+    if (updateOptions) {
+      const targetRect = { ...canvasRectSelectedProxy.value, ...updateOptions }
+      // 更新数据,下面 drawMoveSelectedRect 会用到
+      canvasRectSelectedProxy.value = targetRect
+
+      // 重绘画布图形
+      const canvas = canvasDom
+      const ctx = canvasContext
+      drawMoveSelectedRect(canvas, ctx, { targetRect })
+    } else {
+      throw new Error(`updateSelectedRectData params Error: please check function params [updateOptions]`)
+    }
+  }
+
+  // *** 隐形设置 ***
+
+  const onHiddenSettingOpacityChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value) {
+      const opacity = Number(val)
+      updateSelectedRectData({ opacity })
+    }
+  }
+
+  // *** 基础设置 ***
+
+  const onBasesetingPositionXChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value) {
+      const position = canvasRectSelectedProxy.value.position
+      position[0] = Math.round(val)
+      updateSelectedRectData({ position })
+    }
+  }
+
+  const onBasesetingPositionYChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value) {
+      const position = canvasRectSelectedProxy.value.position
+      position[1] = Math.round(val)
+      updateSelectedRectData({ position })
+    }
+  }
+
+  const onBasesetingWidthChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value) {
+      const size = canvasRectSelectedProxy.value.size
+      size[0] = Math.round(val)
+      updateSelectedRectData({ size })
+      if (canvasRectSelectedProxy.value.type === 'player') {
+        // 修改玩家的雪碧图动画预览图片
+        settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box'].style.width = `${size[0]}px`
+        settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box'].style.height = `${size[1]}px`
+      }
+    }
+  }
+
+  const onBasesetingHeightChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value) {
+      const size = canvasRectSelectedProxy.value.size
+      size[1] = Math.round(val)
+      updateSelectedRectData({ size })
+      if (canvasRectSelectedProxy.value.type === 'player') {
+        // 修改玩家的雪碧图动画预览图片
+        settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box'].style.width = `${size[0]}px`
+        settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box'].style.height = `${size[1]}px`
+      }
+    }
+  }
+
+  // *** 分值设置 ***
+
+  const onScoreSettingScoreChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'coin') {
+      const score = Math.round(val)
+      updateSelectedRectData({ score })
+    }
+  }
+
+
+  // *** 图片设置 ***
+
+  // 参数面板的 图片设置>图片Url 输入框编辑事件
+  const onImageSettingImageUrlChange = (event) => {
+    const imgUrl = event.target.value
+    // 把修改的图片地址应用到下方的 图片预览 区域
+    settingPannelDoms['image-setting-row-preview'].src = imgUrl
+    // 若图片url是无效地址，则不会在canvas上更新图形
+    checkImgUrl(imgUrl).then(() => {
+      try {
+        if (canvasRectSelectedProxy.value) {
+          const backgroundImage = imgUrl
+          updateSelectedRectData({ backgroundImage })
+        } else {
+          // 无选中项，则默认为选中画布，则修改画布的背景图
+          const backgroundImage = imgUrl
+          gameSenceData.global.GAME_SENCE_BACKGROUND_IMAGE = backgroundImage
+          gameSenceDom.style.backgroundImage = `url("${gameSenceData.global.GAME_SENCE_BACKGROUND_IMAGE}")`
+        }
+      } catch (err) {
+        throw new Error(`onImageSettingImageUrlChange: ${err}`)
+      }
+    })
+  }
+
+  // 图片设置>选择预制图片 中的选项点击事件
+  const onPreimgSelectionsSelectChange = (event) => {
+    const imgUrl = event.target.src
+    settingPannelDoms['image-setting-row-image'].value = imgUrl
+    settingPannelDoms['image-setting-row-preview'].src = imgUrl
+
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const backgroundImage = imgUrl
+      const updateOptions = { backgroundImage, playerSpritesBackgrundImageUrl: backgroundImage }
+
+      // 从预制的动画参数中查找对应雪碧图的预制参数
+      let preparams = null
+      const preparamsKey = Object.keys(playerAnimationsDefaultParams).find(k => imgUrl.includes(k))
+      if (preparamsKey) {
+        preparams = playerAnimationsDefaultParams[preparamsKey]
+        updateOptions['size'] = preparams.size
+        updateOptions['playerSize'] = preparams.size
+        updateOptions['playerSpritesRunActionAnimationOptions'] = {
+          start: [...preparams.start], // 开始坐标
+          end: [...preparams.end], // 结束坐标
+          rowEndX: preparams.rowEndX, // 行尾坐标
+          frameLen: [...preparams.frameLen], // 切换一帧对应的x和y的步长（动画目前从start坐标依次向左切换，若当前行切换x在坐标到了设置的rowEndX，则切换到下一行的最左侧，再继续，直到到达坐标end）
+          playMs: preparams.playMs // 动画播放速度（单位：毫秒）
+        }
+      }
+      updateSelectedRectData(updateOptions)
+      const selectedRectData = canvasRectSelectedProxy.value
+      loadSettingPannelForm(selectedRectData)
+    } else if (canvasRectSelectedProxy.value) {
+      const backgroundImage = imgUrl
+      updateSelectedRectData({ backgroundImage })
+    } else {
+      // 无选中项，则默认为选中画布，则修改画布的背景图
+      const backgroundImage = imgUrl
+      gameSenceData.global.GAME_SENCE_BACKGROUND_IMAGE = backgroundImage
+      settingPannelDoms['image-setting-row-image'].value = backgroundImage
+      gameSenceDom.style.backgroundImage = `url("${gameSenceData.global.GAME_SENCE_BACKGROUND_IMAGE}")`
+    }
+
+  }
+
+  // *** 玩家角色参数设置
+
+  // 玩家跑步初速度
+  const onPlayerRoleRunSpeedChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const PLAYER_X_START_SPEED = Math.round(val)
+      updateSelectedRectData({ PLAYER_X_START_SPEED })
+    }
+  }
+
+  // 玩家起跳初速度
+  const onPlayerRoleJumpStartSpeedChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const PLAYER_Y_JUMP_START_SPEED = Math.round(val)
+      updateSelectedRectData({ PLAYER_Y_JUMP_START_SPEED })
+    }
+  }
+
+  // *** 玩家雪碧图设置（跑步动作） ***
+
+  // 起始坐标 X
+  const onPlayerSpritesSettingPositionStartXChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const startX = Number(val)
+      const animationOptions = { ...canvasRectSelectedProxy.value.playerSpritesRunActionAnimationOptions }
+      const start = [startX, animationOptions.start[1]]
+      updateSelectedRectData({ playerSpritesRunActionAnimationOptions: { ...animationOptions, start } })
+      // ** 绘制玩家动画预览图片
+      const [psx, psy] = start
+      settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box'].style.backgroundPosition = `${psx}% ${psy}%`
+    }
+  }
+
+  // 起始坐标 Y
+  const onPlayerSpritesSettingPositionStartYChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const startY = Number(val)
+      const animationOptions = { ...canvasRectSelectedProxy.value.playerSpritesRunActionAnimationOptions }
+      const start = [animationOptions.start[0], startY]
+      updateSelectedRectData({ playerSpritesRunActionAnimationOptions: { ...animationOptions, start } })
+      // ** 绘制玩家动画预览图片
+      const [psx, psy] = start
+      settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box'].style.backgroundPosition = `${psx}% ${psy}%`
+    }
+  }
+
+  // 结束坐标 X
+  const onPlayerSpritesSettingPositionEndXChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const endX = Number(val)
+      const animationOptions = { ...canvasRectSelectedProxy.value.playerSpritesRunActionAnimationOptions }
+      const end = [endX, animationOptions.end[1]]
+      updateSelectedRectData({ playerSpritesRunActionAnimationOptions: { ...animationOptions, end } })
+    }
+  }
+
+  // 结束坐标 Y
+  const onPlayerSpritesSettingPositionEndYChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const endY = Number(val)
+      const animationOptions = { ...canvasRectSelectedProxy.value.playerSpritesRunActionAnimationOptions }
+      const end = [animationOptions.end[0], endY]
+      updateSelectedRectData({ playerSpritesRunActionAnimationOptions: { ...animationOptions, end } })
+    }
+  }
+
+  // 行尾坐标 X
+  const onPlayerSpritesSettingPositionRowEndXChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const rowEndX = Number(val)
+      const animationOptions = { ...canvasRectSelectedProxy.value.playerSpritesRunActionAnimationOptions }
+      updateSelectedRectData({ playerSpritesRunActionAnimationOptions: { ...animationOptions, rowEndX } })
+    }
+  }
+
+  const onPlayerSpritesSettingPositionFrameXChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const frameLenX = Number(val)
+      const animationOptions = { ...canvasRectSelectedProxy.value.playerSpritesRunActionAnimationOptions }
+      const frameLen = [frameLenX, animationOptions.frameLen[1]]
+      updateSelectedRectData({ playerSpritesRunActionAnimationOptions: { ...animationOptions, frameLen } })
+    }
+  }
+
+  const onPlayerSpritesSettingPositionFrameYChange = (event) => {
+    const val = event.target.value
+    if (!checkNumberStr(val)) {
+      return void 0
+    }
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const frameLenY = Number(val)
+      const animationOptions = { ...canvasRectSelectedProxy.value.playerSpritesRunActionAnimationOptions }
+      const frameLen = [animationOptions.frameLen[0], frameLenY]
+      updateSelectedRectData({ playerSpritesRunActionAnimationOptions: { ...animationOptions, frameLen } })
+    }
+  }
+
+  // 玩家跑步运动控制（通过background-position控制雪碧图裁剪区域实现）
+  const startPlayerRunActionAnimation = () => {
+    if (!canvasRectSelectedProxy.value || canvasRectSelectedProxy.value.type !== 'player') {
+      settingPannelDoms['player-sprites-setting-row-animation-preivew-button'].innerText = '【启动】动画'
+      stopPlayerRunActionAnimation()
+      return
+    }
+
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const { playerSpritesRunActionAnimationOptions: animationOptions } = canvasRectSelectedProxy.value
+      playerController.startRun(animationOptions.playMs, animationOptions)
+    }
+  }
+  // 停止玩家跑步运动
+  const stopPlayerRunActionAnimation = () => {
+    if (canvasRectSelectedProxy.value && canvasRectSelectedProxy.value.type === 'player') {
+      const { playerSpritesRunActionAnimationOptions: animationOptions } = canvasRectSelectedProxy.value
+      const { start } = animationOptions
+      playerController.stopRun(start)
+    }
+  }
+
+  // 动画的 启动/停止 按钮
+  const onPlayerSpritesSettingAnimationClick = () => {
+    if (!playerController.checkPlaying()) {
+      settingPannelDoms['player-sprites-setting-row-animation-preivew-button'].innerText = '【停止】动画'
+      startPlayerRunActionAnimation()
+    } else {
+      settingPannelDoms['player-sprites-setting-row-animation-preivew-button'].innerText = '【启动】动画'
+      stopPlayerRunActionAnimation()
+    }
+  }
+
+  // *** 菜单分组 [展开/收缩] 按钮点击事件
+  const onSettingPannelShrinkClick = (event) => {
+    event.stopPropagation()
+    // 祖级元素中查找所有以 setting-id 属性以 player-sprites-setting-row- 开头的所有元素
+    const rowDoms = event.target.parentNode.parentNode.querySelectorAll('[setting-id*="setting-row-"]')
+    let rowDomDisplay = null
+    for (const rdom of rowDoms) {
+      if (!rdom.style.display) {
+        rdom.style.display = 'none'
+      } else {
+        rdom.style.display = ''
+      }
+    }
+  }
+
+  // #endregion ------------------------------------
+
+  // #region ---------- touch/click action ------------
+
+  const MouseActionStatusType = { default: 'default', resize: 'resize' }
+  let currentMouseActionStatus = MouseActionStatusType.default // 'default' | 'resize'
+
+  /**
+  * move start
+  * @param clientPosition the position whitch is current mouse or touch poition. As [clientX, clientY]. Example: [0,0]
+  */
+  const onMoveStart = (clientPosition, targetDom) => {
+    mouseStartPosition = clientPosition
+    const styleCursor = canvasDom.style.cursor
+    // 根据现在的光标类型，判断不同的行为
+    if (styleCursor === CANVAS_CURSOR_DEFALUT) {
+      selectCanvasRect(clientPosition)
+    } else if (styleCursor === CANVAS_CURSOR_NWSERESIZE) {
+      // 固定当前的行为状态为 尺寸调节，让其他操作失效
+      currentMouseActionStatus = MouseActionStatusType.resize
+    }
+  }
+
+  // 鼠标在 canvas 移动时，检测是否移动到 图形的尺寸调节区域内，若进入了调节区域，则改变光标
+  const onCheckInRectAdjustRect = (clientPosition) => {
+    if (currentMouseActionStatus === MouseActionStatusType.resize) return
+    // 只有存在已选中的图形，才需要判断
+    if (canvasRectSelectedProxy.value) {
+      const valid = checkInRectSizeAdjustRect({ position: getMousePositionInCanvas(clientPosition), selectedRect: canvasRectSelectedProxy.value })
+      canvasDom.style.cursor = valid ? CANVAS_CURSOR_NWSERESIZE : CANVAS_CURSOR_DEFALUT
+    } else {
+      canvasDom.style.cursor = CANVAS_CURSOR_DEFALUT
+    }
+  }
+
+  /**
+   * moving
+   * @param clientPosition the position whitch is current mouse or touch poition. As [clientX, clientY]. Example: [0,0]
+   */
+  const onMoving = (clientPosition, targetDom) => {
+    mousePosition = clientPosition
+    const styleCursor = canvasDom.style.cursor
+    // 根据现在的光标类型，判断不同的行为
+    if (styleCursor === CANVAS_CURSOR_DEFALUT) {
+      // 拖拽移动canvas上的图形
+      dropCanvasRect(clientPosition)
+    } else if (styleCursor === CANVAS_CURSOR_NWSERESIZE) {
+      // 修改图形尺寸
+      ajdustCanvasRectSize(clientPosition)
+    }
+  }
+  /**
+   * move end
+   * @param clientPosition the position whitch is current mouse or touch poition. As [clientX, clientY]. Example: [0,0]
+   */
+  const onMoveEnd = (targetDom) => {
+    if (canvasRectSelectedProxy.value && currentMouseActionStatus === MouseActionStatusType.resize) {
+      // 调节图形尺寸操作后
+      // 更新当前选中图形的数据
+      canvasRectSelectedProxy.value.size = getAdjustRectSize(mousePosition)
+      if (canvasRectSelectedProxy.value.type === 'player') {
+        // 修改玩家的雪碧图动画预览图片
+        settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box'].style.width = `${canvasRectSelectedProxy.value.size[0]}px`
+        settingPannelDoms['player-sprites-setting-row-animation-preivew-img-box'].style.height = `${canvasRectSelectedProxy.value.size[1]}px`
+      }
+    }
+    if (canvasRectSelectedProxy.value && Object.hasOwnProperty.call(canvasRectSelectedProxy.value, 'moveStartposition')) {
+      // moveStartposition 属性是为了拖拽移动图形而加上的临时计算属性，每次拖拽完成后，移除即可
+      delete canvasRectSelectedProxy.value.moveStartposition
+    }
+    if (canvasRectSelectedProxy.value) {
+      // 若存在已选择的图形，则把数据加载到参数面板上
+      loadSettingPannelForm(canvasRectSelectedProxy.value)
+    }
+    mouseStartPosition = [null, null]
+    mousePosition = [null, null]
+    currentMouseActionStatus = MouseActionStatusType.default
+  }
+
+  // #endregion ------------------------
+
+
+  // #region ----- mouse listener handle ----
+
+  let isMouseMovingStart = false
+  const handleMouseDown = (ev) => {
+    isMouseMovingStart = true
+    const clientPosition = [ev.clientX, ev.clientY]
+    onMoveStart(clientPosition, ev.target)
+  }
+
+  const handleMouseMove = (ev) => {
+    const clientPosition = [ev.clientX, ev.clientY]
+    onCheckInRectAdjustRect(clientPosition)
+    if (isMouseMovingStart) {
+      onMoving(clientPosition, ev.target)
+    }
+  }
+
+  const handleMouseUp = (ev) => {
+    isMouseMovingStart = false
+    onMoveEnd(ev.target)
+  }
+
+  // #endregion
+
+  // #region ------------- 保存关卡数据对话框 --------------
+
+  // 当前关卡数据记录
+  let storageLevelItem = null
+  // 所有关卡数据记录
+  let storageLevelsData = null
+
+  function createUuid() {
+    var s = []
+    var hexDigits = "0123456789abcdef"
+    for (var i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4" // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1) // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-"
+
+    var uuid = s.join("")
+    return uuid
+  }
+
+
+  // 前往空的创造页
+  function goToNewSenceCreatorPage() {
+    const { origin, pathname } = window.location
+    window.location.href = `${origin}${pathname}`
+  }
+
+  // 根据当前的关卡数据记录，加载保存相关的按钮
+  const loadSaveFormButtonsByLevelData = (levelItemRecord) => {
+    const btnCreateDom = document.querySelector('#btn-save-level-create')
+    const btnSaveDom = document.querySelector('#btn-save-level-save')
+    const btnRemoveDom = document.querySelector('#btn-save-level-remove')
+
+    const levelsData = readLevelsData()
+    let findRecordKey = null
+    if (levelItemRecord && Object.hasOwnProperty.call(levelItemRecord, 'id') && levelItemRecord.id && levelsData && Object.keys(levelsData).length > 0) {
+      // 判断 id 是否存在与真实记录中
+      findRecordKey = Object.keys(levelsData).find(k => k === levelItemRecord.id)
+    }
+
+    if (!findRecordKey) {
+      // 凡是当前记录 id 不存在或异常情况的，就只加载保存按钮
+      // 保存按钮
+      btnSaveDom.style.display = ''
+      btnSaveDom.innerText = '保存'
+
+      // 隐藏其他按钮
+      btnCreateDom.style.display = 'none'
+      btnRemoveDom.style.display = 'none'
+    } else {
+      // 保存按钮
+      btnSaveDom.style.display = ''
+      btnSaveDom.innerText = '更新'
+
+      // 隐藏其他按钮
+      btnCreateDom.style.display = ''
+      btnRemoveDom.style.display = ''
+    }
+
+  }
+
+  const closeLevelPannel = () => {
+    levelPannelDom.style.display = 'none'
+  }
+
+  // 为关卡记录列表重新编号，确保关卡顺序是按照 index 依次排序的
+  const resortLevelsData = () => {
+    storageLevelsData = readLevelsData()
+    if (!storageLevelsData || Object.keys(storageLevelsData).length < 1) return
+
+    const levelNameDom = document.querySelector('#input-level-name')
+
+    // 重排记录列表数据
+    const levelsData = {}
+    const valueList = Object.values(storageLevelsData).sort((a, b) => a.index - b.index)
+    valueList.forEach((v, index) => {
+      if (storageLevelItem && v.id === storageLevelItem.id) {
+        const resortIndex = index + 1
+        const resortName = /第[0123456789]+关/g.test(storageLevelItem.name) ? `第${resortIndex}关` : storageLevelItem.name
+        const newVal = { ...v, index: resortIndex, name: resortName }
+        levelsData[v.id] = newVal
+        storageLevelItem = { ...newVal }
+        levelNameDom.value = resortName
+      } else {
+        const resortIndex = index + 1
+        const resortName = /第[0123456789]+关/g.test(v.name) ? `第${resortIndex}关` : v.name
+        const newVal = { ...v, index: resortIndex, name: resortName }
+        levelsData[v.id] = newVal
+      }
+    })
+    console.log('resort levelsData = ', levelsData)
+    storageLevelsData = levelsData
+
+    window.localStorage.setItem(LEVEL_DATA_KEY, JSON.stringify(levelsData))
+  }
+
+  // 加载所有关卡记录列表
+  const loadLevelsDataCardList = () => {
+    // 为关卡记录列表重新编号
+    resortLevelsData()
+    // 读取最新的记录数据
+    storageLevelsData = readLevelsData()
+
+    const passRuleDoms = document.querySelectorAll('[save-level-pass-rule-id="input-pass-rule-selection"]')
+
+    const passRuleLabelDoms = document.querySelectorAll('[save-level-pass-rule-id="input-pass-rule-selection-label"]')
+    // passRuleInputValDoms 转为 map，方便查找
+    const passRuleLabelDomObj = {}
+    for (const ivDom of passRuleLabelDoms) {
+      passRuleLabelDomObj[ivDom.getAttribute('for')] = ivDom
+    }
+
+    // 规则值输入栏
+    const passRuleInputValDoms = document.querySelectorAll('[save-level-pass-rule-id="input-pass-rule-selection-value"]')
+    // passRuleInputValDoms 转为 map，方便查找
+    const passRuleInputValDomObj = {}
+    for (const ivDom of passRuleInputValDoms) {
+      passRuleInputValDomObj[ivDom.getAttribute('id')] = ivDom
+    }
+
+    let passRuleDescs = {}
+    for (const radioDom of passRuleDoms) {
+      const inputValId = radioDom.getAttribute('value')
+      console.log('----- inputValId = ', inputValId)
+      console.log('----- passRuleLabelDomObj = ', passRuleLabelDomObj)
+      console.log('----- passRuleInputValDomObj[inputValId] = ', passRuleInputValDomObj)
+      const labelContent = passRuleLabelDomObj[inputValId].innerHTML.replace(/<span>(.*?)<\/span>/, '$1')
+      passRuleDescs[inputValId] = labelContent
+    }
+
+    console.log('passRuleDescs = ', passRuleDescs)
+
+
+    let cardHtmlStr = ''
+    if (Object.keys(storageLevelsData).length > 0) {
+      for (const k of Object.keys(storageLevelsData)) {
+        const item = storageLevelsData[k]
+        const imgUrl = item.gameData.global.GAME_SENCE_BACKGROUND_IMAGE
+        cardHtmlStr += `<div class="level-data-card">
+            <div class="level-data-index">序号<span>${item.index}</span></div>
+            <div class="level-data-img"><img draggable="false" width="50" height="50" src="${imgUrl}"
+                alt="关卡背景图" /></div>
+            <div class="level-data-contents">
+              <label class="level-data-name">${item.name}</label>
+              <label class="level-data-pass-rule">过关条件：${passRuleDescs[Object.keys(item.passRule)[0]]} ${Object.values(item.passRule)[0]}</label>
+            </div>
+            <div class="buttons">
+              <button id="level-card-btn-readlevel" onclick="onReadLevelDataCardClick('${k}')">读取</button>
+              <button id="level-card-btn-readlevel" onclick="onMoveLevelDataCardClick('${k}')">移动</button>
+              <button id="level-card-btn-readlevel" onclick="onCopyLevelDataCardClick('${k}')">复制</button>
+              <button id="level-card-btn-removelevel" onclick="onRemoveLevelDataCardClick('${k}','cardlist')">删除</button>
+            </div>
+          </div>`
+      }
+    }
+
+    const levelCardListDom = document.querySelector('.level-pannel>.dialog>.level-data-wrapper>.card-list')
+    levelCardListDom.innerHTML = cardHtmlStr
+
+    // 根据数据加载保存关卡记录的相关按钮
+    loadSaveFormButtonsByLevelData(storageLevelItem)
+  }
+
+  // 加载关卡数据记录
+  const loadStorageLevelsData = () => {
+    // *** 处理默认数据
+    storageLevelsData = readLevelsData()
+    console.log('storageLevelsData = ', storageLevelsData)
+    // -- 从路由获取关卡id
+    let levelid = ''
+    const queryData = getRouteQuery()
+    if (queryData && Object.hasOwnProperty.call(queryData, 'levelid') && queryData.levelid) {
+      levelid = queryData.levelid
+      console.log('levelid = ', levelid)
+
+      const findKey = Object.keys(storageLevelsData).find(k => k === levelid)
+      if (findKey) {
+        storageLevelItem = storageLevelsData[findKey]
+      }
+    }
+    console.log('storageLevelItem = ', storageLevelItem)
+
+    // -- 关卡名称
+    let levelIndex = !storageLevelItem ? null : storageLevelItem.index
+    if (levelIndex === 0) throw new Error('关卡记录数据有错误 Error：level inedex 出现了为 0 的情况，level index 必须从 1 开始，请及时维护')
+
+    if (!levelIndex) {
+      levelIndex = getStorageLevelDataMaxIndex(storageLevelsData) + 1
+      if (levelIndex === 0) throw new Error('关卡记录数据有错误 Error：level inedex 出现了为 0 的情况，level index 必须从 1 开始，请及时维护')
+    }
+    let levelName = inputLevelNameDom.value
+    if (!levelName) {
+      levelName = `第${levelIndex}关`
+    }
+    inputLevelNameDom.value = levelName
+
+    // -- 过关条件
+    if (storageLevelItem) {
+      // 先移除原来的选项
+      const passRuleDoms = document.querySelectorAll('[save-level-pass-rule-id="input-pass-rule-selection"]')
+      for (const radioDom of passRuleDoms) {
+        if (radioDom.checked) {
+          radioDom.removeAttribute('checked')
+          break
+        }
+      }
+      // 根据记录中的数据，设置勾选项
+      const passRuleCheckedRadioId = Object.keys(storageLevelItem.passRule)[0]
+      document.querySelector(`#${passRuleCheckedRadioId}`).setAttribute('checked', true)
+      console.log('*** storageLevelItem = ', storageLevelItem)
+      document.querySelector(`#${passRuleCheckedRadioId}-value`).value = storageLevelItem.passRule[passRuleCheckedRadioId]
+    }
+
+    // -- 所有关卡记录列表
+    loadLevelsDataCardList()
+  }
+
+  const openLevelPannel = () => {
+    // *** 处理默认数据
+    loadStorageLevelsData()
+
+    // *** 显示对话框
+    levelPannelDom.style.display = ''
+  }
+
+  const onOpenSaveDataButtonClick = () => {
+    openLevelPannel()
+  }
+
+  const onLevelPannelCloseClick = () => {
+    closeLevelPannel()
+  }
+
+  const onPlayGameClick = () => {
+    playGameAllLevels()
+  }
+
+  const getStorageLevelDataMaxIndex = (levelsData) => {
+    let maxIndex = 0
+    if (!levelsData || Object.keys(levelsData).length < 1) return maxIndex
+
+    if (Object.keys(levelsData).length > 0) {
+      maxIndex = Object.values(levelsData).sort((a, b) => b.index - a.index)[0].index
+    }
+    return maxIndex
+  }
+
+  // 给 url 追加 query 参数，但不会使得浏览器刷新页面
+  function appendUrlQuery(params) {
+    if (!params) return
+    // 给 url 追加 query 参数，但不会使得浏览器刷新页面
+    const urlParams = new URLSearchParams(window.location.search)
+    for (const k of Object.keys(params)) {
+      urlParams.set(k, params[k])
+    }
+    window.history.replaceState(null, '', '?' + urlParams.toString())
+  }
+
+  // 保存当前关卡数据
+  const LEVEL_DATA_KEY = 'MINI_DREAMER_GAME_LEVEL_DATA'
+  const writeLevelData = () => {
+    // 判断是否为新增数据
+    const isNew = !storageLevelItem
+    if (isNew) {
+      if (!window.confirm('你要新增这条记录吗？')) return
+    } else {
+      if (!window.confirm('你要更新(覆盖)这条记录吗？')) return
+    }
+    let levelsData = readLevelsData()
+    let levelIndex = !storageLevelItem ? getStorageLevelDataMaxIndex(levelsData) + 1 : storageLevelItem.index
+
+    const levelName = document.querySelector('#input-level-name').value
+
+    // 过关条件处理
+    let passRuleKey = ''
+    let passRuleValue = ''
+    const passRuleDoms = document.querySelectorAll('[save-level-pass-rule-id="input-pass-rule-selection"]')
+    for (const radioDom of passRuleDoms) {
+      if (radioDom.checked) {
+        // 找到 radio 标签元素上的 value 值，也就能找到相对应的 input 元素，因为设计的相对应的 input 元素的 id 就是 radio 元素的 value 值
+        passRuleKey = radioDom.value
+        break
+      }
+    }
+    passRuleValue = document.querySelector(`#${passRuleKey}-value`).value
+
+    const id = !storageLevelItem ? createUuid() : storageLevelItem.id
+    let levelItem = {
+      // 关卡序号，决定关卡的先后
+      index: levelIndex,
+      // 识别数据的唯一id
+      id,
+      name: levelName,
+      passRule: {
+        [passRuleKey]: passRuleValue
+      },
+      // 游戏数据 (这份数据，同样可以用于加载画布数据，反向转换即可)
+      gameData: collectGameData()
+    }
+    levelsData[id] = levelItem
+
+    // 存入数据
+    window.localStorage.setItem(LEVEL_DATA_KEY, JSON.stringify(levelsData))
+
+    // 记录到全局变量中
+    storageLevelItem = levelItem
+    storageLevelsData = levelsData
+
+    // 若是新增数据，则在url上加上 levelid
+    if (isNew) {
+      // 给 url 追加 query 参数，但不会使得浏览器刷新页面
+      appendUrlQuery({ levelid: id })
+    }
+
+    // -- 所有关卡记录列表
+    loadLevelsDataCardList()
+  }
+
+  // 读取关卡数据
+  const readLevelsData = () => {
+    const levelsData = window.localStorage.getItem(LEVEL_DATA_KEY) || '{}'
+    return JSON.parse(levelsData)
+  }
+
+  // 移除关卡数据
+  const removeLevelData = (id, reloadType = 'page') => {
+    let _reloadType = reloadType
+    const levelsData = readLevelsData()
+    const findKey = Object.keys(levelsData).find(k => k === id)
+    if (findKey) {
+      delete levelsData[findKey]
+      window.localStorage.setItem(LEVEL_DATA_KEY, JSON.stringify(levelsData))
+
+      // 若删除的数据正好是当前的记录，则仍然会重载页面
+      if (storageLevelItem && storageLevelItem.id === id) {
+        storageLevelItem = null
+        _reloadType = 'page'
+      }
+
+      if (_reloadType === 'page') {
+        loadLevelsDataCardList()
+        // 刷新页面
+        goToNewSenceCreatorPage()
+        window.location.reload()
+      } else if (_reloadType === 'cardlist') {
+        // 刷新关卡记录卡片列表
+        loadLevelsDataCardList()
+      }
+
+    } else {
+      alert('删除错误 Error：删除数据不存在')
+      throw new Error('删除错误 Error：删除数据不存在; id = ' + id)
+    }
+  }
+
+  // 为指定数据记录 重新定位关卡序号（即 重新排序）
+  const resortTargetLevelData = (levelDataId, resortIndex) => {
+    const levelsData = readLevelsData()
+    // levelItemRecord
+    if (levelDataId && levelsData && Object.keys(levelsData).length > 0) {
+      const findKey = Object.keys(levelsData).find(k => k === levelDataId)
+      if (findKey) {
+        levelsData[findKey].index = levelsData[findKey].index >= resortIndex ? (resortIndex - 0.1) : (resortIndex + 0.1) // 把需要重新排序的目标数据的 index 变成 比目标序号小/大0.1的小数，那么后续重拍整理数据的时候会自动整理序号的
+      } else {
+        throw new Error('重新定位关卡序号出错 Error：未匹配到相应的数据')
+      }
+    }
+    window.localStorage.setItem(LEVEL_DATA_KEY, JSON.stringify(levelsData))
+    loadLevelsDataCardList()
+  }
+
+  // 复制指定数据记录，并可以指定关卡序号
+  const copyTargetLevelData = (levelDataId, resortIndex) => {
+    const levelsData = readLevelsData()
+    // levelItemRecord
+    if (levelDataId && levelsData && Object.keys(levelsData).length > 0) {
+      const findKey = Object.keys(levelsData).find(k => k === levelDataId)
+      if (findKey) {
+        const copyLevelData = { ...levelsData[findKey] }
+        const newId = createUuid()
+        copyLevelData.id = newId
+        copyLevelData.index = resortIndex - 0.1 // 把需要重新排序的目标数据的 index 变成 比目标序号小/大0.1的小数，那么后续重拍整理数据的时候会自动整理序号的
+        // 复制出来的新数据，追加到记录数据中
+        levelsData[newId] = copyLevelData
+      } else {
+        throw new Error('重新定位关卡序号出错 Error：未匹配到相应的数据')
+      }
+    }
+    window.localStorage.setItem(LEVEL_DATA_KEY, JSON.stringify(levelsData))
+    loadLevelsDataCardList()
+  }
+
+  const onReadLevelDataCardClick = (levelDataId) => {
+    if (window.confirm('确定要读取这条记录吗？（记得先保存记录哦！）')) {
+      const { origin, pathname } = window.location
+      window.location.href = `${origin}${pathname}?levelid=${levelDataId}`
+    }
+  }
+
+  const onMoveLevelDataCardClick = (levelDataId) => {
+    // 把记录数据移动 到指定序号（若输入框内输入小于1的数，则默认是第一个）
+    const targetIndex = window.prompt('请问要把当前记录转换为第几关呢？输入相应的序号即可：')
+    if (checkNumberStr(targetIndex)) {
+      resortTargetLevelData(levelDataId, Number(targetIndex))
+    } else {
+      alert('只能输入数字哦！')
+    }
+  }
+
+  const onCopyLevelDataCardClick = (levelDataId) => {
+    // 把记录数据移动 到指定序号（若输入框内输入小于1的数，则默认是第一个）
+    const targetIndex = window.prompt('请问当前复制的记录要定为第几关呢？输入相应的序号即可：')
+    if (checkNumberStr(targetIndex)) {
+      copyTargetLevelData(levelDataId, Number(targetIndex))
+    } else {
+      alert('只能输入数字哦！')
+    }
+  }
+
+  const onRemoveLevelDataCardClick = (levelDataId, reloadType) => {
+    if (window.confirm('确定要删除这条记录吗？')) removeLevelData(levelDataId, reloadType)
+  }
+
+  const onLevelPannelSaveClick = (type) => {
+    if (type === 'remove') {
+      if (!storageLevelItem) {
+        alert('删除的数据已不存在')
+        return
+      }
+      if (window.confirm('你确定要删除这条记录吗？')) removeLevelData(storageLevelItem.id)
+    } else if (type === 'create') {
+      if (window.confirm('是否离开当前页，前往创建新关卡？（记得先保存记录哦！）')) goToNewSenceCreatorPage()
+    } else if (type === 'save') {
+      writeLevelData()
+    }
+  }
+
+  // #endregion -------------------------
+
+  window.addEventListener('load', () => {
+    console.log('--- load ---')
+    initDoms()
+    openLevelPannel()
+    loadCanvas()
+    loadSettingPannelActions.global()
+    loadSettingPannelGroupActions.global()
+
+    // 根据读取的数据记录，加载画布数据
+    loadCanvasRectDataByGameData()
+
+    // // 测试下消息通道通知
+    // setTimeout(() => {
+    //   // window.postMessage('port', '*', [channelPort1]);
+    //   const popup = window.open('http://127.0.0.1:5500/docs/cssDemoHtml/LevelBaseBoardGame/game.html')
+    //   popup.onload = () => {
+    //     channel.postMessage({ from: 'sence-creator', data: { a: 1, b: 1 } })
+    //   }
+    //   // window.postMessage('port', '*', [channelPort1]);
+
+    // }, 3000)
+  })
+</script>
+
+<!-- 通过 BroadcastChannel 实现跨页签通信 -->
+<script>
+
+  const channel = new BroadcastChannel('mic-2d-dream')
+  // channel.addEventListener('message', (event) => {
+  //   const { data: message } = event
+  //   if (message.from === 'game') {
+  //     // alert(JSON.stringify(message))
+  //   }
+  // })
+
+  // 预览游戏
+  const openGameLevelPage = () => {
+    // 整理出当前画布上的所有游戏数据，然后传递给 game.html 页面
+    const data = collectGameData()
+
+    const popup = window.open('game.html?level=preview')
+    popup.onload = () => {
+      console.log('------------data = ', data)
+      channel.postMessage({ from: 'sence-creator', type: 'level-preview', data })
+    }
+  }
+
+  // 正式开始游戏
+  const playGameAllLevels = () => {
+    // 直接跳转到游戏页，游戏页接受不了到相应指令后，会通过读取 localstorage 中的记录正式开始游戏
+    const popup = window.open('game.html?level=game')
+    popup.onload = () => {
+      channel.postMessage({ from: 'sence-creator', type: 'play-game', data })
+    }
+  }
+
+
+</script>
+
+</html>

@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="./global.css">
+  <style>
+    * {
+      overflow: hidden;
+      /* background-color: rgb(0, 0, 0); */
+    }
+
+    /* 顶部信息栏 */
+    .top-bar {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      padding: 16px;
+      background-color: rgba(178, 8, 99, 0.3);
+      box-shadow: 2px 2px 8px rgba(178, 8, 99, 0.8);
+    }
+
+    .top-bar .contents {
+      display: flex;
+      gap: 16px;
+    }
+
+    .top-bar .group {
+      border-radius: 8px;
+      background-color: rgba(238, 224, 206, 0.9);
+      padding: 0 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .top-bar .group .img-row {
+      display: flex;
+      gap: 16px;
+    }
+
+    .top-bar .group .img-row img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .top-bar .group .img-row label {
+      display: flex;
+      align-items: flex-end;
+      letter-spacing: 2px;
+    }
+
+    .top-bar .group .player-score-wrapper {
+      text-align: right;
+      color: rgb(255, 153, 0);
+      text-shadow: 2px 2px 2px rgb(207, 136, 5),
+        2px 2px 2px rgb(6, 4, 133);
+    }
+
+    .top-bar .group .player-score-wrapper .player-score {
+      font-size: 36px;
+      padding: 0 8px;
+    }
+
+    .top-bar .group .player-name {
+      font-size: 26px;
+      color: rgba(0, 140, 255, 0.8);
+      text-shadow: 2px 2px 2px rgba(58, 63, 70, 0.2),
+        2px 2px 2px rgba(6, 4, 133, 0.8);
+    }
+
+    .top-bar .group .player-level-index-text {
+      font-size: 26px;
+      color: rgba(0, 255, 64, 0.8);
+      text-shadow: 2px 2px 2px rgba(58, 63, 70, 0.2),
+        2px 2px 2px rgba(6, 4, 133, 0.8);
+      padding: 0 4px;
+    }
+
+    .top-bar .group label {
+      font-size: 16px;
+      color: rgb(3, 60, 145);
+      font-weight: bolder;
+    }
+
+    /* 按钮操作区 */
+
+    .top-bar .others {
+      display: flex;
+      gap: 16px;
+    }
+
+    .top-bar .group .buttons {
+      display: flex;
+      border-left: 1px dashed rgba(242, 155, 73, 0.463);
+      box-shadow: -2px 0px 4px rgba(242, 155, 73, 0.463);
+    }
+
+    .top-bar .group .buttons>button {
+      border: none;
+      border-radius: 0;
+      background-color: rgba(255, 255, 255, 0);
+    }
+
+    .top-bar .group .buttons .btn-restart {
+      width: 50px;
+      color: rgb(231, 59, 16);
+      text-shadow: 0px 0px 1px rgb(190, 178, 118);
+    }
+
+    .top-bar .group .buttons .btn-continue {
+      width: 30px;
+    }
+
+    .top-bar .group .buttons .btn-pause {
+      width: 30px;
+    }
+
+    /* Logo */
+
+    .top-bar .logo {
+      height: 50px;
+      border-radius: 8px;
+      border-bottom: 1px dashed rgb(255, 94, 0);
+      box-shadow: 0 2px 0px rgba(255, 217, 0);
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .top-bar.logo .logo-svg svg {
+      width: 32px;
+    }
+
+    .top-bar .logo .logo-label {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    /* 游戏场景 */
+
+    .game-scene {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .player-default {
+      position: absolute;
+      transition: 0ms linear;
+      z-index: 1;
+    }
+
+    .block-default {
+      /* border: 1px dashed yellow; */
+      position: absolute;
+      transition: 10ms linear;
+      /* opacity: 0.5; */
+      z-index: 9;
+    }
+
+    .coin-default {
+      /* border: 1px dashed yellow; */
+      position: absolute;
+      transition: 10ms linear;
+      /* opacity: 0.5; */
+      z-index: 9;
+      font-size: 22px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-bar">
+    <!-- Logo -->
+    <div class="logo">
+      <div class="logo-svg">
+        <svg t="1690328244355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="26726" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path
+            d="M926.464 633.9072h48.7936v48.7424h-48.7936zM926.464 585.1648h48.7936v48.7424h-48.7936zM926.464 536.3712h48.7936v48.7936h-48.7936zM877.7216 682.6496h48.7424v48.7936h-48.7424z"
+            fill="#012777" p-id="26727"></path>
+          <path
+            d="M877.7216 633.9072h48.7424v48.7424h-48.7424zM877.7216 585.1648h48.7424v48.7424h-48.7424zM877.7216 536.3712h48.7424v48.7936h-48.7424z"
+            fill="#DEE6FC" p-id="26728"></path>
+          <path d="M877.7216 487.6288h48.7424v48.7424h-48.7424zM828.928 731.4432h48.7936v48.7424h-48.7936z"
+            fill="#012777" p-id="26729"></path>
+          <path d="M828.928 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26730"></path>
+          <path
+            d="M828.928 633.9072h48.7936v48.7424h-48.7936zM828.928 585.1648h48.7936v48.7424h-48.7936zM828.928 536.3712h48.7936v48.7936h-48.7936z"
+            fill="#DD75A1" p-id="26731"></path>
+          <path d="M828.928 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26732"></path>
+          <path
+            d="M828.928 438.8352h48.7936v48.7936h-48.7936zM780.1856 877.7216h48.7424v48.7424h-48.7424zM780.1856 731.4432h48.7424v48.7424h-48.7424z"
+            fill="#012777" p-id="26733"></path>
+          <path d="M780.1856 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26734"></path>
+          <path d="M780.1856 633.9072h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="26735"></path>
+          <path d="M780.1856 585.1648h48.7424v48.7424h-48.7424z" fill="#375AA4" p-id="26736"></path>
+          <path d="M780.1856 536.3712h48.7424v48.7936h-48.7424z" fill="#DD75A1" p-id="26737"></path>
+          <path d="M780.1856 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26738"></path>
+          <path
+            d="M780.1856 438.8352h48.7424v48.7936h-48.7424zM780.1856 390.0928h48.7424v48.7424h-48.7424zM731.4432 926.464h48.7424v48.7936h-48.7424z"
+            fill="#012777" p-id="26739"></path>
+          <path d="M731.4432 877.7216h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="26740"></path>
+          <path d="M731.4432 828.928h48.7424v48.7936h-48.7424zM731.4432 731.4432h48.7424v48.7424h-48.7424z"
+            fill="#012777" p-id="26741"></path>
+          <path d="M731.4432 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26742"></path>
+          <path d="M731.4432 633.9072h48.7424v48.7424h-48.7424zM731.4432 585.1648h48.7424v48.7424h-48.7424z"
+            fill="#375AA4" p-id="26743"></path>
+          <path d="M731.4432 536.3712h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="26744"></path>
+          <path d="M731.4432 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26745"></path>
+          <path d="M731.4432 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26746"></path>
+          <path d="M731.4432 390.0928h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26747"></path>
+          <path
+            d="M731.4432 341.3504h48.7424v48.7424h-48.7424zM682.6496 877.7216h48.7936v48.7424h-48.7936zM682.6496 780.1856h48.7936v48.7424h-48.7936z"
+            fill="#012777" p-id="26748"></path>
+          <path d="M682.6496 731.4432h48.7936v48.7424h-48.7936z" fill="#012777" p-id="26749"></path>
+          <path d="M682.6496 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26750"></path>
+          <path d="M682.6496 633.9072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26751"></path>
+          <path d="M682.6496 585.1648h48.7936v48.7424h-48.7936z" fill="#A2D8EA" p-id="26752"></path>
+          <path d="M682.6496 536.3712h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="26753"></path>
+          <path d="M682.6496 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26754"></path>
+          <path d="M682.6496 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="26755"></path>
+          <path d="M682.6496 390.0928h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26756"></path>
+          <path d="M682.6496 341.3504h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26757"></path>
+          <path d="M682.6496 292.5568h48.7936v48.7936h-48.7936zM633.9072 731.4432h48.7424v48.7424h-48.7424z"
+            fill="#012777" p-id="26758"></path>
+          <path d="M633.9072 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26759"></path>
+          <path
+            d="M633.9072 633.9072h48.7424v48.7424h-48.7424zM633.9072 585.1648h48.7424v48.7424h-48.7424zM633.9072 536.3712h48.7424v48.7936h-48.7424z"
+            fill="#DD75A1" p-id="26760"></path>
+          <path d="M633.9072 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26761"></path>
+          <path d="M633.9072 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26762"></path>
+          <path d="M633.9072 390.0928h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="26763"></path>
+          <path d="M633.9072 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26764"></path>
+          <path d="M633.9072 292.5568h48.7424v48.7936h-48.7424zM585.1648 731.4432h48.7424v48.7424h-48.7424z"
+            fill="#012777" p-id="26765"></path>
+          <path d="M585.1648 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26766"></path>
+          <path
+            d="M585.1648 633.9072h48.7424v48.7424h-48.7424zM585.1648 585.1648h48.7424v48.7424h-48.7424zM585.1648 536.3712h48.7424v48.7936h-48.7424z"
+            fill="#DD75A1" p-id="26767"></path>
+          <path d="M585.1648 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26768"></path>
+          <path d="M585.1648 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26769"></path>
+          <path d="M585.1648 390.0928h48.7424v48.7424h-48.7424zM585.1648 341.3504h48.7424v48.7424h-48.7424z"
+            fill="#DD75A1" p-id="26770"></path>
+          <path d="M585.1648 292.5568h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26771"></path>
+          <path
+            d="M585.1648 243.8144h48.7424v48.7424h-48.7424zM536.3712 877.7216h48.7936v48.7424h-48.7936zM536.3712 731.4432h48.7936v48.7424h-48.7936z"
+            fill="#012777" p-id="26772"></path>
+          <path d="M536.3712 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26773"></path>
+          <path d="M536.3712 633.9072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26774"></path>
+          <path d="M536.3712 585.1648h48.7936v48.7424h-48.7936z" fill="#375AA4" p-id="26775"></path>
+          <path d="M536.3712 536.3712h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="26776"></path>
+          <path d="M536.3712 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26777"></path>
+          <path d="M536.3712 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="26778"></path>
+          <path d="M536.3712 390.0928h48.7936v48.7424h-48.7936zM536.3712 341.3504h48.7936v48.7424h-48.7936z"
+            fill="#DD75A1" p-id="26779"></path>
+          <path d="M536.3712 292.5568h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26780"></path>
+          <path
+            d="M536.3712 243.8144h48.7936v48.7424h-48.7936zM536.3712 97.536h48.7936v48.7424h-48.7936zM487.6288 926.464h48.7424v48.7936h-48.7424z"
+            fill="#012777" p-id="26781"></path>
+          <path d="M487.6288 877.7216h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="26782"></path>
+          <path d="M487.6288 828.928h48.7424v48.7936h-48.7424zM487.6288 780.1856h48.7424v48.7424h-48.7424z"
+            fill="#012777" p-id="26783"></path>
+          <path d="M487.6288 731.4432h48.7424v48.7424h-48.7424z" fill="#012777" p-id="26784"></path>
+          <path d="M487.6288 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26785"></path>
+          <path d="M487.6288 633.9072h48.7424v48.7424h-48.7424zM487.6288 585.1648h48.7424v48.7424h-48.7424z"
+            fill="#375AA4" p-id="26786"></path>
+          <path d="M487.6288 536.3712h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="26787"></path>
+          <path d="M487.6288 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26788"></path>
+          <path d="M487.6288 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26789"></path>
+          <path
+            d="M487.6288 390.0928h48.7424v48.7424h-48.7424zM487.6288 341.3504h48.7424v48.7424h-48.7424zM487.6288 292.5568h48.7424v48.7936h-48.7424z"
+            fill="#DD75A1" p-id="26790"></path>
+          <path d="M487.6288 243.8144h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26791"></path>
+          <path d="M487.6288 195.072h48.7424v48.7424h-48.7424zM487.6288 146.2784h48.7424v48.7936h-48.7424z"
+            fill="#012777" p-id="26792"></path>
+          <path d="M487.6288 97.536h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="26793"></path>
+          <path
+            d="M487.6288 48.7424h48.7424v48.7936h-48.7424zM438.8352 877.7216h48.7936v48.7424h-48.7936zM438.8352 731.4432h48.7936v48.7424h-48.7936z"
+            fill="#012777" p-id="26794"></path>
+          <path d="M438.8352 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26795"></path>
+          <path d="M438.8352 633.9072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26796"></path>
+          <path d="M438.8352 585.1648h48.7936v48.7424h-48.7936z" fill="#A2D8EA" p-id="26797"></path>
+          <path d="M438.8352 536.3712h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="26798"></path>
+          <path d="M438.8352 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26799"></path>
+          <path d="M438.8352 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="26800"></path>
+          <path d="M438.8352 390.0928h48.7936v48.7424h-48.7936zM438.8352 341.3504h48.7936v48.7424h-48.7936z"
+            fill="#DD75A1" p-id="26801"></path>
+          <path d="M438.8352 292.5568h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26802"></path>
+          <path
+            d="M438.8352 243.8144h48.7936v48.7424h-48.7936zM438.8352 97.536h48.7936v48.7424h-48.7936zM390.0928 731.4432h48.7424v48.7424h-48.7424z"
+            fill="#012777" p-id="26803"></path>
+          <path d="M390.0928 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26804"></path>
+          <path
+            d="M390.0928 633.9072h48.7424v48.7424h-48.7424zM390.0928 585.1648h48.7424v48.7424h-48.7424zM390.0928 536.3712h48.7424v48.7936h-48.7424z"
+            fill="#DD75A1" p-id="26805"></path>
+          <path d="M390.0928 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26806"></path>
+          <path d="M390.0928 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26807"></path>
+          <path d="M390.0928 390.0928h48.7424v48.7424h-48.7424zM390.0928 341.3504h48.7424v48.7424h-48.7424z"
+            fill="#DD75A1" p-id="26808"></path>
+          <path d="M390.0928 292.5568h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26809"></path>
+          <path d="M390.0928 243.8144h48.7424v48.7424h-48.7424zM341.3504 731.4432h48.7424v48.7424h-48.7424z"
+            fill="#012777" p-id="26810"></path>
+          <path d="M341.3504 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26811"></path>
+          <path
+            d="M341.3504 633.9072h48.7424v48.7424h-48.7424zM341.3504 585.1648h48.7424v48.7424h-48.7424zM341.3504 536.3712h48.7424v48.7936h-48.7424z"
+            fill="#DD75A1" p-id="26812"></path>
+          <path d="M341.3504 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26813"></path>
+          <path d="M341.3504 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26814"></path>
+          <path d="M341.3504 390.0928h48.7424v48.7424h-48.7424z" fill="#DD75A1" p-id="26815"></path>
+          <path d="M341.3504 341.3504h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26816"></path>
+          <path
+            d="M341.3504 292.5568h48.7424v48.7936h-48.7424zM292.5568 877.7216h48.7936v48.7424h-48.7936zM292.5568 780.1856h48.7936v48.7424h-48.7936z"
+            fill="#012777" p-id="26817"></path>
+          <path d="M292.5568 731.4432h48.7936v48.7424h-48.7936z" fill="#012777" p-id="26818"></path>
+          <path d="M292.5568 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26819"></path>
+          <path d="M292.5568 633.9072h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26820"></path>
+          <path d="M292.5568 585.1648h48.7936v48.7424h-48.7936z" fill="#375AA4" p-id="26821"></path>
+          <path d="M292.5568 536.3712h48.7936v48.7936h-48.7936z" fill="#DD75A1" p-id="26822"></path>
+          <path d="M292.5568 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26823"></path>
+          <path d="M292.5568 438.8352h48.7936v48.7936h-48.7936z" fill="#012777" p-id="26824"></path>
+          <path d="M292.5568 390.0928h48.7936v48.7424h-48.7936z" fill="#DD75A1" p-id="26825"></path>
+          <path d="M292.5568 341.3504h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26826"></path>
+          <path d="M292.5568 292.5568h48.7936v48.7936h-48.7936zM243.8144 926.464h48.7424v48.7936h-48.7424z"
+            fill="#012777" p-id="26827"></path>
+          <path d="M243.8144 877.7216h48.7424v48.7424h-48.7424z" fill="#A2D8EA" p-id="26828"></path>
+          <path d="M243.8144 828.928h48.7424v48.7936h-48.7424zM243.8144 731.4432h48.7424v48.7424h-48.7424z"
+            fill="#012777" p-id="26829"></path>
+          <path d="M243.8144 682.6496h48.7424v48.7936h-48.7424z" fill="#DEE6FC" p-id="26830"></path>
+          <path d="M243.8144 633.9072h48.7424v48.7424h-48.7424zM243.8144 585.1648h48.7424v48.7424h-48.7424z"
+            fill="#375AA4" p-id="26831"></path>
+          <path d="M243.8144 536.3712h48.7424v48.7936h-48.7424z" fill="#A2D8EA" p-id="26832"></path>
+          <path d="M243.8144 487.6288h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26833"></path>
+          <path d="M243.8144 438.8352h48.7424v48.7936h-48.7424z" fill="#012777" p-id="26834"></path>
+          <path d="M243.8144 390.0928h48.7424v48.7424h-48.7424z" fill="#DEE6FC" p-id="26835"></path>
+          <path
+            d="M243.8144 341.3504h48.7424v48.7424h-48.7424zM195.072 877.7216h48.7424v48.7424H195.072zM195.072 731.4432h48.7424v48.7424H195.072z"
+            fill="#012777" p-id="26836"></path>
+          <path d="M195.072 682.6496h48.7424v48.7936H195.072z" fill="#DEE6FC" p-id="26837"></path>
+          <path d="M195.072 633.9072h48.7424v48.7424H195.072z" fill="#DD75A1" p-id="26838"></path>
+          <path d="M195.072 585.1648h48.7424v48.7424H195.072z" fill="#A2D8EA" p-id="26839"></path>
+          <path d="M195.072 536.3712h48.7424v48.7936H195.072z" fill="#DD75A1" p-id="26840"></path>
+          <path d="M195.072 487.6288h48.7424v48.7424H195.072z" fill="#DEE6FC" p-id="26841"></path>
+          <path
+            d="M195.072 438.8352h48.7424v48.7936H195.072zM195.072 390.0928h48.7424v48.7424H195.072zM146.2784 731.4432h48.7936v48.7424h-48.7936z"
+            fill="#012777" p-id="26842"></path>
+          <path d="M146.2784 682.6496h48.7936v48.7936h-48.7936z" fill="#DEE6FC" p-id="26843"></path>
+          <path
+            d="M146.2784 633.9072h48.7936v48.7424h-48.7936zM146.2784 585.1648h48.7936v48.7424h-48.7936zM146.2784 536.3712h48.7936v48.7936h-48.7936z"
+            fill="#DD75A1" p-id="26844"></path>
+          <path d="M146.2784 487.6288h48.7936v48.7424h-48.7936z" fill="#DEE6FC" p-id="26845"></path>
+          <path d="M146.2784 438.8352h48.7936v48.7936h-48.7936zM97.536 682.6496h48.7424v48.7936h-48.7424z"
+            fill="#012777" p-id="26846"></path>
+          <path
+            d="M97.536 633.9072h48.7424v48.7424h-48.7424zM97.536 585.1648h48.7424v48.7424h-48.7424zM97.536 536.3712h48.7424v48.7936h-48.7424z"
+            fill="#DEE6FC" p-id="26847"></path>
+          <path
+            d="M97.536 487.6288h48.7424v48.7424h-48.7424zM48.7424 633.9072h48.7936v48.7424H48.7424zM48.7424 585.1648h48.7936v48.7424H48.7424zM48.7424 536.3712h48.7936v48.7936H48.7424z"
+            fill="#012777" p-id="26848"></path>
+        </svg>
+      </div>
+      <div class="logo-label">迷你造梦人</div>
+    </div>
+
+    <div class="contents">
+      <div class="group">
+        <div class="img-row"><img src="./imgs/icon-rabbit.png" alt="玩家头像"><label>玩家</label></div>
+        <label class="player-name">小小夕</label>
+      </div>
+      <div class="group">
+        <div class="img-row"><img src="./imgs/icon-pass-level.png" alt="玩家头像"><label>进度</label></div>
+        <label class="player-level-index-text"><span>第1关</span></label>
+      </div>
+      <div class="group">
+        <div class="img-row"><img src="./imgs/icon-cup.png" alt="得分奖杯"><label>得分</label></div>
+        <div class="player-score-wrapper">
+          <div class="player-score">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="others">
+      <!-- 操作区 -->
+      <div class="actions-wrapper">
+        <div class="group">
+          <div class="img-row"><img src="./imgs/icon-game.png" alt="游戏控制"><label>游戏控制</label></div>
+          <div class="buttons">
+            <button class="btn-restart" onclick="reloadGame()">重新<br />开始</button>
+            <button class="btn-continue" onclick="startGameEngine()">继续</button>
+            <button class="btn-pause" onclick="stopGameEngine()">暂停</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-scene">
+  </div>
+  <script src="./player-roles/player-run-animation.js"></script>
+  <!-- 游戏关键数据的全局变量脚本 -->
+  <script src="./start-game-data-vars.js"></script>
+  <!-- 全局变量 -->
+  <script>
+    // 玩家跑步动画控制器
+    let playerController = new PlatformPlayer()
+    // 当前关卡数据
+    let gameLevelItem = null
+    // 游戏过关条件之一的 最高分数 (后续游戏丰富起来后，过关条件多种多样，这只是其中之一)
+    let gameLevelMaxScore = null
+
+    // 游戏关卡预览时存储数据的KEY
+    const LEVEL_PREVIEW_DATA_KEY = 'level-preview'
+
+    const PLAYER_SIZE_CLASS_KEY = 'playerSize'
+    const PLAYER_TRANSFORM_CLASS_KEY = 'playerTransform'
+    const COIN_DEFAULT_CLASS_KEY = 'coin-default' // 所有 金币div 都带有的一个默认的 class 样式名称
+
+    // 消息通道实例
+    let channelPort2 = undefined
+
+    let gameSceneDom = undefined
+    let playerDom = undefined
+    let playerSocreDom = undefined
+    let blockDoms = undefined
+    let coinsDoms = undefined
+
+    // 玩家运动初速度 [x,y]
+    let playerSpeed = [0, 0]
+
+    // 玩家得分
+    let playerScore = {
+      value: 0, // 当前得分
+      append: 0 // 追加得分属性
+    }
+    let playerScoreProxy = new Proxy(playerScore, {
+      get: function (target, key) {
+        return target.value
+      },
+      set: function (target, key, value) {
+        const allowSetValues = ['value', 'append']
+        try {
+          if (!playerSocreDom) {
+            playerSocreDom = document.querySelector('.player-score')
+          }
+          if (key === 'append') {
+            const newValue = target[key] + value
+            playerSocreDom.innerHTML = `${newValue}`
+            target.value += newValue
+            checkPlayerScoreForPass()
+            return true
+          }
+          if (key === 'value') {
+            const newValue = value
+            playerSocreDom.innerHTML = `${newValue}`
+            target.value = newValue
+            checkPlayerScoreForPass()
+            return true
+          }
+          const allowSetHint = 'coinsDataProxy.' + allowSetValues.join('; ').split(' ').join('coinsDataProxy.')
+          throw new Error(`set playerScoreProxy Error : playerScoreProxy.${key} 不存在这种赋值方式，允许的赋值方式有=>${allowSetValues}`)
+        } catch (err) {
+          throw new Error(`set playerScoreProxy Error : ${err}`)
+        }
+      }
+    })
+
+    // 检测玩家得分是否满足过关条件
+    const checkPlayerScoreForPass = () => {
+      console.log(' playerScoreProxy.value = ',  playerScoreProxy.value)
+      if (gameLevelMaxScore !== null && playerScoreProxy.value >= gameLevelMaxScore) {
+        setTimeout(()=>{
+          goNextGameLevel()
+        }, 2000)
+      }
+    }
+
+    // 玩家雪碧图背景的 background-position（实际在css中的单位时百分比%）
+    let playerSpritesBackgrundPosition = {
+      value: playerSpritesRunActionAnimationOptions.start
+    }
+    let playerSpritesBackgrundPositionProxy = new Proxy(playerSpritesBackgrundPosition, {
+      get: function (target, key) {
+        return target[key]
+      },
+      set: function (target, key, value) {
+        try {
+          const [px, py] = value
+          playerDom.style.backgroundPosition = `${px}% ${py}%`
+          target.value = value
+        } catch (err) {
+          throw Error(`set playerSpritesBackgrundPosition Error : ${err}`)
+        }
+      }
+    })
+    // 控制玩家背景图片水平镜像方向
+    let playerBgImgHorizontalDirection = {
+      right: true // false 则水平左翻转玩家图片
+    }
+    // 玩家位置
+    let playerPosition = {
+      value: PLAYER_BORTH_POSITION
+    }
+    let playerPositionProxy = new Proxy(playerPosition, {
+      get: function (target, key) {
+        return target[key]
+      },
+      set: function (target, key, value) {
+        try {
+          // const position = [...target]
+          // position[key] = value
+          const position = value
+
+          // 频繁操作 styleSheet 消耗大，所以直接用 dom.style 代替
+          // insertStyleRules({ style: playerHeadStyleObj, selector: `.${getPlayerTransformClassRealKey()}`, rules: `transform:translate(${position[0]}px, ${position[1]}px);` })
+
+          // 直接修改 dom.style 减少不必要的消耗
+          let styleTrans = playerDom.style.transform
+          let matchAry = styleTrans.match(/translate(.*?) scaleX/i)
+          if (!Array.isArray(matchAry) || matchAry.length < 1) {
+            styleTrans = `${styleTrans} ScaleX(1)`
+            matchAry = styleTrans.match(/translate(.*?) scaleX/i)
+          }
+          const transStr = styleTrans.replace(matchAry[1], `(${position[0]}px, ${position[1]}px)`)
+          playerDom.style.transform = transStr
+
+          target[key] = position
+          return true
+        } catch (err) {
+          throw new Error(`set playerPosition Error : ${err}`)
+        }
+      }
+    })
+
+    // 控制玩家背景图片水平镜像方向
+    let playerBgImgHorizontalDirectionProxy = new Proxy(playerBgImgHorizontalDirection, {
+      get: function (target, key) {
+        return target[key]
+      },
+      set: function (target, key, value) {
+        try {
+          let styleTrans = playerDom.style.transform
+          let matchAry = styleTrans.match(/scaleX\((.*?)\)/i)
+          if (!Array.isArray(matchAry) || matchAry.length < 1) {
+            styleTrans = `${styleTrans} ScaleX(1)`
+            matchAry = styleTrans.match(/scaleX\((.*?)\)/i)
+          }
+          const transStr = styleTrans.replace(`scaleX(${matchAry[1]})`, value ? 'scaleX(1)' : 'scaleX(-1)')
+          playerDom.style.transform = transStr
+          target[key] = value
+        } catch (err) {
+          throw new Error(`set playerBgImgHorizontalDirection Error : ${err}`)
+        }
+      }
+    })
+
+    // 金币集合
+    let coinsDataProxy = new Proxy(coinsData, {
+      get: function (target, key) {
+        const allowGetValues = ['value']
+        if (allowGetValues.includes(key)) {
+          return target.value
+        } else {
+          const allowGetHint = 'coinsDataProxy.' + allowGetValues.join('; ').split(' ').join('coinsDataProxy.')
+          throw new Error(`get coinsDataProxy Error: 不支持 coinsDataProxy.${key} 的赋值方式; \n赋值方式支持的属性有=>${allowGetHint}`)
+        }
+      },
+      set: function (target, key, value) {
+        const errorPrefix = 'set coinsDataProxy Error: '
+        try {
+          const allowSetValues = ['removeCoinId']
+          if (allowSetValues.includes(key)) {
+            const rmId = value
+            const data = [...target.value]
+
+            // 先先判断要删除的 coinId 是否存在，不存在则抛出异常
+            const findIndex = data.findIndex(d => d.coinId === rmId)
+            const findDomIndex = coinsDoms.findIndex(d => d.id === rmId)
+            if (findIndex === -1) {
+              throw new Error(`${errorPrefix}要删除的 coinId="${rmId}" 不存在`)
+            }
+            if (findDomIndex === -1) {
+              throw new Error(`${errorPrefix}要删除的 coinId="${rmId}" 对应的 dom元素 不存在`)
+            }
+
+            // 先移除dom，移除dom成功后，在处理数据，确保dom和数据同步
+            gameSceneDom.removeChild(coinsDoms[findIndex])
+
+            // 移除相应的数据
+            coinsDoms.splice(findDomIndex, 1)
+            const deleteData = data.splice(findIndex, 1)
+            target.value = data
+            return true
+          } else {
+            const allowSetHint = 'coinsDataProxy.' + allowSetValues.join('; ').split(' ').join('coinsDataProxy.')
+            throw new Error(`${errorPrefix}不支持 coinsDataProxy.${key} 的赋值方式; \n赋值方式支持的属性有：${allowSetHint}`)
+          }
+        } catch (err) {
+          throw new Error(`${errorPrefix}${err}`)
+        }
+      }
+    })
+
+
+    // 保存所有按键的状态，实现组合按键监听效果
+    let downKeys = {}
+
+    // 游戏暂停标识
+    let gameEngineStop = false
+
+    const getPlayerPositionBottomY = () => {
+      return playerPositionProxy.value[1] + playerSize[1]
+    }
+
+    const getPlayerPositionRightX = () => {
+      return playerPositionProxy.value[0] + playerSize[0]
+    }
+
+  </script>
+
+  <!-- 公共函数 -->
+  <script>
+
+    // 把 window.location.search 里这样的 '?level=preview&a=123' 字符串转成 json
+    function parseSearchToJson(search) {
+      const json = {}
+      const regex = /[?&]([\w-]*)=([\w-]*)/g
+      let match
+
+      while (match = regex.exec(search)) {
+        json[match[1]] = match[2]
+      }
+
+      return Object.keys(json).length > 0 ? json : null
+    }
+
+    // 获取json格式的把 window.location.search
+    function getRouteQuery() {
+      return parseSearchToJson(window.location.search)
+    }
+
+    // 随机16进制颜色值
+    function createRandomColor() {
+      let r = Math.floor(Math.random() * 256)
+      let g = Math.floor(Math.random() * 256)
+      let b = Math.floor(Math.random() * 256)
+      let color = '#' + r.toString(16) + g.toString(16) + b.toString(16)
+      return color
+    }
+
+    function addDashBeforeUppercase(str) {
+      return str.replace(/([A-Z])/g, '-$1').toLowerCase()
+    }
+
+    function cssClassToRulesStr(cssClassObj = {}) {
+      return Object.keys(cssClassObj).map(k => `${addDashBeforeUppercase(k)}:${cssClassObj[k]}`).join(';') + ';'
+    }
+
+    function insertStyleRules({ style, selector, rules }) {
+      if (style.sheet.insertRule) {
+        const classStr = `${selector}{${rules}}`
+        style.sheet.insertRule(classStr, style.sheet.cssRules.length)
+      }
+      else { /* IE */
+        style.sheet.addRule(selector, rules, -1)
+      }
+    }
+
+    function insertRulesIntoStyleSheet(cssRules) {
+      const style = document.createElement('style')
+      document.head.append(style)
+      // WebKit hack
+      style.appendChild(document.createTextNode(''))
+      for (const cr of cssRules) {
+        const { selector, rules } = cr
+        insertStyleRules({ style, selector, rules })
+      }
+      return style
+    }
+
+  </script>
+
+  <!-- 场景初始化 -->
+  <script>
+
+    //#region ------------------
+
+    const getPlayerTransformClassRealKey = () => addDashBeforeUppercase(PLAYER_TRANSFORM_CLASS_KEY)
+
+    const createPlayer = () => {
+      const playerClassKey = 'player'
+      const playerSizeClassKey = PLAYER_SIZE_CLASS_KEY
+      const playerTransformClassKey = PLAYER_TRANSFORM_CLASS_KEY
+      // [x,y]
+      const position = playerPosition.value
+      const htmlStr = `<div id="player" class="player-default ${addDashBeforeUppercase(playerClassKey)} ${addDashBeforeUppercase(playerSizeClassKey)} ${addDashBeforeUppercase(playerTransformClassKey)}"
+      style="transform:translate(${position[0]}px, ${position[1]}px) scaleX(1);"></div>`
+      const playerClass = {
+        backgroundColor: 'red',
+      }
+      // [width,height]
+      const size = playerSize
+      const playerSizeClass = {
+        width: `${size[0]}px`,
+        height: `${size[1]}px`,
+      }
+
+      const [bpx, bpy] = playerSpritesBackgrundPosition.value
+      const backgroundImage = playerSpritesBackgrundImageUrl.includes('url(') ? playerSpritesBackgrundImageUrl : `url("${playerSpritesBackgrundImageUrl}")`
+      const playerTransformClass = {
+        // transform: `translate(${position[0]}px, ${position[1]}px)`,
+        backgroundImage,
+        backgroundPosition: `${bpx}% ${bpy}%`,
+        // backgroundPosition: '35.5% 7%',
+        // backgroundPosition: '65.5% 7%',
+        // backgroundPosition: '95.5% 7%',
+      }
+      const data = {
+        htmlStr,
+        size,
+        position,
+        classes: {
+          [playerClassKey]: playerClass,
+          [playerSizeClassKey]: playerSizeClass,
+          [playerTransformClassKey]: playerTransformClass
+        }
+      }
+
+      return data
+    }
+
+    //#region ------------创建普通砖块-------------------
+
+    // 创建一个普通砖块的dom预置数据
+    const createSceneMapBlock = ({ size, position, backgroundImage, opacity, index }) => {
+      console.log('backgroundImage = ', backgroundImage)
+      const blockClassKey = `block-${index}`
+      const blockSizeClassKey = `blockSize-${index}`
+      const blockTransformClassKey = `blockTransform-${index}`
+      const htmlStr = `<div class="block-default ${addDashBeforeUppercase(blockClassKey)} ${addDashBeforeUppercase(blockSizeClassKey)} ${addDashBeforeUppercase(blockTransformClassKey)}"></div>`
+      const blockClass = {
+        opacity,
+        backgroundColor: 'rgba(0,0,0,0)' // createRandomColor(),
+      }
+      const blockSizeClass = {
+        width: `${size[0]}px`,
+        height: `${size[1]}px`,
+      }
+      const blockTransformClass = {
+        backgroundImage: backgroundImage.includes('url(') ? backgroundImage : `url("${backgroundImage}")`,
+        backgroundSize: '100% 100%',
+        transform: `translate(${position[0]}px, ${position[1]}px)`
+      }
+      const data = {
+        htmlStr,
+        size,
+        position,
+        classes: {
+          [blockClassKey]: blockClass,
+          [blockSizeClassKey]: blockSizeClass,
+          [blockTransformClassKey]: blockTransformClass
+        }
+      }
+      return data
+    }
+
+    // 创建普通砖块的集合数据
+    const createSceneMapBlocksData = () => {
+      let dataList = []
+      if (Array.isArray(blocksData)) {
+        // 优先使用配置数据
+        dataList = blocksData
+      } else {
+        // Demo 数据
+        for (let i = 0; i < 10; i += 1) {
+          dataList.push({
+            size: [50, 50],
+            position: [50 * i, 400],
+            backgroundImage: ''
+          })
+        }
+
+        for (let i = 0; i < 5; i += 1) {
+          dataList.push({
+            size: [50, 50],
+            position: [400 + 50 * i, 340],
+            backgroundImage: ''
+          })
+        }
+
+        for (let i = 0; i < 2; i += 1) {
+          dataList.push({
+            size: [50, 50],
+            position: [100 + 50 * i, 300],
+            backgroundImage: ''
+          })
+        }
+
+        for (let i = 0; i < 2; i += 1) {
+          dataList.push({
+            size: [50, 50],
+            position: [100 + 50 * i, 100],
+            backgroundImage: ''
+          })
+        }
+      }
+
+      return dataList.map((d, index) => createSceneMapBlock({ ...d, type: 'block', index }))
+    }
+
+    //#endregion --------------------------------
+
+    //#region ------------创建金币物体-----------------
+
+    // 创建一个金币碰撞物的dom预置数据
+    const createSceneMapCoin = ({ size, position, score, backgroundImage, opacity, index }) => {
+      const blockClassKey = `coin-${index}`
+      const blockSizeClassKey = `coinSize-${index}`
+      const blockTransformClassKey = `coinTransform-${index}`
+      const htmlStr = `<div id="${blockClassKey}" class="${COIN_DEFAULT_CLASS_KEY} ${addDashBeforeUppercase(blockClassKey)} ${addDashBeforeUppercase(blockSizeClassKey)} ${addDashBeforeUppercase(blockTransformClassKey)}"></div>`
+      const blockClass = {
+        opacity,
+        backgroundColor: 'rgba(0,0,0,0)'
+      }
+      const blockSizeClass = {
+        width: `${size[0]}px`,
+        height: `${size[1]}px`,
+      }
+      const blockTransformClass = {
+        backgroundImage: backgroundImage.includes('url(') ? backgroundImage : `url("${backgroundImage}")`,
+        backgroundSize: '100% 100%',
+        transform: `translate(${position[0]}px, ${position[1]}px)`
+      }
+      const data = {
+        coinIndex: index,
+        coinId: blockClassKey,
+        score,
+        htmlStr,
+        size,
+        position,
+        classes: {
+          [blockClassKey]: blockClass,
+          [blockSizeClassKey]: blockSizeClass,
+          [blockTransformClassKey]: blockTransformClass
+        }
+      }
+      return data
+    }
+
+    const createSceneMapCoinsData = () => {
+      let dataList = []
+      if (Array.isArray(coinsData.value)) {
+        // 优先使用配置数据
+        dataList = coinsData.value
+      } else {
+        for (let i = 0; i < 5; i += 1) {
+          dataList.push({
+            size: [50, 50],
+            position: [100 + 50 * i, 230],
+            score: (i + 1), // 金币代表的分数值
+            backgroundImage: '' // 金币如果想添加动画，可以使用gif图即可（雪碧图控制代码有点麻烦，后续再计划是否加入支持雪碧图动画功能）
+          })
+        }
+
+        for (let i = 0; i < 8; i += 1) {
+          dataList.push({
+            size: [50, 50],
+            position: [300 + 50 * i, 280],
+            score: (i + 1), // 金币代表的分数值
+            backgroundImage: ''
+          })
+        }
+      }
+
+      return dataList.map((d, index) => createSceneMapCoin({ ...d, type: 'coin', index }))
+    }
+
+    //#endregion -------------------------------------
+
+    const createSceneMap = () => {
+      // 普通砖块数据集合
+      const blocks = createSceneMapBlocksData()
+      blocksData = blocks
+
+      // 得分金币碰撞物集合数据
+      const coins = createSceneMapCoinsData()
+      coinsData.value = coins
+
+      return {
+        divData: {
+          blocks,
+          coins
+        }
+      }
+    }
+
+    const createScene = () => {
+      const playerInitData = createPlayer()
+      const sceneMapInitData = createSceneMap()
+      return {
+        playerInitData,
+        sceneMapInitData
+      }
+    }
+
+    const createCssRules = (classes) => Object.keys(classes).map(ck => ({ selector: `.${addDashBeforeUppercase(ck)}`, rules: cssClassToRulesStr(classes[ck]) }))
+
+    const getCssRulesFromSceneData = ({ playerInitData, sceneMapInitData }) => {
+      const rules = []
+      // player cssRules
+      const playerCssRules = createCssRules(playerInitData.classes)
+      insertRulesIntoStyleSheet(playerCssRules)
+      // blocks cssRules
+      const blocksCssRules = sceneMapInitData.divData.blocks.map(b => createCssRules(b.classes)).flat()
+      insertRulesIntoStyleSheet(blocksCssRules)
+      // coins cssRules
+      const coinsCssRules = sceneMapInitData.divData.coins.map(b => createCssRules(b.classes)).flat()
+      insertRulesIntoStyleSheet(coinsCssRules)
+    }
+
+    const appendStyleSheets = (sceneInitData) => {
+      // insert cssRules to head
+      getCssRulesFromSceneData(sceneInitData)
+    }
+
+    const getHtmlFromSceneData = ({ playerInitData, sceneMapInitData }) => {
+      const divList = Object.keys(sceneMapInitData.divData).map(k => sceneMapInitData.divData[k]).flat()
+      const blocksHtmlStr = divList.map(b => b.htmlStr).join('')
+      let htmlStr = playerInitData.htmlStr + blocksHtmlStr
+      return htmlStr
+    }
+
+    const drawGameDoms = (sceneInitData) => {
+      appendStyleSheets(sceneInitData)
+
+      // insert html
+      gameSceneDom = document.querySelector('.game-scene')
+      gameSceneDom.innerHTML = ''
+      const bgImgUrl = GAME_SENCE_BACKGROUND_IMAGE.includes('url(') ? GAME_SENCE_BACKGROUND_IMAGE : `url("${GAME_SENCE_BACKGROUND_IMAGE}")`
+      gameSceneDom.style = `background-image:${bgImgUrl};background-repeat:no-repeat;`
+      gameSceneDom.innerHTML = getHtmlFromSceneData(sceneInitData)
+      playerDom = document.querySelector('#player')
+      blockDoms = Array.apply(null, document.querySelectorAll('.block-default'))
+      coinsDoms = Array.apply(null, document.querySelectorAll(`.${COIN_DEFAULT_CLASS_KEY}`))
+
+      // 为玩家动画控制器设置对应的dom元素
+      playerController.setSpritesBox(playerDom)
+    }
+
+    const initGame = () => {
+      const sceneInitData = createScene()
+      drawGameDoms(sceneInitData)
+    }
+
+    //#endregion ------------------
+
+  </script>
+
+  <!-- 游戏操控 -->
+  <script>
+    //#region ------公共函数------
+
+    /**
+     * TODO:（暂未使用）自由落体运动位移计算
+     * @param [time] 单位：秒
+     * @result 经过 time 之后的位移
+     * */
+    function calculateDisplacement(time) {
+      // 重力加速度
+      const g = 9.8
+      // 位移公式
+      const displacement = 0.01 * g * Math.pow(time, 2)
+      return Math.round(displacement)
+    }
+
+    //#endregion -----------------
+
+    // 玩家跑步运动控制（通过background-position控制雪碧图裁剪区域实现）
+    const startPlayerRunActionAnimation = () => {
+      playerController.startRun(playerSpritesRunActionAnimationOptions.playMs)
+    }
+
+    // 停止玩家跑步运动
+    const stopPlayerRunActionAnimation = () => {
+      playerController.stopRun()
+    }
+
+    // 玩家自由落体模拟
+    const playerFreeFell = () => {
+      if (playerSpeed[1] !== 0 && playerSpeed[1] < Math.round(PLAYER_Y_FREE_FALL_STEP_SPEED * 2.5)) {
+        playerSpeed[1] += PLAYER_Y_FREE_FALL_STEP_SPEED
+      }
+    }
+
+    // 玩家跳跃模拟
+    const playerJump = () => {
+      // 跳跃时的速度会递减
+      playerSpeed[1] += 1
+      // 若跳跃速度减小为0，则转为下落
+      if (playerSpeed[1] === 0) {
+        playerSpeed[1] = 1
+      }
+    }
+
+    // 碰撞检测（这里不做 dom 修改，只是预计算下一步 dom 修改需要的数据）
+    // borderOffset = 1 标识 div 碰撞 的边缘偏移量
+    const checkCollision = ({ playerSize, playerSpeed, playerPosition, blocksData, borderOffset = 1 }) => {
+      const { clientWidth: gsW, clientHeight: gsH } = gameSceneDom
+      const [pw, ph] = playerSize
+      const [psX, psY] = playerSpeed
+      const [px, py] = playerPosition
+      const [pEndx, pEndy] = [px + pw, py + ph]
+      let collisionBlocks = [] // player div 进入 block div 的碰撞情况时收集的 block div 集合
+      let blockToPlayerCollisionBlocks = [] // block div 进入 player div 的碰撞情况时收集的 block div 集合
+      // 预计算下一步 player div 的位置
+      let prePlayerPosition = [px + psX, py + psY]
+      // console.log('prePlayerPosition = ',prePlayerPosition)
+      const [ppx, ppy] = prePlayerPosition
+      const [ppEndx, ppEndy] = [ppx + pw, ppy + ph]
+
+      // 边界处理
+      if (ppx <= 0) prePlayerPosition[0] = 0
+      if (ppEndx >= gsW) prePlayerPosition[0] = gsW - pw
+      // 落下到超出游戏场景范围之外的规则
+      if (ppEndy > gsH) {
+        prePlayerPosition[0] = 250
+        prePlayerPosition[1] = 0
+        playerSpeed[1] = 1
+        // TODO: 超出场景底部边界，暂定游戏结束(目前 重新开始 按钮对应的 重载游戏逻辑有问题，游戏场景并不会重建，待修复)
+        // gameOver()
+        return { prePlayerPosition }
+      }
+
+      // *** player div 进入 block div 的情况： 砖块碰撞处理(预计算下一步 dom 即将修改的数据) ***
+      // 找出所有与 player div 有碰撞的 block div
+      collisionBlocks = blocksData.filter(blockData => {
+        const [bx, by] = blockData.position
+        const [bw, bh] = blockData.size
+        const [bEndx, bEndy] = [bx + bw, by + bh]
+
+        const leftTopInBlock = (ppx >= bx && ppx <= bEndx) && (ppy >= by && ppy <= bEndy)
+        const rightTopInBlock = (ppEndx >= bx && ppEndx <= bEndx) && (ppy >= by && ppy <= bEndy)
+        const leftBottomInBlock = (ppx >= bx && ppx <= bEndx) && (ppEndy >= by && ppEndy <= bEndy)
+        const rightBottomInBlock = (ppEndx >= bx && ppEndx <= bEndx) && (ppEndy >= by && ppEndy <= bEndy)
+
+        return (leftTopInBlock || rightTopInBlock || leftBottomInBlock || rightBottomInBlock)
+      })
+
+      // 跳跃过程中的碰撞判定：若跳跃过程中预计算出下一步会遇到碰撞物，则再判断当前 player div 的Y坐标是否位于碰撞物的下方，若是，则认定为顶部碰撞，那么把截断跳跃，转为启动落体运动
+      let isJumpUnder = null
+      if (psY < 0) {
+        const jumpCollisitonBlocks = blocksData.filter(blockData => {
+          const [bx, by] = blockData.position
+          const [bw, bh] = blockData.size
+
+          const leftTopInBlock = (ppx >= bx && ppx <= bx + bw) && (ppy >= by && ppy <= by + bh)
+          const rightTopInBlock = (ppEndx >= bx && ppEndx <= bx + bw) && (ppy >= by && ppy <= by + bh)
+          const leftBottomInBlock = (ppx >= bx && ppx <= bx + bw) && (ppEndy >= by && ppEndy <= by + bh)
+          const rightBottomInBlock = (ppEndx >= bx && ppEndx <= bx + bw) && (ppEndy >= by && ppEndy <= by + bh)
+
+          return (leftTopInBlock || rightTopInBlock || leftBottomInBlock || rightBottomInBlock)
+        })
+        const jumpCollisitonSortBlocks = jumpCollisitonBlocks.sort((a, b) => a.position[1] - b.position[1])
+        isJumpUnder = false
+        // 若跳跃过程下一步会碰撞的物体中，有任何一个的Y坐标比当前 player div 的y 坐标高，则认定为顶部碰撞，那么将跳跃直接转为落体运动
+        for (const jcBlock of jumpCollisitonSortBlocks) {
+          const [bx, by] = jcBlock.position
+          const [bw, bh] = jcBlock.size
+          if (py >= by) {
+            isJumpUnder = true
+            break
+          }
+        }
+        if (isJumpUnder) {
+          playerSpeed[1] = 1
+        }
+      }
+
+      // 从碰撞的 block div 集合中分别找出 y 坐标位置 最低 和 最高 的一个
+      let lowerBlockData = null
+      if (collisionBlocks.length > 0) {
+        const sortBlocks = collisionBlocks.sort((a, b) => b.position[1] - a.position[1])
+        const len = sortBlocks.length
+        if (len > 0) {
+          lowerBlockData = sortBlocks[0]
+        }
+      }
+
+      // 若最低的 block div 位于 player div 的 下方
+      if (lowerBlockData &&
+        (ppEndy >= lowerBlockData.position[1] && ppEndy <= lowerBlockData.position[1] + lowerBlockData.size[1])) {
+        // 那么将 player div 的 y 坐标设置为该 block div 的 上方
+        prePlayerPosition[1] = lowerBlockData.position[1] - ph - borderOffset
+        playerSpeed[1] = 0
+      }
+
+      // 若 player div 在最低的 block div 的 左侧
+      else if (lowerBlockData &&
+        (ppEndx >= lowerBlockData.position[0] && ppEndx <= lowerBlockData.position[0] + lowerBlockData.size[0])) {
+        // 那么将 player div 的 x 坐标设置为该 block div 的 左侧
+        if (!isJumpUnder) prePlayerPosition[0] = lowerBlockData.position[0] - pw - borderOffset
+        if (!isJumpUnder && psX > 0) playerSpeed[0] = 0
+      }
+
+      // 若 player div 在最低的 block div 的 右侧
+      else if (lowerBlockData &&
+        (ppx >= lowerBlockData.position[0] && ppx <= lowerBlockData.position[0] + lowerBlockData.size[0])) {
+        // 那么将 player div 的 x 坐标设置为该 block div 的 右侧
+        if (!isJumpUnder) prePlayerPosition[0] = lowerBlockData.position[0] + lowerBlockData.size[0] + borderOffset
+        if (!isJumpUnder && psX < 0) playerSpeed[0] = 0
+      }
+
+      // 因为落地时会把 player div 设定为地面 block div 间距为 1px，所以每次平移过程中都去判断 player div 间距 2px 的下方是否存在任何 block div，若没有则启动落体运动
+      if (psX !== 0 && psY === 0) {
+        const ppEndExY = ppEndy + (borderOffset + 1) // 判断 player div 间距 2px 的下方是否存在任何div
+        const preBelowCollisitonBlocks = blocksData.filter(blockData => {
+          const [bx, by] = blockData.position
+          const [bw, bh] = blockData.size
+
+          const leftTopInBlock = (ppx >= bx && ppx <= bx + bw) && (ppy >= by && ppy <= by + bh)
+          const rightTopInBlock = (ppEndx >= bx && ppEndx <= bx + bw) && (ppy >= by && ppy <= by + bh)
+          const leftBottomInBlock = (ppx >= bx && ppx <= bx + bw) && (ppEndExY >= by && ppEndExY <= by + bh)
+          const rightBottomInBlock = (ppEndx >= bx && ppEndx <= bx + bw) && (ppEndExY >= by && ppEndExY <= by + bh)
+
+          return (leftTopInBlock || rightTopInBlock || leftBottomInBlock || rightBottomInBlock)
+        })
+        // 若下方没有任何 block div， 则启动落体运动
+        if (preBelowCollisitonBlocks.length === 0) {
+          playerSpeed[1] = 1
+        }
+      }
+
+      // ****************** 为上面的逻辑做弥补 ***************************
+      // *** block div 比 player div 小的情况：此时可能出现玩家的四个角的坐标点都没有进入 block div，而是 block div 的某个角的坐标点进入 player div 中 ***
+      blockToPlayerCollisionBlocks = blocksData.filter(blockData => {
+        const [bx, by] = blockData.position
+        const [bw, bh] = blockData.size
+        const [bEndx, bEndy] = [bx + bw, by + bh]
+
+        const leftTopInPlayer = (bx >= ppx && bx <= ppEndx) && (by >= ppy && by <= ppEndy)
+        const rightTopInPlayer = (bEndx >= ppx && bEndx <= ppEndx) && (by >= ppy && by <= ppEndy)
+        const leftBottomInPlayer = (bx >= ppx && bx <= ppEndx) && (bEndy >= ppy && bEndy <= ppEndy)
+        const rightBottomInPlayer = (bEndx >= ppx && bEndx <= ppEndx) && (bEndy >= ppy && bEndy <= ppEndy)
+
+        return (leftTopInPlayer || rightTopInPlayer || leftBottomInPlayer || rightBottomInPlayer)
+      })
+
+      if (blockToPlayerCollisionBlocks.length > 0) {
+        // 按照 y 坐标 升序排序
+        const btpCollisitonSortBlocks = blockToPlayerCollisionBlocks.sort((a, b) => a.position[1] - b.position[1])
+        // 找出 y 坐标最高的 block div
+        const btpHeigherBlock = btpCollisitonSortBlocks[0]
+
+        // 若最低的 block div 位于 player div 的 下方
+        if (btpHeigherBlock &&
+          (ppEndy >= btpHeigherBlock.position[1] && ppEndy <= btpHeigherBlock.position[1] + btpHeigherBlock.size[1])) {
+          // 那么将 player div 的 y 坐标设置为该 block div 的 上方
+          prePlayerPosition[1] = btpHeigherBlock.position[1] - ph - borderOffset
+          playerSpeed[1] = 0
+        }
+
+        // 若 player div 在最低的 block div 的 左侧
+        else if (btpHeigherBlock &&
+          (ppEndx >= btpHeigherBlock.position[0] && ppEndx <= btpHeigherBlock.position[0] + btpHeigherBlock.size[0])) {
+          // 那么将 player div 的 x 坐标设置为该 block div 的 左侧
+          if (!isJumpUnder) prePlayerPosition[0] = btpHeigherBlock.position[0] - pw - borderOffset
+          if (!isJumpUnder && psX > 0) playerSpeed[0] = 0
+        }
+
+        // 若 player div 在最低的 block div 的 右侧
+        else if (btpHeigherBlock &&
+          (ppx >= btpHeigherBlock.position[0] && ppx <= btpHeigherBlock.position[0] + btpHeigherBlock.size[0])) {
+          // 那么将 player div 的 x 坐标设置为该 block div 的 右侧
+          if (!isJumpUnder) prePlayerPosition[0] = btpHeigherBlock.position[0] + btpHeigherBlock.size[0] + borderOffset
+          if (!isJumpUnder && psX < 0) playerSpeed[0] = 0
+        }
+      }
+
+      return {
+        prePlayerPosition
+      }
+    }
+
+    // 玩家与金币碰撞物的碰撞检测（这里不做 dom 修改，只是预计算下一步 dom 修改需要的数据）
+    const checkCoinsCollision = ({ playerSize, playerSpeed, playerPosition, coinsData }) => {
+      const [pw, ph] = playerSize
+      const [psX, psY] = playerSpeed
+      const [px, py] = playerPosition
+      const [pEndx, pEndy] = [px + pw, py + ph]
+      let collisionBlocks = [] // player div 进入 coin div 的碰撞情况时收集的 coin div 集合
+      let blockToPlayerCollisionBlocks = [] // coin div 进入 player div 的碰撞情况时收集的 coin div 集合
+      // 预计算下一步 player div 的位置
+      let prePlayerPosition = [px + psX, py + psY]
+      const [ppx, ppy] = prePlayerPosition
+      const [ppEndx, ppEndy] = [ppx + pw, ppy + ph]
+
+      // *** player div 进入 coin div 的情况： 砖块碰撞处理(预计算下一步 dom 即将修改的数据) ***
+      // 找出所有与 player div 有碰撞的 coin div
+      collisionBlocks = coinsData.filter(blockData => {
+        const [bxSource, by] = blockData.position
+        const bx = bxSource + COIN_COLLISION_OFFSET
+        const [bw, bh] = blockData.size
+        const [bEndx, bEndy] = [bxSource + bw - COIN_COLLISION_OFFSET, by + bh]
+
+        const leftTopInBlock = (ppx >= bx && ppx <= bEndx) && (ppy >= by && ppy <= bEndy)
+        const rightTopInBlock = (ppEndx >= bx && ppEndx <= bEndx) && (ppy >= by && ppy <= bEndy)
+        const leftBottomInBlock = (ppx >= bx && ppx <= bEndx) && (ppEndy >= by && ppEndy <= bEndy)
+        const rightBottomInBlock = (ppEndx >= bx && ppEndx <= bEndx) && (ppEndy >= by && ppEndy <= bEndy)
+
+        return (leftTopInBlock || rightTopInBlock || leftBottomInBlock || rightBottomInBlock)
+      })
+
+
+      // ****************** 为上面的逻辑做弥补 ***************************
+      // *** coin div 比 player div 小的情况：此时可能出现玩家的四个角的坐标点都没有进入 coin div，而是 coin div 的某个角的坐标点进入 player div 中 ***
+      blockToPlayerCollisionBlocks = coinsData.filter(blockData => {
+        const [bxSource, by] = blockData.position
+        const bx = bxSource + COIN_COLLISION_OFFSET
+        const [bw, bh] = blockData.size
+        const [bEndx, bEndy] = [bxSource + bw - COIN_COLLISION_OFFSET, by + bh]
+
+        const leftTopInPlayer = (bx >= ppx && bx <= ppEndx) && (by >= ppy && by <= ppEndy)
+        const rightTopInPlayer = (bEndx >= ppx && bEndx <= ppEndx) && (by >= ppy && by <= ppEndy)
+        const leftBottomInPlayer = (bx >= ppx && bx <= ppEndx) && (bEndy >= ppy && bEndy <= ppEndy)
+        const rightBottomInPlayer = (bEndx >= ppx && bEndx <= ppEndx) && (bEndy >= ppy && bEndy <= ppEndy)
+
+        return (leftTopInPlayer || rightTopInPlayer || leftBottomInPlayer || rightBottomInPlayer)
+      })
+
+      // collisionBlocks 和 blockToPlayerCollisionBlocks 去重合并
+      const preRemoveCollisionCoins = [...collisionBlocks]
+      for (const patchItem of blockToPlayerCollisionBlocks) {
+        if (preRemoveCollisionCoins.findIndex(c => c.coinId === patchItem.coinId) === -1) {
+          preRemoveCollisionCoins.push(patchItem)
+        }
+      }
+      return {
+        preRemoveCollisionCoins
+      }
+    }
+
+
+    // 玩家Dom更新
+    const updatePlayerDom = ({ prePlayerPosition }) => {
+      playerPositionProxy.value = prePlayerPosition
+
+      if (playerSpeed[0] < 0) {
+        playerBgImgHorizontalDirectionProxy.right = false
+      } else if (playerSpeed[0] > 0) {
+        playerBgImgHorizontalDirectionProxy.right = true
+      }
+
+    }
+
+    // 金币Dom更新
+    const updateCoinsDom = ({ preRemoveCollisionCoins }) => {
+      if (preRemoveCollisionCoins.length > 0) {
+        for (const rmCoin of preRemoveCollisionCoins) {
+          playerScoreProxy.append = rmCoin.score // 得分更新
+          coinsDataProxy.removeCoinId = rmCoin.coinId
+        }
+      }
+    }
+
+    const gameUpdate = () => {
+      if (gameEngineStop) return
+
+      if (playerSpeed[1] > 0) playerFreeFell()
+      if (playerSpeed[1] < 0) playerJump()
+      const collisionOption = checkCollision({ playerSize, playerSpeed, playerPosition: playerPositionProxy.value, blocksData })
+      const coinsCollisionOption = checkCoinsCollision({ playerSize, playerSpeed, playerPosition: playerPositionProxy.value, coinsData: coinsDataProxy.value })
+      updatePlayerDom(collisionOption)
+      updateCoinsDom(coinsCollisionOption)
+
+      return requestAnimationFrame(gameUpdate)
+    }
+
+    const startGameEngine = () => {
+      gameEngineStop = false
+      requestAnimationFrame(gameUpdate)
+    }
+
+    const stopGameEngine = () => {
+      gameEngineStop = true
+    }
+
+    // 彻底终止游戏引擎，避免重复开启 requestAnimationFrame
+    const cancelGameEngine = () => {
+      gameEngineStop = true
+      cancelAnimationFrame(gameUpdate)
+    }
+
+  </script>
+
+  <!-- 事件注册 -->
+  <script>
+
+    // TODO：重置玩家 重载时 所需数据（待完善）
+    const getResetGameData = () => {
+      // 玩家的默认参数
+      const playerDefault = {
+        X_START_SPEED,
+        Y_FREE_FALL_STEP_SPEED,
+        Y_JUMP_START_SPEED,
+        PLAYER_BORTH_POSITION,
+        playerSpeed, // [x是这里参数面板上的“跑步速度”， y是这里参数面板上的“起跳速度”]
+        playerSize,
+        playerSpritesBackgrundImageUrl,
+        playerSpritesRunActionAnimationOptions,
+      }
+
+      // // 一个砖块物体的默认参数
+      // const blockDefault = {
+      //   blockIndex: 0,
+      //   blockId: 'block-0', // 唯一id
+      //   size: [50, 50],
+      //   position: [0, 0],
+      //   backgroundImage: './imgs/block.png'
+      // }
+
+      // // 一个金币物体的默认参数
+      // const coinDefault = {
+      //   coinIndex: 0,
+      //   coinId: 'coin-0', // 唯一id
+      //   size: [50, 50],
+      //   position: [0, 0],
+      //   score: 1, // 金币代表的分数值
+      //   backgroundImage: './imgs/coin.png' // 金币如果想添加动画，可以使用gif图即可（雪碧图控制代码有点麻烦，后续再计划是否加入支持雪碧图动画功能）
+      // }
+
+      // 默认参数统一这里到该对象中，方便部分函数中直接根据key进行取用
+      const gameBoxDefaultParams = {
+        // 游戏场景数据
+        global: {
+          GAME_SENCE_BACKGROUND_IMAGE
+        },
+        // 玩家数据
+        player: playerDefault,
+        // 普通砖块数据
+        block: {
+          blocksData
+        },
+        // 金币数据
+        coin: {
+          COIN_COLLISION_OFFSET,
+          coinsData
+        }
+      }
+      return gameBoxDefaultParams
+    }
+
+    // 重新开始按钮事件
+    const reloadGame = () => {
+      window.location.reload()
+
+      // TODO： 目前下面这种重载游戏的数据有问题
+      loadGame(getResetGameData())
+      cancelGameEngine()
+      setTimeout(() => {
+        loadGame()
+      }, 500)
+    }
+
+    // 有效的操控按键
+    const CONTROLLER_KEYS = ['ArrowLeft', 'ArrowRight', 'ArrowUp']
+    // 判断当前按键是否属于游戏的可操控按键
+    const isControllerKeys = (eventKey) => !gameEngineStop && CONTROLLER_KEYS.includes(eventKey)
+
+    document.addEventListener('keydown', (event) => {
+      if (!isControllerKeys(event.key)) return
+
+      const eventKey = event.key
+
+      if (eventKey === 'ArrowLeft' && !downKeys[event.key]) {
+        if (playerSpeed[0] >= 0) playerSpeed[0] = -PLAYER_X_START_SPEED
+        startPlayerRunActionAnimation()
+      }
+      if (eventKey === 'ArrowRight' && !downKeys[event.key]) {
+        if (playerSpeed[0] <= 0) playerSpeed[0] = PLAYER_X_START_SPEED
+        startPlayerRunActionAnimation()
+      }
+      if (eventKey === 'ArrowUp' && !downKeys[event.key] && playerSpeed[1] === 0) {
+        playerSpeed[1] = -PLAYER_Y_JUMP_START_SPEED
+      }
+      // 记录当前按键状态
+      downKeys[event.key] = true
+    })
+
+    document.addEventListener('keyup', (event) => {
+      if (!isControllerKeys(event.key)) return
+
+      // 记录当前按键状态
+      downKeys[event.key] = false
+
+      if (!downKeys['ArrowLeft'] && !downKeys['ArrowRight']) {
+        // 左右键都抬起时，停止移动
+        playerSpeed[0] = 0
+        stopPlayerRunActionAnimation()
+      } else if (downKeys['ArrowLeft'] && !downKeys['ArrowRight']) {
+        // 左键没抬起时，仍然在向左移动
+        if (playerSpeed[0] > 0) playerSpeed[0] = -PLAYER_X_START_SPEED
+      } else if (!downKeys['ArrowLeft'] && downKeys['ArrowRight']) {
+        // 右键没抬起时，仍然在向右移动
+        if (playerSpeed[0] < 0) playerSpeed[0] = PLAYER_X_START_SPEED
+      }
+      // if (downKeys['ArrowUp']) {}
+    })
+
+    const loadGameParams = (gameData) => {
+      console.log('gameData = ', gameData)
+      GAME_SENCE_BACKGROUND_IMAGE = gameData.global.GAME_SENCE_BACKGROUND_IMAGE // 整个游戏场景的背景图（为了游戏效果，背景图不会自适应，游戏场景中的每个物体目前均以px为单位进行布局，位置需要与背景图相对应）
+      PLAYER_X_START_SPEED = gameData.player.PLAYER_X_START_SPEED // 玩家移动初速度
+      // // PLAYER_Y_FREE_FALL_STEP_SPEED = gameData.player.PLAYER_Y_FREE_FALL_STEP_SPEED // 控制玩家下落速度的单位值
+      PLAYER_Y_JUMP_START_SPEED = gameData.player.PLAYER_Y_JUMP_START_SPEED // 玩家跳跃的初速度值
+      PLAYER_BORTH_POSITION = gameData.player.PLAYER_BORTH_POSITION // 玩家出生位置
+      COIN_COLLISION_OFFSET = gameData.coin.COIN_COLLISION_OFFSET // 玩家与金币碰撞的边缘计算偏移量（为了体验更好，玩家需要进入金币div一定的范围内部才会让金币被碰撞而消失）
+
+      // 玩家出生位置
+      playerPosition.value = PLAYER_BORTH_POSITION
+      // // 玩家运动初速度 [x,y]
+      // playerSpeed = gameData.player.playerSpeed
+      // 玩家尺寸
+      playerSize = gameData.player.playerSize
+      // 玩家角色图片
+      playerSpritesBackgrundImageUrl = gameData.player.playerSpritesBackgrundImageUrl
+      // 用于播放玩家跑步运动时，雪碧图不断切换的一些参数（目前仅支持 x 轴，即仅支持行上的动作切换）(这里的属性都是百分比值，即使用在 background-position:0% 0% 中)
+      playerSpritesRunActionAnimationOptions = gameData.player.playerSpritesRunActionAnimationOptions
+
+      // 游戏画面中的砖块集合
+      blocksData = gameData.block.blocksData
+      // 金币集合
+      coinsData.value = gameData.coin.coinsData
+    }
+
+    // 检测是否属于游戏关卡预览模式
+    const getGameLevelMode = () => {
+      const routeQuery = getRouteQuery()
+      // 若路由参数中的 level 是 'preview'，就根据消息通道的通知消息来加载游戏
+      if (routeQuery && Object.hasOwnProperty.call(routeQuery, 'level')) return routeQuery.level
+      return null
+    }
+
+    // 加载游戏
+    const loadGame = (gameData) => {
+      if (gameData) loadGameParams(gameData)
+      // 设置玩家角色动作动画参数
+      playerController.setFrameOptions(playerSpritesRunActionAnimationOptions)
+
+      setTimeout(() => {
+        initGame()
+        startGameEngine()
+        setTimeout(() => {
+          playerSpeed[1] = 1
+        }, 200)
+      }, 100)
+    }
+
+    // 设置过关条件
+    const setPassRule = (passRule) => {
+      const passRuleKey = Object.keys(passRule)[0]
+      if (passRuleKey === 'input-pass-rule-score') {
+        gameLevelMaxScore = Number(passRule[passRuleKey])
+        console.log('gameLevelMaxScore = ', gameLevelMaxScore)
+      }
+    }
+
+    // 设置顶部的关卡文本
+    const setGameLevelText = () => {
+      let gameLevelText = /第[0123456789]+关/g.test(gameLevelItem.name) ? gameLevelItem.name : `第${gameLevelItem.index}关 - ${gameLevelItem.name}`
+      document.querySelector('.player-level-index-text>span').innerText = gameLevelText
+    }
+
+    // 正式开始游戏，根据关卡逐一开始游戏
+    const loadGameByLevel = () => {
+      const routeQuery = getRouteQuery()
+      if (!Object.hasOwnProperty.call(routeQuery, 'levelid')) {
+        const playGameRecordData = readPlayGameRecord()
+        let levelDataId = null
+        if(!playGameRecordData) {
+          // 若游戏记录里没有相关数据，则默认读取第一关的关卡
+          levelDataId = getLevelItem().id
+        } else {
+          // 若存在游戏记录，则读取游戏记录中的关卡id
+          levelDataId=playGameRecordData.processLevelId
+        }
+        window.location.href = `${window.location.href}&levelid=${levelDataId}`
+        return
+      }
+      const levelDataId = routeQuery.levelid
+      console.log(levelDataId)
+
+      const levelItem = getLevelItem(levelDataId)
+      if (!levelItem) {
+        alert('当前关卡ID无效，请及时维护!')
+        throw Error('当前关卡ID无效，请及时维护!')
+        return
+      }
+      gameLevelItem = levelItem
+      setPassRule(gameLevelItem.passRule)
+      setGameLevelText()
+      loadGame(levelItem.gameData)
+    }
+
+    window.addEventListener('load', () => {
+      console.log('------onload')
+      const gameMode = getGameLevelMode()
+      if (gameMode === 'preview') {
+        // 由于 sessionStorage 仅当前会话有效的特性(关闭和离开都会自动清除)，若
+        const previewSessionData = readLevelPreviewData()
+        if (previewSessionData) loadGame(previewSessionData)
+      } else if (gameMode === 'game') {
+        // 正式开始游戏，根据关卡依次开始
+        loadGameByLevel()
+      } else {
+        loadGame()
+      }
+    })
+  </script>
+
+  <!-- TODO：游戏闯关纪录保存/读取 -->
+  <script>
+    // 游戏关卡配置数据Key
+    const LEVEL_DATA_KEY = 'MINI_DREAMER_GAME_LEVEL_DATA'
+    // 游戏闯关记录Key
+    const PLAY_GAME_RECORD_KEY = 'MINI_DREAMER_PLAY_GAME_RECORD'
+
+    // 获取网站原始url等信息
+    function getFullOriginPath() {
+      const { origin, pathname } = window.location
+      return `${origin}${pathname}`
+    }
+
+    const goNextLeveRoute = (id) => {
+      window.location.href = `${getFullOriginPath()}?level=game&levelid=${id}`
+    }
+
+    // 跳转到下一关
+    const goNextGameLevel = () => {
+      const nextLevelItem = getNextLevelItem(gameLevelItem.id)
+      if (!nextLevelItem) {
+        const curPassLevelData = { [gameLevelItem.id]: { maxScore: playerScoreProxy.value } }
+        writePlayGameRecord(curPassLevelData)
+        alert('恭喜通关啦！可以在创造页继续添加新的关卡后继续游玩哦~')
+        return
+      }
+      alert('恭喜过关！请进入下一关吧')
+      goNextLeveRoute(nextLevelItem.id)
+    }
+
+    // 写入关卡记录数据
+    const writePlayGameRecord = (curPassLevelData, processLevelId) => {
+      const oldPlayGameRecord = readPlayGameRecord()
+      const playGameRecord = {
+        ...oldPlayGameRecord,
+        // 当前正在进行的关卡id -- 闯关进度(记录的是对应关卡的数据id)
+        // processLevelId,
+        // 玩家闯过的关卡数据会记录在这里，以关卡的数据id为key，比如记录玩家每一关的最高分
+        // 'xxx(processLevelId)': { maxScore: 1}
+        ...curPassLevelData,
+      }
+      // 如果到达最后一关的话，这里就不存放下一关的id了
+      if (processLevelId) {
+        playGameRecord['processLevelId'] = processLevelId
+      }
+
+      window.localStorage.setItem(PLAY_GAME_RECORD_KEY, JSON.stringify(playGameRecord))
+    }
+
+    // 读取关卡记录数据
+    const readPlayGameRecord = () => {
+      const jsonStr = window.localStorage.getItem(PLAY_GAME_RECORD_KEY) || null
+      if (!jsonStr) return null
+      return JSON.parse(jsonStr)
+    }
+
+    // 读取关卡数据
+    const readLevelsData = () => {
+      const jsonStr = window.localStorage.getItem(LEVEL_DATA_KEY) || null
+      if (!jsonStr) return null
+      return JSON.parse(jsonStr)
+    }
+
+    // 根据 id 获取对应的关卡数据
+    const getLevelItem = (levelDataId) => {
+      const levelsData = readLevelsData()
+      if (!levelsData) {
+        alert('读取关卡数据错误，没有任何关卡数据！请先前往建造页创造关卡')
+        throw Error('读取关卡数据错误，没有任何关卡数据！请先前往建造页创造关卡')
+      }
+      // 若不传id则返回第一关数据(由于 json 数据是以ASCII码值进行排序的，所以要想获取第一关的数据，需要我们通过index来查找相应的关卡数据)
+      if (!levelDataId) return Object.values(levelsData).sort((a, b) => a.index - b.index)[0]
+
+      // 查找对应的关卡数据
+      if (levelsData && Object.keys(levelsData).length > 0) {
+        const findKey = Object.keys(levelsData).find(k => k === levelDataId)
+        if (findKey) return levelsData[findKey]
+      }
+      return null
+    }
+
+    // 获取下一关的数据，若获取的是 null 则说明当前已达到最后一关
+    const getNextLevelItem = (curLevelDataId) => {
+      const levelsData = readLevelsData()
+      const curLevelItem = getLevelItem(curLevelDataId)
+      const sortLevelsData = Object.values(levelsData).sort((a, b) => a.index - b.index)
+      console.log('---sortLevelsData = ', sortLevelsData)
+      const maxIndex = sortLevelsData[sortLevelsData.length - 1].index
+      if (curLevelItem.index >= maxIndex) {
+        // 已达到最后一关
+        return null
+      }
+
+      // 查找下一关的数据
+      const nextLevelIndex = curLevelItem.index + 1
+      const nextLevelItem = Object.values(levelsData).find(item => item.index === nextLevelIndex)
+      if (!nextLevelItem) {
+        alert('读取关卡数据错误，没有匹配到下一关的关卡数据！请及时维护')
+        throw Error('读取关卡数据错误，没有匹配到下一关的关卡数据！请及时维护')
+      }
+      return nextLevelItem
+    }
+
+  </script>
+
+  <!-- 消息通道 -->
+  <script>
+    // 消息通知
+    const messageChannelActions = {
+      'level-preview': () => {
+        // 根据传递过来的数据，加载游戏
+        loadGame(message.data)
+        setTimeout(() => {
+          writeLevelPreviewData(message.data)
+          // 设置标记
+        }, 500)
+      },
+      'play-game': () => {
+        // 不需要做任何事情，会根据路由参数加载游戏数据
+      }
+    }
+
+    // 游戏关卡预览数据写入
+    const writeLevelPreviewData = (previewData) => {
+      sessionStorage.setItem(LEVEL_PREVIEW_DATA_KEY, JSON.stringify(previewData))
+    }
+
+    // 游戏关卡预览数据读取
+    const readLevelPreviewData = () => {
+      const jsonStr = sessionStorage.getItem(LEVEL_PREVIEW_DATA_KEY)
+      if (jsonStr) return JSON.parse(jsonStr)
+      return void 0
+    }
+
+    // 写入来着 BroadcastChannel 的消息 preview 预览标记
+
+
+    const channel = new BroadcastChannel('mic-2d-dream')
+    channel.addEventListener('message', (event) => {
+      const { data: message } = event
+      // 从广播中过滤出属于自己的信息
+      if (message.from === 'sence-creator') messageChannelActions[message.type]
+    })
+
+  </script>
+</body>
+
+</html>
