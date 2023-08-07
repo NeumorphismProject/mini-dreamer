@@ -87,3 +87,8 @@
 
 * task - 8 -- 点击“保存关卡”按钮，弹出关卡保存面板（面板分上下两部分：上面是当前保存的关卡名称和胜利条件设置；下面一部分是所有已保存的关卡数据列表，可以读取其中任意一份关卡数据），该游戏为单机游戏，所有数据保存在localstory中即可
 * * point: 5
+
+
+## Preview
+* Deploy on Vercel (CI/CD): 
+* * https://mini-dreamer-git-main-qukadmin.vercel.app/sence-creator.html
