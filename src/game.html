@@ -170,6 +170,7 @@
       text-align: center;
     }
   </style>
+  <script src="./utils/route-util.js"></script>
 </head>
 
 <body>
@@ -622,24 +623,6 @@
 
   <!-- 公共函数 -->
   <script>
-
-    // 把 window.location.search 里这样的 '?level=preview&a=123' 字符串转成 json
-    function parseSearchToJson(search) {
-      const json = {}
-      const regex = /[?&]([\w-]*)=([\w-]*)/g
-      let match
-
-      while (match = regex.exec(search)) {
-        json[match[1]] = match[2]
-      }
-
-      return Object.keys(json).length > 0 ? json : null
-    }
-
-    // 获取json格式的把 window.location.search
-    function getRouteQuery() {
-      return parseSearchToJson(window.location.search)
-    }
 
     // 随机16进制颜色值
     function createRandomColor() {
@@ -1525,12 +1508,6 @@
     const LEVEL_DATA_KEY = 'MINI_DREAMER_GAME_LEVEL_DATA'
     // 游戏闯关记录Key
     const PLAY_GAME_RECORD_KEY = 'MINI_DREAMER_PLAY_GAME_RECORD'
-
-    // 获取网站原始url等信息
-    function getFullOriginPath() {
-      const { origin, pathname } = window.location
-      return `${origin}${pathname}`
-    }
 
     const goNextLeveRoute = (id) => {
       window.location.href = `${getFullOriginPath()}?level=game&levelid=${id}`

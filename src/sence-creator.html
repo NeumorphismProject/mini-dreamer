@@ -642,6 +642,7 @@
       width: 60px;
     }
   </style>
+  <script src="./utils/route-util.js"></script>
 </head>
 
 <body>
@@ -2568,24 +2569,6 @@
 
 <!-- 通用函数 -->
 <script>
-
-  // 把 window.location.search 里这样的 '?level=preview&a=123' 字符串转成 json
-  function parseSearchToJson(search) {
-    const json = {}
-    const regex = /[?&]([\w-]*)=([\w-]*)/g
-    let match
-
-    while (match = regex.exec(search)) {
-      json[match[1]] = match[2]
-    }
-
-    return Object.keys(json).length > 0 ? json : null
-  }
-
-  // 获取json格式的把 window.location.search
-  function getRouteQuery() {
-    return parseSearchToJson(window.location.search)
-  }
 
   // 检测是否为数值
   function checkNumberStr(val) {
