@@ -11,7 +11,8 @@
 <body>
   <script>
     window.addEventListener('load', () => {
-      window.location.href = window.location.origin + "/src/sence-creator.html"
+      const routePath = window.location.origin.includes('https') ? "/sence-creator.html" : "/src/sence-creator.html"
+      window.location.href = window.location.origin + routePath
     })
   </script>
 </body>
