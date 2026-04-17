@@ -5,9 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "ts-check": "tsc -p tsconfig.json"
+    "start": "next start"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.958.0",
