@@ -1,7 +1,6 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
@@ -20,13 +19,11 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 shadow-lg shadow-blue-500/20">
-              <Image
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 shadow-lg shadow-blue-500/20 overflow-hidden">
+              <img
                 src="/logo.jpeg"
                 alt="抽象吧桌宠"
-                width={28}
-                height={28}
-                className="object-cover rounded-xl"
+                className="w-7 h-7 object-cover rounded-xl"
               />
             </div>
             <span className="font-semibold text-white">抽象吧桌宠</span>
