@@ -1,30 +1,26 @@
 import type { Metadata } from 'next';
-import { Inspector } from 'react-dev-inspector';
-import { AppLayout, ThemeProvider } from '@/components/layout';
-import { SaveModal, DeleteConfirm } from '@/components/business';
+import { Header, Footer, ThemeProvider } from '@/components/layout';
 import { Toaster } from '@/components/ui/sonner';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: {
-    default: 'SoundAI - AI智能音频素材平台',
-    template: '%s | SoundAI',
+    default: '抽象吧桌宠 - Windows 桌面宠物应用',
+    template: '%s | 抽象吧桌宠',
   },
   description:
-    'SoundAI是专业的AI音频素材平台，提供海量无版权音效、背景音乐智能生成服务，让创意音频触手可及',
+    '一款基于 Tauri 2 开发的 Windows 桌面宠物应用，支持语音互动、角色进化系统和高度自定义功能',
   keywords: [
-    'AI音效',
-    '音频素材',
-    '音效生成',
-    '背景音乐',
-    '无版权音乐',
-    '免版税音效',
-    'AI作曲',
-    '声音设计',
-    'SoundAI',
+    '桌面宠物',
+    'Windows应用',
+    'Tauri',
+    '语音互动',
+    '角色进化',
+    '桌面美化',
+    '虚拟宠物',
+    '自定义角色',
   ],
-  authors: [{ name: 'SoundAI Team' }],
-  generator: 'Coze Code',
+  authors: [{ name: '抽象吧桌宠团队' }],
   icons: {
     icon: '/favicon.ico',
   },
@@ -39,23 +35,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isDev = process.env.COZE_PROJECT_ENV === 'DEV';
-
   return (
     <html lang="zh-CN" suppressHydrationWarning>
-      <body className={`antialiased`}>
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {isDev && <Inspector />}
-          <AppLayout>
-            {children}
-          </AppLayout>
-          <SaveModal />
-          <DeleteConfirm />
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <div className="flex-1">
+              {children}
+            </div>
+            <Footer />
+          </div>
           <Toaster />
         </ThemeProvider>
       </body>

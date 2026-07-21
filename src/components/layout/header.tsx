@@ -1,149 +1,84 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Music, AudioWaveform, Clock, Star, Tag, Sparkles, ChevronDown, Scissors } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ThemeToggle } from './theme-toggle';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Menu, X } from 'lucide-react';
 
-const mainNavItems = [
-  {
-    href: '/sound-effects',
-    label: '音效库',
-    icon: AudioWaveform,
-  },
-  {
-    href: '/premium-sound-effects',
-    label: '精选音效',
-    icon: Star,
-    isPremium: true,
-  },
-  {
-    href: '/generate',
-    label: 'AI生成',
-    icon: Sparkles,
-  },
-  {
-    href: '/audio-editor',
-    label: '音频编辑器',
-    icon: Scissors,
-    isHighlight: true,
-  },
-];
-
-const moreNavItems = [
-  {
-    href: '/temp-audio',
-    label: '临时音频',
-    icon: Clock,
-    description: '临时存储的音频文件',
-  },
-  {
-    href: '/tags',
-    label: '标签管理',
-    icon: Tag,
-    description: '管理音效标签分类',
-  },
+const navigation = [
+  { label: '首页', href: '/' },
+  { label: '功能特性', href: '#features' },
+  { label: '下载', href: '#download' },
 ];
 
 export function Header() {
-  const pathname = usePathname();
-
-  const isMoreActive = moreNavItems.some(item => pathname === item.href);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full nav-bar">
-      <div className="container flex h-16 items-center justify-between px-4">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold">
-            <Music className="h-5 w-5" />
-          </div>
-          <span className="text-xl font-bold tracking-tight hidden sm:inline">
-            Sound<span className="text-primary">AI</span>
-          </span>
-        </Link>
-
-        {/* Navigation */}
-        <nav className="flex items-center gap-1">
-          {mainNavItems.map((item) => {
-            const isActive = pathname === item.href;
-            const Icon = item.icon;
-            const isPremium = item.isPremium;
-            const isHighlight = item.isHighlight;
-            return (
-              <Link key={item.href} href={item.href}>
-                <Button
-                  variant={isActive ? 'secondary' : 'ghost'}
-                  size="sm"
-                  className={cn(
-                    'gap-2',
-                    isPremium && !isActive && 'text-amber-600 hover:text-amber-700 hover:bg-amber-50 dark:text-amber-500 dark:hover:text-amber-400 dark:hover:bg-amber-950/30',
-                    isPremium && isActive && 'bg-amber-100 text-amber-800 hover:bg-amber-100 dark:bg-amber-950/50 dark:text-amber-400 dark:hover:bg-amber-950/50',
-                    isHighlight && !isActive && 'text-primary hover:text-primary hover:bg-primary/10'
-                  )}
-                >
-                  <Icon className="h-4 w-4" />
-                  <span className="hidden sm:inline">{item.label}</span>
-                </Button>
-              </Link>
-            );
-          })}
-
-          {/* More Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button 
-                variant={isMoreActive ? 'secondary' : 'ghost'} 
-                size="sm"
-                className="gap-1"
-              >
-                <span className="hidden sm:inline">更多</span>
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              {moreNavItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href;
-                return (
-                  <DropdownMenuItem key={item.href} asChild>
-                    <Link 
-                      href={item.href}
-                      className={cn(
-                        'flex items-center gap-3 cursor-pointer',
-                        isActive && 'bg-accent'
-                      )}
-                    >
-                      <Icon className="h-4 w-4 text-muted-foreground" />
-                      <div>
-                        <div className="font-medium">{item.label}</div>
-                        <div className="text-xs text-muted-foreground">{item.description}</div>
-                      </div>
-                    </Link>
-                  </DropdownMenuItem>
-                );
-              })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </nav>
-
-        {/* Right Actions */}
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <Link href="/generate">
-            <Button size="sm" className="gap-2 font-medium">
-              开始创作
-            </Button>
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-slate-950/90 backdrop-blur supports-[backdrop-filter]:bg-slate-950/70">
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 shadow-lg shadow-blue-500/20">
+              <Image
+                src="/logo.jpeg"
+                alt="抽象吧桌宠"
+                width={28}
+                height={28}
+                className="object-cover rounded-xl"
+              />
+            </div>
+            <span className="font-semibold text-white">抽象吧桌宠</span>
           </Link>
+
+          <div className="hidden md:flex items-center gap-6">
+            <nav className="flex items-center gap-6">
+              {navigation.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+            <Link
+              href="#download"
+              className="rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:from-blue-500 hover:to-cyan-400"
+            >
+              立即下载
+            </Link>
+          </div>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="切换菜单"
+          >
+            {isMenuOpen ? <X className="h-5 w-5 text-white" /> : <Menu className="h-5 w-5 text-white" />}
+          </Button>
         </div>
+
+        {isMenuOpen && (
+          <nav className="md:hidden py-4 border-t border-white/10">
+            <div className="flex flex-col gap-2">
+              {navigation.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </nav>
+        )}
       </div>
     </header>
   );
