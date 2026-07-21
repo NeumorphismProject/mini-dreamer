@@ -1,7 +1,7 @@
 'use client';
 
 import { DownloadButtons } from '@/components/download-buttons';
-import { Sparkles, Palette, Mic, TrendingUp, Zap, Film, Music, Scissors } from 'lucide-react';
+import { Sparkles, Palette, Mic, TrendingUp, Zap, Film, Music, Image } from 'lucide-react';
 
 const features = [
   {
@@ -28,9 +28,9 @@ const features = [
 
 const tools = [
   {
-    icon: Scissors,
-    title: '视频剪辑',
-    description: '简易视频剪辑工具，方便快捷地进行视频剪切拼接',
+    icon: Image,
+    title: '图片处理',
+    description: '图片格式转换、图片裁剪等便捷功能',
     color: 'from-green-500 to-emerald-500',
   },
   {
@@ -68,7 +68,7 @@ export function MainSection() {
                 让桌面焕然一新，下载你的专属桌宠
               </h1>
               <p className="text-lg sm:text-xl text-slate-300/90 leading-8">
-                支持 Windows 稳定版本，一键下载即可安装。内置丰富好用的免费工具，包括视频剪辑、视频处理和音频处理功能。Mac 版本正在加速开发，敬请期待。
+                支持 Windows 稳定版本，一键下载即可安装。内置丰富好用的免费工具，包括图片处理、视频处理和音频处理功能。Mac 版本正在加速开发，敬请期待。
               </p>
             </div>
 
