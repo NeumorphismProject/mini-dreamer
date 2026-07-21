@@ -1,7 +1,7 @@
 'use client';
 
 import { DownloadButtons } from '@/components/download-buttons';
-import { Sparkles, Palette, Mic, TrendingUp, Zap, Film, Music, Image } from 'lucide-react';
+import { Sparkles, Palette, Mic, TrendingUp, Zap, Film, Music, Image, Wrench } from 'lucide-react';
 
 const features = [
   {
@@ -124,7 +124,7 @@ export function MainSection() {
             <div className="rounded-[2.5rem] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-slate-950/40 backdrop-blur-xl ring-1 ring-white/10">
               <div className="flex items-center gap-4">
                 <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/20">
-                  <Scissors className="h-7 w-7" />
+                  <Wrench className="h-7 w-7" />
                 </div>
                 <div>
                   <p className="text-sm uppercase tracking-[0.24em] text-slate-300/80">免费工具</p>
