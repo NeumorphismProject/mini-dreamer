@@ -7,7 +7,7 @@ const features = [
   {
     icon: Palette,
     title: '高度自定义',
-    description: '自由定制宠物形象，上传任意角色图片',
+    description: '自定义宠物形象与行为，上传任意图片打造专属伙伴',
   },
   {
     icon: Mic,
@@ -60,7 +60,7 @@ export function MainSection() {
 
             <div className="space-y-6 max-w-3xl">
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
-                让桌面焕然一新，下载你的专属桌宠
+                你的专属桌面伙伴，随时提供情绪价值
               </h1>
               <p className="text-lg sm:text-xl text-slate-300/90 leading-8">
                 支持 Windows 稳定版本，一键下载即可安装。内置丰富好用的免费工具，包括图片处理、视频处理和音频处理功能。Mac 版本正在加速开发，敬请期待。
