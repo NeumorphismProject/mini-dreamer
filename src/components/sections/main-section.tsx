@@ -1,7 +1,7 @@
 'use client';
 
 import { DownloadButtons } from '@/components/download-buttons';
-import { Sparkles, Palette, Mic, TrendingUp, Zap, Film, Music, Image, Wrench } from 'lucide-react';
+import { Sparkles, Palette, Mic, TrendingUp, Film, Music, Image, Wrench } from 'lucide-react';
 
 const features = [
   {
@@ -18,11 +18,6 @@ const features = [
     icon: TrendingUp,
     title: '进化系统',
     description: 'V0 → V1 → V2，体验三段成长进化',
-  },
-  {
-    icon: Zap,
-    title: '必杀技能',
-    description: 'V2 终极形态释放华丽必杀技',
   },
 ];
 
