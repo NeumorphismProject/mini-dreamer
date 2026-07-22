@@ -22,11 +22,17 @@ export function RoleCard({ role, onDownload }: RoleCardProps) {
   return (
     <div className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/10 p-4">
       <div className="w-24 h-24 rounded-full overflow-hidden bg-slate-800/50 mb-3">
-        <img
-          src={role.role_image_url}
-          alt={role.role_name}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+        {role.role_image_url ? (
+          <img
+            src={role.role_image_url}
+            alt={role.role_name}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div className="h-full w-full flex items-center justify-center text-slate-600 text-xs">
+            暂无图片
+          </div>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col w-full text-center">

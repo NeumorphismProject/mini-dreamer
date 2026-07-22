@@ -16,9 +16,9 @@ export default function RolesPage() {
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const pageSize = 12;
+  const pageSize = 20;
 
-  const { data, loading, error, refetch } = useRoles({
+  const { data, loading, loadingImages, error, refetch } = useRoles({
     page: currentPage,
     page_size: pageSize,
     keyword: searchKeyword,
@@ -73,9 +73,12 @@ export default function RolesPage() {
           </div>
         </div>
 
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
+        {loading || loadingImages ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-3">
             <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+            <p className="text-sm text-slate-400">
+              {loading ? '正在加载角色列表...' : '正在加载角色图片...'}
+            </p>
           </div>
         ) : error ? (
           <div className="text-center py-20">

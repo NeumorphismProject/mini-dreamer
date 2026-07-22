@@ -5,7 +5,7 @@ export interface Role {
   role_archive_key: string;
   created_at: string;
   updated_at: string;
-  role_image_url: string;
+  role_image_url?: string; // 前端动态获取后填充
 }
 
 export interface ListRolesParams {
@@ -26,6 +26,12 @@ export interface ListRolesResponse {
 
 export interface ArchiveUrlResponse {
   archive_key: string;
+  download_url: string;
+  url_expire_time: string;
+}
+
+export interface ImageUrlResponse {
+  image_key: string;
   download_url: string;
   url_expire_time: string;
 }
