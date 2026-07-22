@@ -20,8 +20,8 @@ export function RoleCard({ role, onDownload }: RoleCardProps) {
   };
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/10">
-      <div className="aspect-square overflow-hidden bg-slate-800/50">
+    <div className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/10 p-4">
+      <div className="w-24 h-24 rounded-full overflow-hidden bg-slate-800/50 mb-3">
         <img
           src={role.role_image_url}
           alt={role.role_name}
@@ -29,24 +29,22 @@ export function RoleCard({ role, onDownload }: RoleCardProps) {
         />
       </div>
 
-      <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-lg font-semibold text-white mb-2 truncate">
+      <div className="flex flex-1 flex-col w-full text-center">
+        <h3 className="text-base font-semibold text-white mb-1 truncate">
           {role.role_name}
         </h3>
 
-        <p className="text-sm text-slate-400 mb-4">
+        <p className="text-xs text-slate-400 mb-3">
           上架时间: {formatDate(role.created_at)}
         </p>
 
-        <div className="mt-auto">
-          <Button
-            onClick={() => onDownload(role)}
-            className="w-full gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:from-blue-500 hover:to-cyan-400"
-          >
-            <Download className="h-4 w-4" />
-            下载
-          </Button>
-        </div>
+        <Button
+          onClick={() => onDownload(role)}
+          className="w-full gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:from-blue-500 hover:to-cyan-400"
+        >
+          <Download className="h-4 w-4" />
+          下载
+        </Button>
       </div>
     </div>
   );
