@@ -67,6 +67,9 @@ export function RoleDownloadDialog({ open, onOpenChange, role }: RoleDownloadDia
               className="w-40 h-40 object-cover rounded-lg"
             />
             <span className="text-sm text-slate-400">微信平台</span>
+            <p className="text-xs text-slate-500 text-center leading-relaxed">
+              角色免费获取，若您喜欢可自愿捐赠支持作者，由衷感谢您的支持与使用！
+            </p>
           </div>
         </div>
 
@@ -95,7 +98,10 @@ export function RoleDownloadDialog({ open, onOpenChange, role }: RoleDownloadDia
                 获取中
               </>
             ) : (
-              '获取'
+              <div className="flex flex-col items-center">
+                <span className="text-base">获取</span>
+                <span className="text-xs opacity-80">免费获取</span>
+              </div>
             )}
           </Button>
         </div>
