@@ -1,4 +1,4 @@
-import type { DownloadResponse } from '@/types';
+import type { DownloadResponse, ListRolesParams, ListRolesResponse, ArchiveUrlResponse } from '@/types';
 
 export async function getLatestFile(): Promise<DownloadResponse> {
   try {
@@ -24,22 +24,59 @@ export async function getLatestFile(): Promise<DownloadResponse> {
   }
 }
 
-export async function downloadFile(url: string, fileName: string): Promise<void> {
+export function downloadFile(url: string): void {
+  window.open(url, '_blank');
+}
+
+export async function getRoles(params: ListRolesParams = {}): Promise<ListRolesResponse> {
+  const { page = 1, page_size = 10, keyword = '' } = params;
+  const query = new URLSearchParams({
+    page: page.toString(),
+    page_size: page_size.toString(),
+    keyword,
+  });
+
   try {
-    // 通过代理接口下载文件（避免 CORS）
-    const proxyUrl = `/api/proxy-download?url=${encodeURIComponent(url)}&name=${encodeURIComponent(fileName)}`;
+    const response = await fetch(`/api/roles?${query.toString()}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-    const link = document.createElement('a');
-    link.href = proxyUrl;
-    link.download = fileName;
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || `HTTP 错误: ${response.status}`);
+    }
 
-    setTimeout(() => {
-      document.body.removeChild(link);
-    }, 100);
-  } catch {
-    throw new Error('下载失败，请稍后重试');
+    return await response.json();
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error('网络连接失败，请检查网络设置');
+    }
+    throw error;
+  }
+}
+
+export async function getRoleArchiveUrl(archiveKey: string): Promise<ArchiveUrlResponse> {
+  try {
+    const response = await fetch(`/api/role/archive?archive_key=${encodeURIComponent(archiveKey)}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || `HTTP 错误: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error('网络连接失败，请检查网络设置');
+    }
+    throw error;
   }
 }
