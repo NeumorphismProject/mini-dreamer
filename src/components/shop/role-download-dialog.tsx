@@ -98,10 +98,10 @@ export function RoleDownloadDialog({ open, onOpenChange, role }: RoleDownloadDia
                 获取中
               </>
             ) : (
-              <div className="flex flex-col items-center">
-                <span className="text-base">获取</span>
-                <span className="text-xs opacity-80">免费获取</span>
-              </div>
+              <span>
+                获取{' '}
+                <span className="text-xs opacity-80">(免费)</span>
+              </span>
             )}
           </Button>
         </div>
