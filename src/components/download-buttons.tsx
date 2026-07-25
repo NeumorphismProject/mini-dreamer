@@ -1,15 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { DownloadDialog } from './download-dialog';
 import { useDownload } from '@/hooks/use-download';
+import { getLatestFile } from '@/lib/api';
 import { Download, Loader2, Monitor, Apple } from 'lucide-react';
+import type { DownloadResponse } from '@/types';
 
 export function DownloadButtons() {
   const { loading: windowsLoading } = useDownload();
   const [isWindowsDialogOpen, setIsWindowsDialogOpen] = useState(false);
   const [isMacDialogOpen, setIsMacDialogOpen] = useState(false);
+  const [version, setVersion] = useState<string | null>(null);
+
+  useEffect(() => {
+    getLatestFile()
+      .then((data: DownloadResponse) => {
+        if (data?.file_version) {
+          setVersion(data.file_version);
+        }
+      })
+      .catch(() => {
+        // 静默失败，不显示版本
+      });
+  }, []);
 
   const handleWindowsClick = () => {
     setIsWindowsDialogOpen(true);
@@ -40,7 +55,10 @@ export function DownloadButtons() {
               </div>
               <div className="flex-1 text-left">
                 <div className="text-2xl font-semibold">Windows 安装包</div>
-                <div className="text-sm text-sky-100/85">稳定版下载</div>
+                <div className="text-sm text-sky-100/85">
+                  稳定版下载
+                  {version && <span className="ml-2">(最新版本: v{version})</span>}
+                </div>
               </div>
               <Download className="h-8 w-8" />
             </>
