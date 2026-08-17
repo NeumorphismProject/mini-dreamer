@@ -24,6 +24,30 @@ export async function getLatestFile(): Promise<DownloadResponse> {
   }
 }
 
+export async function getLatestCutappFile(): Promise<DownloadResponse> {
+  try {
+    const response = await fetch('/api/cutapp-download', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || `HTTP 错误: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data as DownloadResponse;
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error('网络连接失败，请检查网络设置');
+    }
+    throw error;
+  }
+}
+
 export function downloadFile(url: string): void {
   window.open(url, '_blank');
 }

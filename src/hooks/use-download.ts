@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { getLatestFile, downloadFile } from '@/lib/api';
+import { getLatestFile, getLatestCutappFile, downloadFile } from '@/lib/api';
 import { toast } from 'sonner';
+import type { DownloadResponse } from '@/types';
 
 interface UseDownloadReturn {
   download: () => Promise<void>;
@@ -10,7 +11,9 @@ interface UseDownloadReturn {
   error: string | null;
 }
 
-export function useDownload(): UseDownloadReturn {
+type GetLatestFileFunc = () => Promise<DownloadResponse>;
+
+export function useDownload(getLatestFileFunc: GetLatestFileFunc = getLatestFile): UseDownloadReturn {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,7 +22,7 @@ export function useDownload(): UseDownloadReturn {
     setError(null);
 
     try {
-      const result = await getLatestFile();
+      const result = await getLatestFileFunc();
       downloadFile(result.download_url);
 
       toast.success('下载已开始，请查看浏览器下载列表', {
@@ -47,3 +50,6 @@ export function useDownload(): UseDownloadReturn {
 
   return { download, loading, error };
 }
+
+// 导出预设的下载函数供外部使用
+export { getLatestFile, getLatestCutappFile };

@@ -5,15 +5,18 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { useDownload } from '@/hooks/use-download';
 import { useConfig } from '@/hooks/use-config';
 import { Download, Loader2, Monitor, Apple, Cloud, Link2 } from 'lucide-react';
+import type { DownloadResponse } from '@/types';
 
 interface DownloadDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   platform: 'windows' | 'mac';
+  appName: string;
+  getLatestFileFunc?: () => Promise<DownloadResponse>;
 }
 
-export function DownloadDialog({ open, onOpenChange, platform }: DownloadDialogProps) {
-  const { download, loading: windowsLoading } = useDownload();
+export function DownloadDialog({ open, onOpenChange, platform, appName, getLatestFileFunc }: DownloadDialogProps) {
+  const { download, loading: windowsLoading } = useDownload(getLatestFileFunc);
   const { config, loading: configLoading } = useConfig();
 
   const handleBaiduPanClick = () => {
@@ -45,7 +48,7 @@ export function DownloadDialog({ open, onOpenChange, platform }: DownloadDialogP
             )}
           </div>
           <DialogTitle className="text-2xl font-bold text-white">
-            {platform === 'windows' ? 'Windows 安装包下载' : 'Mac 安装包下载'}
+            {appName}
           </DialogTitle>
           <DialogDescription className="text-base mt-2 text-slate-300">
             {isMacComingSoon 
