@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Header, Footer, ThemeProvider } from '@/components/layout';
+import { ThemeProvider } from '@/components/layout';
 import { Toaster } from '@/components/ui/sonner';
 import './globals.css';
 
@@ -45,13 +45,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex flex-col min-h-screen">
-            <Header />
-            <div className="flex-1">
-              {children}
-            </div>
-            <Footer />
-          </div>
+          {children}
           <Toaster />
         </ThemeProvider>
       </body>
