@@ -354,24 +354,26 @@ export const useStore = create<Store>((set) => ({
 - [Tailwind CSS 文档](https://tailwindcss.com/docs)
 - [React Hook Form](https://react-hook-form.com)
 
-## 隐私政策路由
+## 协议路由
 
-本项目托管多个 APP 游戏的纯静态隐私政策页面。这些页面**不在任何导航或页面中添加链接入口**，仅通过直接 URL 访问，供应用商店审核使用。
+本项目托管多个 APP 游戏的纯静态协议页面（隐私政策、用户协议等）。这些页面**不在任何导航或页面中添加链接入口**，仅通过直接 URL 访问，供应用商店审核使用。
 
 ### 路由规则
 
-- 基础路径：`/privacy/{game-slug}`
+- 隐私政策：`/privacy/{game-slug}`
+- 用户协议：`/agreement/{game-slug}`
 - game-slug：游戏名称拼音全拼（小写）
 
 ### 已有路由
 
-| 游戏名称 | 路由路径 | 页面文件 |
-|----------|----------|----------|
-| 速算趣味堂 | `/privacy/suanqufantang` | `src/app/privacy/suanqufantang/page.tsx` |
+| 游戏名称 | 协议类型 | 路由路径 | 页面文件 |
+|----------|----------|----------|----------|
+| 速算趣味堂 | 隐私政策 | `/privacy/suanqufantang` | `src/app/privacy/suanqufantang/page.tsx` |
+| 速算趣味堂 | 用户协议 | `/agreement/suanqufantang` | `src/app/agreement/suanqufantang/page.tsx` |
 
 ### 管理文档
 
-详细的隐私政策路由管理文档位于 `Docs/隐私政策路由管理.md`，记录了所有游戏的路由清单和新增流程。
+详细的协议路由管理文档位于 `Docs/隐私政策路由管理.md`，记录了所有游戏的路由清单和新增流程。
 
 ## 重要提示
 
