@@ -1,11 +1,17 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '速算趣味堂 - 隐私政策',
+  title: {
+    absolute: '速算趣味堂 - 隐私政策',
+  },
   description: '速算趣味堂隐私政策 - 纯本地离线教育学习工具',
   robots: {
     index: false,
     follow: false,
+  },
+  icons: {
+    icon: [],
+    shortcut: [],
   },
 };
 
