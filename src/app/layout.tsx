@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: '抽象吧桌宠团队' }],
   icons: {
-    icon: '/favicon.ico?v=2',
-    shortcut: '/favicon.ico?v=2',
+    icon: '/logo.jpg',
+    shortcut: '/logo.jpg',
   },
   robots: {
     index: true,

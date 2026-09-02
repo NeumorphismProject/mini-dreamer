@@ -30,7 +30,7 @@ export function Header() {
             <Link href="/" className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 shadow-lg shadow-blue-500/20 overflow-hidden">
                 <img
-                  src="/logo.jpeg"
+                  src="/logo.jpg"
                   alt="抽象吧桌宠"
                   className="w-7 h-7 object-cover rounded-xl"
                 />
