@@ -21,10 +21,6 @@ export const metadata: Metadata = {
     '自定义角色',
   ],
   authors: [{ name: '抽象吧桌宠团队' }],
-  icons: {
-    icon: '/logo.jpg',
-    shortcut: '/logo.jpg',
-  },
   robots: {
     index: true,
     follow: true,
