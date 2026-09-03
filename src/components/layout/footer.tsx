@@ -9,7 +9,7 @@ export function Footer() {
             <div>
               <h4 className="font-semibold mb-2">关于我们</h4>
               <p className="text-sm text-muted-foreground">
-                抽象吧桌宠致力于为用户提供高度自定义的桌面宠物体验
+                抽象吧应用致力于为用户提供丰富的桌面应用与辅助工具
               </p>
             </div>
             <div>
@@ -28,7 +28,7 @@ export function Footer() {
           
           <div className="border-t pt-8 text-center">
             <p className="text-sm text-muted-foreground">
-              © {currentYear} 抽象吧桌宠. All rights reserved.
+              © {currentYear} 抽象吧应用. All rights reserved.
             </p>
             <p className="text-xs text-muted-foreground mt-2">
               备用版本：v0.9.9 | 官网备案信息

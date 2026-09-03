@@ -5,13 +5,15 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: {
-    default: '抽象吧桌宠 - Windows 桌面宠物应用',
-    template: '%s | 抽象吧桌宠',
+    default: '抽象吧应用',
+    template: '%s | 抽象吧应用',
   },
   description:
-    '一款基于 Tauri 2 开发的 Windows 桌面宠物应用，支持语音互动、角色进化系统和高度自定义功能',
+    '抽象吧应用 - 拥有丰富的桌面应用与辅助工具，包括桌宠应用、自动剪辑工具等，所有应用均可免费下载使用',
   keywords: [
+    '抽象吧应用',
     '桌面宠物',
+    '自动剪辑工具',
     'Windows应用',
     'Tauri',
     '语音互动',
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
     '虚拟宠物',
     '自定义角色',
   ],
-  authors: [{ name: '抽象吧桌宠团队' }],
+  authors: [{ name: '抽象吧应用' }],
   robots: {
     index: true,
     follow: true,

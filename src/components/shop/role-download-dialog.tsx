@@ -75,7 +75,7 @@ export function RoleDownloadDialog({ open, onOpenChange, role }: RoleDownloadDia
 
         <div className="px-6 pb-3">
           <p className="text-sm text-slate-400 text-center leading-relaxed">
-            下载角色压缩包后，在抽象吧桌宠桌面应用中导入即可使用
+            下载角色压缩包后，在抽象吧应用桌面应用中导入即可使用
           </p>
         </div>
 

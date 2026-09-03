@@ -15,7 +15,7 @@ import { Menu, X, ChevronDown, Store, Heart } from 'lucide-react';
 const navigation = [
   { label: '首页', href: '/' },
   { label: '功能特性', href: '#features' },
-  { label: '下载', href: '#download' },
+  { label: '下载', href: '/download' },
 ];
 
 export function Header() {
@@ -31,11 +31,11 @@ export function Header() {
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 shadow-lg shadow-blue-500/20 overflow-hidden">
                 <img
                   src="/logo.jpg"
-                  alt="抽象吧桌宠"
+                  alt="抽象吧应用"
                   className="w-7 h-7 object-cover rounded-xl"
                 />
               </div>
-              <span className="font-semibold text-white">抽象吧桌宠</span>
+              <span className="font-semibold text-white">抽象吧应用</span>
             </Link>
 
             <div className="hidden md:flex items-center gap-6">
@@ -82,7 +82,7 @@ export function Header() {
                 </button>
               </nav>
               <Link
-                href="#download"
+                href="/download"
                 className="rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:from-blue-500 hover:to-cyan-400"
               >
                 立即下载
