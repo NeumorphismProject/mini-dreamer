@@ -1,0 +1,56 @@
+'use client';
+
+import { Button } from '@/components/ui/button';
+import { Download, File, Settings } from 'lucide-react';
+import type { ToolFile } from '@/types';
+
+interface ToolCardProps {
+  toolFile: ToolFile;
+  onDownload: (toolFile: ToolFile) => void;
+}
+
+export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  };
+
+  return (
+    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all hover:border-purple-500/30 hover:shadow-lg hover:shadow-purple-500/10 p-5">
+      {/* 图标 */}
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-600 to-pink-500 text-white shadow-lg shadow-purple-500/20 mb-4">
+        <Settings className="h-7 w-7" />
+      </div>
+
+      {/* 信息 */}
+      <div className="flex flex-1 flex-col">
+        <h3 className="text-base font-semibold text-white mb-2 line-clamp-2 min-h-[3rem]">
+          {toolFile.file_name}
+        </h3>
+
+        <div className="flex items-center gap-2 mb-1">
+          <File className="h-3.5 w-3.5 text-slate-500" />
+          <p className="text-xs text-slate-400 truncate">
+            {toolFile.tool_type}
+          </p>
+        </div>
+
+        <p className="text-xs text-slate-500 mb-4">
+          更新时间: {formatDate(toolFile.updated_at)}
+        </p>
+
+        <Button
+          onClick={() => onDownload(toolFile)}
+          className="w-full gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition hover:scale-[1.02] hover:from-purple-500 hover:to-pink-400"
+        >
+          <Download className="h-4 w-4" />
+          下载工具
+        </Button>
+      </div>
+    </div>
+  );
+}

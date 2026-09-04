@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { DonateDialog } from '@/components/donate-dialog';
-import { Menu, X, ChevronDown, Store, Heart } from 'lucide-react';
+import { Menu, X, ChevronDown, Store, Heart, Wrench } from 'lucide-react';
 
 const navigation = [
   { label: '首页', href: '/' },
@@ -60,14 +60,22 @@ export function Header() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-40 bg-slate-900/95 border-white/10 backdrop-blur-xl"
+                    className="w-44 bg-slate-900/95 border-white/10 backdrop-blur-xl"
                   >
                     <DropdownMenuItem asChild>
                       <Link
                         href="/shop/roles"
                         className="cursor-pointer text-slate-300 focus:text-white focus:bg-slate-800/50"
                       >
-                        角色商城
+                        桌宠角色商城
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/shop/tools"
+                        className="cursor-pointer text-slate-300 focus:text-white focus:bg-slate-800/50"
+                      >
+                        工具商城
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -119,7 +127,15 @@ export function Header() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Store className="h-4 w-4" />
-                  角色商城
+                  桌宠角色商城
+                </Link>
+                <Link
+                  href="/shop/tools"
+                  className="flex items-center gap-2 text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Wrench className="h-4 w-4" />
+                  工具商城
                 </Link>
                 <button
                   onClick={() => {
