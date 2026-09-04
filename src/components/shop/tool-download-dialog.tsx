@@ -84,6 +84,7 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
         </DialogHeader>
 
         <div className="px-6">
+          {/* 工具信息卡片 */}
           <div className="flex flex-col gap-3 p-5 rounded-xl bg-slate-900/50 border border-white/5">
             {/* 文件名 */}
             <div className="flex items-start gap-3">
@@ -116,9 +117,39 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
           </div>
         </div>
 
+        {/* 捐赠二维码区域 */}
+        <div className="px-6 pt-5">
+          <div className="flex flex-col items-center gap-3 p-5 rounded-xl bg-gradient-to-br from-purple-600/8 via-pink-500/8 to-purple-600/8 border border-purple-500/15">
+            <div className="flex items-center gap-2 mb-1">
+              <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+              <span className="text-xs font-semibold text-purple-300 tracking-wide">
+                自愿支持
+              </span>
+              <Sparkles className="h-3.5 w-3.5 text-pink-400" />
+            </div>
+            <img
+              src="/wxzf.jpg"
+              alt="微信捐赠码"
+              className="w-36 h-36 object-cover rounded-xl shadow-md shadow-purple-500/10 border border-white/5"
+            />
+            <span className="text-xs text-slate-400">微信赞赏</span>
+            <div className="text-xs text-slate-400 text-center leading-relaxed space-y-1.5 pt-1">
+              <p>
+                本站所有工具均为<span className="text-purple-300 font-medium">免费</span>提供，纯系个人业余时间用心为爱发电。
+              </p>
+              <p>
+                若您觉得该工具有帮到您，愿意支持我继续前行，欢迎扫码自愿捐赠一杯奶茶钱~
+              </p>
+              <p className="text-slate-500 pt-0.5">
+                无论捐赠与否，都由衷感谢您的信任与支持！💜
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="px-6 py-4">
           <p className="text-xs text-slate-400 text-center leading-relaxed">
-            下载完成后，双击安装包即可安装使用。若下载链接失效，请重新获取。
+            下载完成后，双击安装包即可安装使用。若下载链接失效，请重新获取即可。
           </p>
         </div>
 
