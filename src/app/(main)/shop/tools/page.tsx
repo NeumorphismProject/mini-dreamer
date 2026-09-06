@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useToolFiles } from '@/hooks/use-tool-files';
 import { ToolCard } from '@/components/shop/tool-card';
 import { ToolDownloadDialog } from '@/components/shop/tool-download-dialog';
@@ -36,8 +37,17 @@ const toolCategories: ToolCategory[] = [
   },
 ];
 
-export default function ToolsPage() {
-  const [activeCategory, setActiveCategory] = useState<string>(toolCategories[0].key);
+function ToolsPageInner() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // 从 URL 读取初始 category，无则默认第一项
+  const urlCategory = searchParams.get('category');
+  const initialCategory = urlCategory && toolCategories.some(c => c.key === urlCategory)
+    ? urlCategory
+    : toolCategories[0].key;
+
+  const [activeCategory, setActiveCategory] = useState<string>(initialCategory);
   const [keyword, setKeyword] = useState('');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,19 +63,45 @@ export default function ToolsPage() {
     tool_type: activeCategory,
   });
 
-  // 切换目录时重置页码并重新获取数据
+  // 监听 URL 变化（浏览器前进/后退），同步选中目录
+  useEffect(() => {
+    const urlCat = searchParams.get('category');
+    const newCategory = urlCat && toolCategories.some(c => c.key === urlCat)
+      ? urlCat
+      : toolCategories[0].key;
+
+    if (newCategory !== activeCategory) {
+      setActiveCategory(newCategory);
+      setCurrentPage(1);
+      setKeyword('');
+      setSearchKeyword('');
+      refetch({
+        page: 1,
+        page_size: pageSize,
+        keyword: '',
+        tool_type: newCategory,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  // 切换目录时更新 URL、重置页码并重新获取数据
   const handleCategoryChange = useCallback((categoryKey: string) => {
     setActiveCategory(categoryKey);
     setCurrentPage(1);
     setKeyword('');
     setSearchKeyword('');
+    // 更新 URL query 参数
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('category', categoryKey);
+    router.push(`/shop/tools?${params.toString()}`);
     refetch({
       page: 1,
       page_size: pageSize,
       keyword: '',
       tool_type: categoryKey,
     });
-  }, [refetch]);
+  }, [refetch, router, searchParams]);
 
   const handleSearch = useCallback(() => {
     setSearchKeyword(keyword);
@@ -310,5 +346,13 @@ export default function ToolsPage() {
         toolFile={selectedTool}
       />
     </div>
+  );
+}
+
+export default function ToolsPage() {
+  return (
+    <Suspense>
+      <ToolsPageInner />
+    </Suspense>
   );
 }
