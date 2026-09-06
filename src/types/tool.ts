@@ -3,6 +3,8 @@ export interface ToolFile {
   file_name: string;
   tool_type: string;
   storage_key: string;
+  link?: string;
+  desc?: string;
   created_at: string;
   updated_at: string;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Download, File, Settings } from 'lucide-react';
+import { Download, File, Settings, ExternalLink, FileText } from 'lucide-react';
 import type { ToolFile } from '@/types';
 
 interface ToolCardProps {
@@ -32,12 +32,38 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
           {toolFile.file_name}
         </h3>
 
+        {/* 工具描述 */}
+        {toolFile.desc && (
+          <div className="mb-3">
+            <div className="flex items-center gap-1.5 mb-1">
+              <FileText className="h-3.5 w-3.5 text-purple-400/60" />
+              <span className="text-xs text-slate-500">工具描述</span>
+            </div>
+            <p className="text-sm text-slate-300 leading-relaxed line-clamp-3">
+              {toolFile.desc}
+            </p>
+          </div>
+        )}
+
         <div className="flex items-center gap-2 mb-1">
           <File className="h-3.5 w-3.5 text-slate-500" />
           <p className="text-xs text-slate-400 truncate">
             {toolFile.tool_type}
           </p>
         </div>
+
+        {/* 工具源地址 */}
+        {toolFile.link && (
+          <a
+            href={toolFile.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 mb-1 text-xs text-purple-400 hover:text-purple-300 transition-colors truncate"
+          >
+            <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
+            <span className="truncate">工具源地址</span>
+          </a>
+        )}
 
         <p className="text-xs text-slate-500 mb-4">
           更新时间: {formatDate(toolFile.updated_at)}
