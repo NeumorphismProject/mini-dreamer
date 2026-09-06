@@ -29,6 +29,11 @@ const toolCategories: ToolCategory[] = [
     label: 'DLSS5-Swapper',
     description: 'DLSS 帧生成替换工具集',
   },
+  {
+    key: '硬件监控',
+    label: '硬件监控',
+    description: '硬件状态监控工具集',
+  },
 ];
 
 export default function ToolsPage() {
