@@ -326,15 +326,8 @@ function ToolsPageInner() {
               </div>
             </div>
 
-            {/* 评分筛选栏 + 精选快捷按钮 */}
+            {/* 精选快捷按钮 + 评分筛选栏 */}
             <div className="mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-2xl border border-white/10 bg-slate-900/50 p-4">
-              <StarFilter
-                stars={filterStars}
-                mode={scoreMode}
-                onStarsChange={handleStarsChange}
-                onModeChange={handleModeChange}
-              />
-
               {/* 精选快捷按钮：开启 = 查询评分 ≥ 6 分（星星联动亮 3 颗） */}
               <button
                 type="button"
@@ -356,6 +349,13 @@ function ToolsPageInner() {
                   3星以上
                 </span>
               </button>
+
+              <StarFilter
+                stars={filterStars}
+                mode={scoreMode}
+                onStarsChange={handleStarsChange}
+                onModeChange={handleModeChange}
+              />
             </div>
 
             {/* 加载状态 */}
