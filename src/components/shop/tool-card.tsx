@@ -28,7 +28,15 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
     toolFile.score >= 6;
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all hover:border-purple-500/30 hover:shadow-lg hover:shadow-purple-500/10 p-5">
+    <div
+      className={`group relative flex flex-col overflow-hidden rounded-2xl border backdrop-blur-sm transition-all p-5 ${
+        isFeatured
+          // 优质卡片：金色豪华边框 + 金色光晕，hover 时进一步点亮
+          ? 'border-2 border-amber-400/60 bg-slate-900/50 shadow-[0_0_20px_rgba(251,191,36,0.25)] hover:border-amber-400/90 hover:shadow-[0_0_28px_rgba(251,191,36,0.45)]'
+          // 普通卡片：低调边框，hover 时蓝色调呼应冷色按钮
+          : 'border border-white/10 bg-slate-900/50 hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/10'
+      }`}
+    >
       {/* 图标 */}
       <div
         className={`flex h-14 w-14 items-center justify-center rounded-2xl text-white mb-4 ${
@@ -90,7 +98,11 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
 
         <Button
           onClick={() => onDownload(toolFile)}
-          className="mt-auto w-full gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition hover:scale-[1.02] hover:from-purple-500 hover:to-pink-400"
+          className={`mt-auto w-full gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:scale-[1.02] ${
+            isFeatured
+              ? 'bg-gradient-to-r from-purple-600 to-pink-500 shadow-purple-500/20 hover:from-purple-500 hover:to-pink-400'
+              : 'bg-gradient-to-r from-blue-600 to-cyan-500 shadow-blue-500/20 hover:from-blue-500 hover:to-cyan-400'
+          }`}
         >
           <Download className="h-4 w-4" />
           下载工具
