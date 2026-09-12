@@ -77,7 +77,7 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
 
         <Button
           onClick={() => onDownload(toolFile)}
-          className="w-full gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition hover:scale-[1.02] hover:from-purple-500 hover:to-pink-400"
+          className="mt-auto w-full gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition hover:scale-[1.02] hover:from-purple-500 hover:to-pink-400"
         >
           <Download className="h-4 w-4" />
           下载工具

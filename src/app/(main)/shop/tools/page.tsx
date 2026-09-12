@@ -353,7 +353,7 @@ function ToolsPageInner() {
                 />
                 精选
                 <span className="rounded-full bg-white/25 px-2 py-0.5 text-xs font-semibold">
-                  ≥6分
+                  3星以上
                 </span>
               </button>
             </div>

@@ -78,7 +78,7 @@ export function StarFilter({ stars, mode, onStarsChange, onModeChange }: StarFil
           hasFilter ? 'text-amber-300/90 font-medium' : 'text-slate-500'
         }`}
       >
-        {hasFilter ? `评分 ${mode === 'gte' ? '≥' : '≤'} ${stars * 2} 分` : '全部评分'}
+        {hasFilter ? `${mode === 'gte' ? '≥' : '≤'} ${stars} 星` : '全部评分'}
       </span>
     </div>
   );
