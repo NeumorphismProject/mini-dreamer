@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { StarRating } from '@/components/shop/star-rating';
-import { Download, File, Settings, ExternalLink, FileText } from 'lucide-react';
+import { Download, File, Swords, Hammer, ExternalLink, FileText } from 'lucide-react';
 import type { ToolFile } from '@/types';
 
 interface ToolCardProps {
@@ -20,11 +20,24 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
     });
   };
 
+  // 优质工具：评分有效且 ≥ 6 分（即 3 星及以上），顶部图标用 Swords + 原紫粉渐变；
+  // 其余（含 0 分 / 缺失 / 异常评分）用 Hammer + 低调钢灰渐变
+  const isFeatured =
+    typeof toolFile.score === 'number' &&
+    Number.isFinite(toolFile.score) &&
+    toolFile.score >= 6;
+
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all hover:border-purple-500/30 hover:shadow-lg hover:shadow-purple-500/10 p-5">
       {/* 图标 */}
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-600 to-pink-500 text-white shadow-lg shadow-purple-500/20 mb-4">
-        <Settings className="h-7 w-7" />
+      <div
+        className={`flex h-14 w-14 items-center justify-center rounded-2xl text-white mb-4 ${
+          isFeatured
+            ? 'bg-gradient-to-br from-purple-600 to-pink-500 shadow-lg shadow-purple-500/20'
+            : 'bg-gradient-to-br from-slate-600 to-slate-700 shadow-md shadow-slate-900/30'
+        }`}
+      >
+        {isFeatured ? <Swords className="h-7 w-7" /> : <Hammer className="h-7 w-7" />}
       </div>
 
       {/* 信息 */}
