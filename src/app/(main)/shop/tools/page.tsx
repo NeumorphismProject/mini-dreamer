@@ -328,15 +328,15 @@ function ToolsPageInner() {
 
             {/* 精选快捷按钮 + 评分筛选栏 */}
             <div className="mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-2xl border border-white/10 bg-slate-900/50 p-4">
-              {/* 精选快捷按钮：开启 = 查询评分 ≥ 6 分（星星联动亮 3 颗） */}
+              {/* 精选快捷按钮：开启 = 查询评分 ≥ 6 分（星星联动亮 3 颗）；关闭态冷色调，开启态暖色发光 */}
               <button
                 type="button"
                 onClick={handleFeaturedToggle}
                 aria-pressed={isFeatured}
-                className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full border bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 bg-[length:200%_200%] px-6 py-2.5 text-base font-bold text-white transition-all duration-300 ${
+                className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full border px-6 py-2.5 text-base font-bold text-white transition-all duration-300 ${
                   isFeatured
-                    ? 'animate-gradient scale-105 border-amber-200/80 shadow-[0_0_28px_rgba(251,146,60,0.6)] ring-2 ring-amber-300/70'
-                    : 'border-white/20 shadow-lg shadow-orange-500/25 hover:scale-105 hover:shadow-[0_0_22px_rgba(251,146,60,0.5)]'
+                    ? 'animate-gradient scale-105 border-amber-200/80 bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 bg-[length:200%_200%] shadow-[0_0_28px_rgba(251,146,60,0.6)] ring-2 ring-amber-300/70'
+                    : 'border-white/10 bg-gradient-to-br from-slate-600 to-slate-700 shadow-md shadow-slate-900/30 hover:scale-105 hover:from-slate-500 hover:to-slate-600'
                 }`}
               >
                 <Sparkles
