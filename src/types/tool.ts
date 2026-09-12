@@ -5,6 +5,8 @@ export interface ToolFile {
   storage_key: string;
   link?: string;
   desc?: string;
+  /** 评分（0~10 分，5 星制：星数 = score / 2），缺失或异常时展示 5 颗灰星 */
+  score?: number;
   created_at: string;
   updated_at: string;
 }
@@ -14,6 +16,10 @@ export interface ListToolFilesParams {
   page_size?: number;
   keyword?: string;
   tool_type?: string;
+  /** 评分下限过滤（score >= score_min） */
+  score_min?: number;
+  /** 评分上限过滤（score <= score_max） */
+  score_max?: number;
 }
 
 export interface ListToolFilesResponse {

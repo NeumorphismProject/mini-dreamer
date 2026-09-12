@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useToolFiles } from '@/hooks/use-tool-files';
 import { ToolCard } from '@/components/shop/tool-card';
 import { ToolDownloadDialog } from '@/components/shop/tool-download-dialog';
+import { StarFilter, type ScoreMode } from '@/components/shop/star-filter';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
@@ -15,8 +16,9 @@ import {
   Wrench,
   Package,
   FolderOpen,
+  Sparkles,
 } from 'lucide-react';
-import type { ToolFile } from '@/types';
+import type { ToolFile, ListToolFilesParams } from '@/types';
 
 interface ToolCategory {
   key: string;
@@ -53,8 +55,17 @@ function ToolsPageInner() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTool, setSelectedTool] = useState<ToolFile | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  // 星星评分筛选：0 星 = 不过滤（查询全部），1~5 星对应 2~10 分
+  const [filterStars, setFilterStars] = useState(0);
+  const [scoreMode, setScoreMode] = useState<ScoreMode>('gte');
 
   const pageSize = 20;
+
+  /** 根据星数与比较方向生成评分查询参数 */
+  const buildScoreParams = (stars: number, mode: ScoreMode): Pick<ListToolFilesParams, 'score_min' | 'score_max'> => {
+    if (stars === 0) return {};
+    return mode === 'gte' ? { score_min: stars * 2 } : { score_max: stars * 2 };
+  };
 
   const { data, loading, error, refetch } = useToolFiles({
     page: currentPage,
@@ -75,6 +86,8 @@ function ToolsPageInner() {
       setCurrentPage(1);
       setKeyword('');
       setSearchKeyword('');
+      setFilterStars(0);
+      setScoreMode('gte');
       refetch({
         page: 1,
         page_size: pageSize,
@@ -91,6 +104,8 @@ function ToolsPageInner() {
     setCurrentPage(1);
     setKeyword('');
     setSearchKeyword('');
+    setFilterStars(0);
+    setScoreMode('gte');
     // 更新 URL query 参数
     const params = new URLSearchParams(searchParams.toString());
     params.set('category', categoryKey);
@@ -111,14 +126,73 @@ function ToolsPageInner() {
       page_size: pageSize,
       keyword,
       tool_type: activeCategory,
+      ...buildScoreParams(filterStars, scoreMode),
     });
-  }, [keyword, activeCategory, refetch]);
+  }, [keyword, activeCategory, filterStars, scoreMode, refetch]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleSearch();
     }
   };
+
+  // 星星筛选变化：重置到第一页并按新评分条件查询
+  const handleStarsChange = useCallback((stars: number) => {
+    setFilterStars(stars);
+    setCurrentPage(1);
+    refetch({
+      page: 1,
+      page_size: pageSize,
+      keyword: searchKeyword,
+      tool_type: activeCategory,
+      ...buildScoreParams(stars, scoreMode),
+    });
+  }, [searchKeyword, activeCategory, scoreMode, refetch]);
+
+  // ≥/≤ 方向切换：有选中星星时才触发重新查询
+  const handleModeChange = useCallback((mode: ScoreMode) => {
+    setScoreMode(mode);
+    if (filterStars > 0) {
+      setCurrentPage(1);
+      refetch({
+        page: 1,
+        page_size: pageSize,
+        keyword: searchKeyword,
+        tool_type: activeCategory,
+        ...buildScoreParams(filterStars, mode),
+      });
+    }
+  }, [filterStars, searchKeyword, activeCategory, refetch]);
+
+  // 「精选」快捷开关 = 3 星（≥6 分）的联动快捷方式
+  const isFeatured = filterStars === 3 && scoreMode === 'gte';
+
+  const handleFeaturedToggle = useCallback(() => {
+    if (isFeatured) {
+      // 关闭精选：恢复默认（全部评分）
+      setFilterStars(0);
+      setScoreMode('gte');
+      setCurrentPage(1);
+      refetch({
+        page: 1,
+        page_size: pageSize,
+        keyword: searchKeyword,
+        tool_type: activeCategory,
+      });
+    } else {
+      // 开启精选：查询评分 ≥ 6 分，星星联动亮起 3 颗
+      setFilterStars(3);
+      setScoreMode('gte');
+      setCurrentPage(1);
+      refetch({
+        page: 1,
+        page_size: pageSize,
+        keyword: searchKeyword,
+        tool_type: activeCategory,
+        score_min: 6,
+      });
+    }
+  }, [isFeatured, searchKeyword, activeCategory, refetch]);
 
   const handleDownload = useCallback((toolFile: ToolFile) => {
     setSelectedTool(toolFile);
@@ -132,6 +206,7 @@ function ToolsPageInner() {
       page_size: pageSize,
       keyword: searchKeyword,
       tool_type: activeCategory,
+      ...buildScoreParams(filterStars, scoreMode),
     });
   };
 
@@ -251,6 +326,38 @@ function ToolsPageInner() {
               </div>
             </div>
 
+            {/* 评分筛选栏 + 精选快捷按钮 */}
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-2xl border border-white/10 bg-slate-900/50 p-4">
+              <StarFilter
+                stars={filterStars}
+                mode={scoreMode}
+                onStarsChange={handleStarsChange}
+                onModeChange={handleModeChange}
+              />
+
+              {/* 精选快捷按钮：开启 = 查询评分 ≥ 6 分（星星联动亮 3 颗） */}
+              <button
+                type="button"
+                onClick={handleFeaturedToggle}
+                aria-pressed={isFeatured}
+                className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full border bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 bg-[length:200%_200%] px-6 py-2.5 text-base font-bold text-white transition-all duration-300 ${
+                  isFeatured
+                    ? 'animate-gradient scale-105 border-amber-200/80 shadow-[0_0_28px_rgba(251,146,60,0.6)] ring-2 ring-amber-300/70'
+                    : 'border-white/20 shadow-lg shadow-orange-500/25 hover:scale-105 hover:shadow-[0_0_22px_rgba(251,146,60,0.5)]'
+                }`}
+              >
+                <Sparkles
+                  className={`h-5 w-5 transition-transform duration-300 ${
+                    isFeatured ? 'rotate-12 scale-110' : 'group-hover:rotate-12'
+                  }`}
+                />
+                精选
+                <span className="rounded-full bg-white/25 px-2 py-0.5 text-xs font-semibold">
+                  ≥6分
+                </span>
+              </button>
+            </div>
+
             {/* 加载状态 */}
             {loading ? (
               <div className="flex flex-col items-center justify-center py-20 gap-3">
@@ -266,6 +373,7 @@ function ToolsPageInner() {
                     page_size: pageSize,
                     keyword: searchKeyword,
                     tool_type: activeCategory,
+                    ...buildScoreParams(filterStars, scoreMode),
                   })}
                   className="rounded-xl bg-purple-600 hover:bg-purple-500"
                 >
@@ -278,9 +386,13 @@ function ToolsPageInner() {
                   <Package className="h-8 w-8 text-slate-600" />
                 </div>
                 <p className="text-slate-400">
-                  {searchKeyword
-                    ? `未找到包含「${searchKeyword}」的工具`
-                    : '暂无工具，请稍后再来查看'}
+                  {searchKeyword && filterStars > 0
+                    ? '未找到同时满足关键字与评分条件的工具'
+                    : filterStars > 0
+                      ? `未找到评分 ${scoreMode === 'gte' ? '≥' : '≤'} ${filterStars * 2} 分的工具`
+                      : searchKeyword
+                        ? `未找到包含「${searchKeyword}」的工具`
+                        : '暂无工具，请稍后再来查看'}
                 </p>
               </div>
             ) : (

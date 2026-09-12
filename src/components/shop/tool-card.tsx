@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { StarRating } from '@/components/shop/star-rating';
 import { Download, File, Settings, ExternalLink, FileText } from 'lucide-react';
 import type { ToolFile } from '@/types';
 
@@ -31,6 +32,11 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
         <h3 className="text-base font-semibold text-white mb-2 line-clamp-2 min-h-[3rem]">
           {toolFile.file_name}
         </h3>
+
+        {/* 评分展示（0 分 / 缺失 / 异常均为 5 颗灰星） */}
+        <div className="mb-3">
+          <StarRating score={toolFile.score} showScore />
+        </div>
 
         {/* 工具描述 */}
         {toolFile.desc && (

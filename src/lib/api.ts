@@ -129,13 +129,19 @@ export async function getRoleArchiveUrl(archiveKey: string): Promise<ArchiveUrlR
 }
 
 export async function listToolFiles(params: ListToolFilesParams = {}): Promise<ListToolFilesResponse> {
-  const { page = 1, page_size = 10, keyword = '', tool_type = '' } = params;
+  const { page = 1, page_size = 10, keyword = '', tool_type = '', score_min, score_max } = params;
   const query = new URLSearchParams({
     page: page.toString(),
     page_size: page_size.toString(),
   });
   if (keyword) query.set('keyword', keyword);
   if (tool_type) query.set('tool_type', tool_type);
+  if (typeof score_min === 'number' && Number.isFinite(score_min)) {
+    query.set('score_min', score_min.toString());
+  }
+  if (typeof score_max === 'number' && Number.isFinite(score_max)) {
+    query.set('score_max', score_max.toString());
+  }
 
   try {
     const response = await fetch(`/api/tool/files?${query.toString()}`, {

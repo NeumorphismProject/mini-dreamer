@@ -16,6 +16,8 @@ export async function GET(request: NextRequest) {
   const pageSize = searchParams.get('page_size') || '10';
   const keyword = searchParams.get('keyword') || '';
   const toolType = searchParams.get('tool_type') || '';
+  const scoreMin = searchParams.get('score_min');
+  const scoreMax = searchParams.get('score_max');
 
   const params: Record<string, unknown> = {
     page: parseInt(page, 10),
@@ -23,6 +25,12 @@ export async function GET(request: NextRequest) {
   };
   if (keyword) params.keyword = keyword;
   if (toolType) params.tool_type = toolType;
+  if (scoreMin !== null && scoreMin !== '' && !Number.isNaN(parseInt(scoreMin, 10))) {
+    params.score_min = parseInt(scoreMin, 10);
+  }
+  if (scoreMax !== null && scoreMax !== '' && !Number.isNaN(parseInt(scoreMax, 10))) {
+    params.score_max = parseInt(scoreMax, 10);
+  }
 
   try {
     const response = await fetch(`${API_BASE_URL}/run`, {
