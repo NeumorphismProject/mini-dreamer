@@ -7,6 +7,10 @@ export interface ToolFile {
   desc?: string;
   /** 评分（0~10 分，5 星制：星数 = score / 2），缺失或异常时展示 5 颗灰星 */
   score?: number;
+  /** 网盘夸克分享URL（仅用于展示，不支持作为搜索条件） */
+  quark_link?: string;
+  /** 网盘百度分享URL（仅用于展示，不支持作为搜索条件） */
+  baidu_link?: string;
   created_at: string;
   updated_at: string;
 }
