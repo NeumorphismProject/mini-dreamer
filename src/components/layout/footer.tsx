@@ -63,6 +63,18 @@ export function Footer() {
               <p className="text-sm text-muted-foreground">
                 如有问题或建议，请联系我们
               </p>
+              {/* B 站超链接 - 仅在配置了 NEXT_PUBLIC_BILIBILI_URL 时显示 */}
+              {BILIBILI_URL && (
+                <a
+                  href={BILIBILI_URL}
+                  onClick={handleBilibiliClick}
+                  className="inline-flex items-center gap-1.5 mt-3 text-sm text-pink-500 hover:text-pink-400 transition-colors font-medium"
+                >
+                  <Video className="h-3.5 w-3.5" />
+                  哔哩哔哩博主视频首页
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              )}
             </div>
             <div>
               <h4 className="font-semibold mb-2">版本信息</h4>
@@ -79,19 +91,6 @@ export function Footer() {
             <p className="text-xs text-muted-foreground mt-2">
               备用版本：v0.9.9 | 官网备案信息
             </p>
-
-            {/* B 站超链接 - 仅在配置了 NEXT_PUBLIC_BILIBILI_URL 时显示 */}
-            {BILIBILI_URL && (
-              <a
-                href={BILIBILI_URL}
-                onClick={handleBilibiliClick}
-                className="inline-flex items-center gap-1.5 mt-4 text-xs text-pink-500 hover:text-pink-400 transition-colors font-medium"
-              >
-                <Video className="h-3.5 w-3.5" />
-                哔哩哔哩博主视频首页
-                <ExternalLink className="h-3 w-3" />
-              </a>
-            )}
           </div>
         </div>
       </div>
