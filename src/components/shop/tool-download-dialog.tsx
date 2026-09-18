@@ -14,6 +14,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@/components/ui/tooltip';
 import { getToolFileUrl, downloadFile } from '@/lib/api';
 import { toast } from 'sonner';
 import {
@@ -154,14 +159,21 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
           </DialogHeader>
 
           <div className="px-5">
-            {/* 工具名称 - 简化只保留一行 */}
-            <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-900/50 border border-white/5">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-600/20 to-pink-500/20 border border-purple-500/20">
+            {/* 工具名称 - 最多两行，超出省略，悬浮显示完整内容 */}
+            <div className="flex items-start gap-3 px-4 py-3 rounded-xl bg-slate-900/50 border border-white/5">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-600/20 to-pink-500/20 border border-purple-500/20 mt-0.5">
                 <Package className="h-4 w-4 text-purple-400" />
               </div>
-              <span className="text-sm font-semibold text-white truncate min-w-0 flex-1">
-                {toolFile.file_name}
-              </span>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="text-sm font-semibold text-white line-clamp-2 min-w-0 flex-1 break-words leading-snug cursor-help">
+                    {toolFile.file_name}
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="max-w-sm break-words">
+                  {toolFile.file_name}
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
 
