@@ -66,10 +66,13 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
   const [redirectOpen, setRedirectOpen] = useState(false);
   const [redirectType, setRedirectType] = useState<RedirectType>('quark');
 
-  // 判断是否存在网盘链接（非空字符串）
+  // 三种下载方式的可用性（对应字段 trim 后非空才可用）
+  const hasNormalDownload = !!toolFile?.storage_key?.trim();
   const hasQuark = !!toolFile?.quark_link?.trim();
   const hasBaidu = !!toolFile?.baidu_link?.trim();
-  const hasNetworkDisk = hasQuark || hasBaidu;
+  // 可用下载方式总数（普通下载 + 夸克网盘 + 百度网盘）
+  const availableCount = [hasNormalDownload, hasQuark, hasBaidu].filter(Boolean).length;
+  const hasAnyDownload = availableCount > 0;
 
   // 当前要跳转的网盘链接与提取码
   const redirectUrl = redirectType === 'quark' ? (toolFile?.quark_link ?? '') : (toolFile?.baidu_link ?? '');
@@ -112,6 +115,18 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
   const openRedirectDialog = (type: RedirectType) => {
     setRedirectType(type);
     setRedirectOpen(true);
+  };
+
+  /** 仅一种下载方式可用时，直接执行该方式 */
+  const handlePrimaryDownload = () => {
+    if (!toolFile) return;
+    if (hasNormalDownload) {
+      handleDownload();
+    } else if (hasQuark) {
+      openRedirectDialog('quark');
+    } else {
+      openRedirectDialog('baidu');
+    }
   };
 
   /** 复制文本到剪贴板，并给出 toast 反馈 */
@@ -201,87 +216,99 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
               取消
             </Button>
 
-            {hasNetworkDisk ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    className="flex-1 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/25 hover:from-purple-500 hover:to-pink-400 hover:scale-[1.02] transition-all"
-                    disabled={loading}
+            {hasAnyDownload ? (
+              availableCount > 1 ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      className="flex-1 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/25 hover:from-purple-500 hover:to-pink-400 hover:scale-[1.02] transition-all"
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          获取链接中
+                        </>
+                      ) : (
+                        <>
+                          <Download className="h-4 w-4 mr-2" />
+                          下载
+                          <ChevronDown className="h-4 w-4 ml-2" />
+                        </>
+                      )}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="end"
+                    className="w-[calc(100%+1rem)] min-w-[12rem] rounded-xl border-white/10 bg-slate-900/95 backdrop-blur-xl text-slate-200"
                   >
-                    {loading ? (
-                      <>
-                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                        获取链接中
-                      </>
-                    ) : (
-                      <>
-                        <Download className="h-4 w-4 mr-2" />
-                        下载
-                        <ChevronDown className="h-4 w-4 ml-2" />
-                      </>
+                    {hasNormalDownload && (
+                      <DropdownMenuItem
+                        className="rounded-lg focus:bg-purple-500/15 focus:text-white cursor-pointer"
+                        onSelect={(e) => {
+                          // 阻止默认关闭行为，确保先执行下载流程
+                          e.preventDefault();
+                          handleDownload();
+                        }}
+                      >
+                        <Download className="h-4 w-4 text-purple-400" />
+                        <span>普通下载</span>
+                      </DropdownMenuItem>
                     )}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="w-[calc(100%+1rem)] min-w-[12rem] rounded-xl border-white/10 bg-slate-900/95 backdrop-blur-xl text-slate-200"
+
+                    {hasQuark && (
+                      <DropdownMenuItem
+                        className="rounded-lg focus:bg-purple-500/15 focus:text-white cursor-pointer"
+                        onSelect={(e) => {
+                          e.preventDefault();
+                          openRedirectDialog('quark');
+                        }}
+                      >
+                        <Cloud className="h-4 w-4 text-cyan-400" />
+                        <span>夸克网盘</span>
+                      </DropdownMenuItem>
+                    )}
+
+                    {hasBaidu && (
+                      <DropdownMenuItem
+                        className="rounded-lg focus:bg-purple-500/15 focus:text-white cursor-pointer"
+                        onSelect={(e) => {
+                          e.preventDefault();
+                          openRedirectDialog('baidu');
+                        }}
+                      >
+                        <Cloud className="h-4 w-4 text-blue-400" />
+                        <span>百度网盘</span>
+                      </DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Button
+                  className="flex-1 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/25 hover:from-purple-500 hover:to-pink-400 hover:scale-[1.02] transition-all"
+                  onClick={handlePrimaryDownload}
+                  disabled={loading}
                 >
-                  <DropdownMenuItem
-                    className="rounded-lg focus:bg-purple-500/15 focus:text-white cursor-pointer"
-                    onSelect={(e) => {
-                      // 阻止默认关闭行为，确保先执行下载流程
-                      e.preventDefault();
-                      handleDownload();
-                    }}
-                  >
-                    <Download className="h-4 w-4 text-purple-400" />
-                    <span>普通下载</span>
-                  </DropdownMenuItem>
-
-                  {hasQuark && (
-                    <DropdownMenuItem
-                      className="rounded-lg focus:bg-purple-500/15 focus:text-white cursor-pointer"
-                      onSelect={(e) => {
-                        e.preventDefault();
-                        openRedirectDialog('quark');
-                      }}
-                    >
-                      <Cloud className="h-4 w-4 text-cyan-400" />
-                      <span>夸克网盘</span>
-                    </DropdownMenuItem>
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      获取链接中
+                    </>
+                  ) : (
+                    <>
+                      <Download className="h-4 w-4 mr-2" />
+                      确认下载
+                    </>
                   )}
-
-                  {hasBaidu && (
-                    <DropdownMenuItem
-                      className="rounded-lg focus:bg-purple-500/15 focus:text-white cursor-pointer"
-                      onSelect={(e) => {
-                        e.preventDefault();
-                        openRedirectDialog('baidu');
-                      }}
-                    >
-                      <Cloud className="h-4 w-4 text-blue-400" />
-                      <span>百度网盘</span>
-                    </DropdownMenuItem>
-                  )}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                </Button>
+              )
             ) : (
               <Button
-                className="flex-1 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/25 hover:from-purple-500 hover:to-pink-400 hover:scale-[1.02] transition-all"
-                onClick={handleDownload}
-                disabled={loading}
+                disabled
+                className="flex-1 rounded-xl bg-slate-800/60 text-slate-500 border border-white/5 cursor-not-allowed font-semibold"
               >
-                {loading ? (
-                  <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    获取链接中
-                  </>
-                ) : (
-                  <>
-                    <Download className="h-4 w-4 mr-2" />
-                    确认下载
-                  </>
-                )}
+                <Package className="h-4 w-4 mr-2" />
+                暂无资源
               </Button>
             )}
           </div>
