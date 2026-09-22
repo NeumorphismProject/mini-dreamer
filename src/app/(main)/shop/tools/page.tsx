@@ -37,6 +37,11 @@ const toolCategories: ToolCategory[] = [
     label: '硬件监控',
     description: '硬件状态监控工具集',
   },
+  {
+    key: '常用工具',
+    label: '常用工具',
+    description: '常用工具集合',
+  },
 ];
 
 function ToolsPageInner() {
