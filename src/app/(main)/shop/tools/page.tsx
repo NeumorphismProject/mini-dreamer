@@ -42,6 +42,11 @@ const toolCategories: ToolCategory[] = [
     label: '常用工具',
     description: '常用工具集合',
   },
+  {
+    key: 'ComfyUI',
+    label: 'Comfy UI',
+    description: 'ComfyUI 图像生成工具集',
+  },
 ];
 
 function ToolsPageInner() {
