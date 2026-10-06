@@ -10,12 +10,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { DonateDialog } from '@/components/donate-dialog';
-import { Menu, X, ChevronDown, Store, Heart, Wrench } from 'lucide-react';
+import { Menu, X, ChevronDown, Store, Heart, Wrench, AppWindow, Sparkles } from 'lucide-react';
 
 const navigation = [
   { label: '首页', href: '/' },
   { label: '功能特性', href: '#features' },
-  { label: '下载', href: '/download' },
 ];
 
 export function Header() {
@@ -78,6 +77,14 @@ export function Header() {
                         工具商城
                       </Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/download"
+                        className="cursor-pointer text-slate-300 focus:text-white focus:bg-slate-800/50"
+                      >
+                        自研应用
+                      </Link>
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
 
@@ -90,10 +97,11 @@ export function Header() {
                 </button>
               </nav>
               <Link
-                href="/download"
-                className="rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:from-blue-500 hover:to-cyan-400"
+                href="/shop/tools"
+                className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition hover:from-purple-500 hover:to-pink-400"
               >
-                立即下载
+                <Sparkles className="h-4 w-4" />
+                前往工具商城
               </Link>
             </div>
 
@@ -136,6 +144,14 @@ export function Header() {
                 >
                   <Wrench className="h-4 w-4" />
                   工具商城
+                </Link>
+                <Link
+                  href="/download"
+                  className="flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <AppWindow className="h-4 w-4" />
+                  自研应用
                 </Link>
                 <button
                   onClick={() => {
