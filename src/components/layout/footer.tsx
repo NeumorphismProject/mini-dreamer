@@ -113,24 +113,24 @@ export function Footer() {
             </p>
           </DialogHeader>
 
-          {/* 完整地址展示 */}
+          {/* 博主首页链接 - 仅显示超链接文本与复制按钮，不展示完整地址 */}
           <div className="px-5 flex flex-col gap-3">
-            <div className="rounded-xl bg-slate-900/60 border border-white/5 p-3">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-medium text-slate-400">完整地址</span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-7 px-2 text-xs text-pink-300 hover:bg-pink-500/10 hover:text-pink-200"
-                  onClick={() => handleCopy(BILIBILI_URL, 'B站地址')}
-                >
-                  <Copy className="h-3 w-3 mr-1" />
-                  复制
-                </Button>
-              </div>
-              <p className="text-xs text-slate-200 break-all leading-relaxed font-mono">
-                {BILIBILI_URL || '—'}
-              </p>
+            <div className="flex items-center justify-between gap-3 rounded-xl bg-slate-900/60 border border-white/5 p-3.5">
+              <span className="flex items-center gap-2.5 min-w-0">
+                <Video className="h-4 w-4 text-pink-400 flex-shrink-0" />
+                <span className="text-sm font-medium text-pink-300 truncate underline underline-offset-4 decoration-pink-400/40">
+                  哔哩哔哩博主视频首页
+                </span>
+              </span>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 px-2.5 text-xs text-pink-300 hover:bg-pink-500/10 hover:text-pink-200 flex-shrink-0"
+                onClick={() => handleCopy(BILIBILI_URL, 'B站地址')}
+              >
+                <Copy className="h-3 w-3 mr-1" />
+                复制地址
+              </Button>
             </div>
           </div>
 
