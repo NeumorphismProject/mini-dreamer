@@ -31,6 +31,7 @@ import {
   Cloud,
   ExternalLink,
   Copy,
+  GraduationCap,
 } from 'lucide-react';
 import type { ToolFile } from '@/types';
 
@@ -191,6 +192,27 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
               </Tooltip>
             </div>
           </div>
+
+          {/* 工具使用教学 - 非空时展示，醒目链接区块，不暴露链接 URL */}
+          {toolFile.tec_link && (
+            <div className="px-5 pt-4">
+              <a
+                href={toolFile.tec_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 rounded-xl p-3.5 bg-gradient-to-r from-purple-600/15 via-pink-500/15 to-purple-600/15 border border-purple-500/30 hover:border-purple-500/60 hover:bg-purple-500/20 transition-all"
+              >
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-600 to-pink-500 text-white shadow-md shadow-purple-500/30 group-hover:scale-105 transition-transform">
+                  <GraduationCap className="h-5 w-5" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-white">工具使用教学</p>
+                  <p className="text-xs text-slate-400 mt-0.5">不清楚怎么用？点击查看教学指引</p>
+                </div>
+                <ExternalLink className="h-4 w-4 text-purple-300 group-hover:text-white flex-shrink-0" />
+              </a>
+            </div>
+          )}
 
           {/* 捐赠二维码区域 - 文案简化为一行 */}
           <div className="px-5 pt-4">

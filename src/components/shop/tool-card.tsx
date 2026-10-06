@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { StarRating } from '@/components/shop/star-rating';
-import { Download, File, Swords, Hammer, ExternalLink, FileText } from 'lucide-react';
+import { Download, File, Swords, Hammer, ExternalLink, FileText, GraduationCap } from 'lucide-react';
 import type { ToolFile } from '@/types';
 
 interface ToolCardProps {
@@ -89,6 +89,19 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
           >
             <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
             <span className="truncate">工具源地址</span>
+          </a>
+        )}
+
+        {/* 工具使用教学（非空时展示，醒目 pill 样式，不暴露链接 URL） */}
+        {toolFile.tec_link && (
+          <a
+            href={toolFile.tec_link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 mb-1 self-start px-2.5 py-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 hover:bg-purple-500/25 hover:border-purple-500/50 hover:text-purple-200 transition-all"
+          >
+            <GraduationCap className="h-3.5 w-3.5 flex-shrink-0 text-purple-400" />
+            <span className="text-xs font-medium">使用教学</span>
           </a>
         )}
 

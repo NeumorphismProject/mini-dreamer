@@ -11,6 +11,8 @@ export interface ToolFile {
   quark_link?: string;
   /** 网盘百度分享URL（仅用于展示，不支持作为搜索条件） */
   baidu_link?: string;
+  /** 工具使用教学链接（仅用于展示，不支持作为搜索条件） */
+  tec_link?: string;
   created_at: string;
   updated_at: string;
 }
