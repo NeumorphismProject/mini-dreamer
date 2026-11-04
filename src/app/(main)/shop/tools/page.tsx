@@ -33,6 +33,11 @@ const toolCategories: ToolCategory[] = [
     description: 'DLSS 帧生成替换工具集',
   },
   {
+    key: '游戏Mod收藏',
+    label: '游戏Mod收藏',
+    description: '游戏 Mod 收藏工具集',
+  },
+  {
     key: '硬件监控',
     label: '硬件监控',
     description: '硬件状态监控工具集',
