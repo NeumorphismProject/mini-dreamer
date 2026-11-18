@@ -47,7 +47,7 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
           <img
             src={imageUrl}
             alt={`${toolFile.file_name}封面`}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full object-contain"
             onError={() => setFailedImageUrl(toolFile.image_url?.trim() ?? null)}
           />
         </div>
