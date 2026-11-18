@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { StarRating } from '@/components/shop/star-rating';
 import { Download, File, Swords, Hammer, ExternalLink, FileText, GraduationCap } from 'lucide-react';
@@ -11,6 +12,7 @@ interface ToolCardProps {
 }
 
 export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
+  const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('zh-CN', {
@@ -26,6 +28,8 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
     typeof toolFile.score === 'number' &&
     Number.isFinite(toolFile.score) &&
     toolFile.score >= 6;
+  const imageUrl = toolFile.image_url?.trim();
+  const showImage = Boolean(imageUrl && imageUrl !== failedImageUrl);
 
   return (
     <div
@@ -37,16 +41,27 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
           : 'border border-white/10 bg-slate-900/50 hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/10'
       }`}
     >
-      {/* 图标 */}
-      <div
-        className={`flex h-14 w-14 items-center justify-center rounded-2xl text-white mb-4 ${
-          isFeatured
-            ? 'bg-gradient-to-br from-purple-600 to-pink-500 shadow-lg shadow-purple-500/20'
-            : 'bg-gradient-to-br from-slate-600 to-slate-700 shadow-md shadow-slate-900/30'
-        }`}
-      >
-        {isFeatured ? <Swords className="h-7 w-7" /> : <Hammer className="h-7 w-7" />}
-      </div>
+      {/* 工具封面；缺少或加载失败时显示原有图标 */}
+      {showImage ? (
+        <div className="mb-4 aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-slate-800/50">
+          <img
+            src={imageUrl}
+            alt={`${toolFile.file_name}封面`}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            onError={() => setFailedImageUrl(toolFile.image_url?.trim() ?? null)}
+          />
+        </div>
+      ) : (
+        <div
+          className={`mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-white ${
+            isFeatured
+              ? 'bg-gradient-to-br from-purple-600 to-pink-500 shadow-lg shadow-purple-500/20'
+              : 'bg-gradient-to-br from-slate-600 to-slate-700 shadow-md shadow-slate-900/30'
+          }`}
+        >
+          {isFeatured ? <Swords className="h-7 w-7" /> : <Hammer className="h-7 w-7" />}
+        </div>
+      )}
 
       {/* 信息 */}
       <div className="flex flex-1 flex-col">

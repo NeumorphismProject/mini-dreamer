@@ -13,6 +13,10 @@ export interface ToolFile {
   baidu_link?: string;
   /** 工具使用教学链接（仅用于展示，不支持作为搜索条件） */
   tec_link?: string;
+  /** 工具封面图片在对象存储中的唯一识别码 */
+  image_storage_key?: string;
+  /** 工具封面图片下载 URL */
+  image_url?: string;
   created_at: string;
   updated_at: string;
 }
