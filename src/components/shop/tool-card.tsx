@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { StarRating } from '@/components/shop/star-rating';
+import { ExternalLinkDialog } from '@/components/shop/external-link-dialog';
 import { Download, File, Swords, Hammer, ExternalLink, FileText, GraduationCap } from 'lucide-react';
 import type { ToolFile } from '@/types';
 
@@ -13,6 +14,7 @@ interface ToolCardProps {
 
 export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
   const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
+  const [tutorialOpen, setTutorialOpen] = useState(false);
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('zh-CN', {
@@ -107,17 +109,16 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
           </a>
         )}
 
-        {/* 工具使用教学（非空时展示，醒目 pill 样式，不暴露链接 URL） */}
+        {/* 工具使用教学（非空时展示，点击后弹出外部链接确认框） */}
         {toolFile.tec_link && (
-          <a
-            href={toolFile.tec_link}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => setTutorialOpen(true)}
             className="flex items-center gap-1.5 mb-1 self-start px-2.5 py-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 hover:bg-purple-500/25 hover:border-purple-500/50 hover:text-purple-200 transition-all"
           >
             <GraduationCap className="h-3.5 w-3.5 flex-shrink-0 text-purple-400" />
             <span className="text-xs font-medium">使用教学</span>
-          </a>
+          </button>
         )}
 
         <p className="text-xs text-slate-500 mb-4">
@@ -136,6 +137,12 @@ export function ToolCard({ toolFile, onDownload }: ToolCardProps) {
           下载工具
         </Button>
       </div>
+
+      <ExternalLinkDialog
+        open={tutorialOpen}
+        onOpenChange={setTutorialOpen}
+        url={toolFile.tec_link?.trim() ?? ''}
+      />
     </div>
   );
 }

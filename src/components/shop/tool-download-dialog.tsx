@@ -20,6 +20,7 @@ import {
   TooltipContent,
 } from '@/components/ui/tooltip';
 import { getToolFileUrl, downloadFile } from '@/lib/api';
+import { ExternalLinkDialog } from '@/components/shop/external-link-dialog';
 import { toast } from 'sonner';
 import {
   Loader2,
@@ -66,6 +67,7 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
   // 网盘跳转二次确认弹窗
   const [redirectOpen, setRedirectOpen] = useState(false);
   const [redirectType, setRedirectType] = useState<RedirectType>('quark');
+  const [tutorialOpen, setTutorialOpen] = useState(false);
 
   // 三种下载方式的可用性（对应字段 trim 后非空才可用）
   const hasNormalDownload = !!toolFile?.storage_key?.trim();
@@ -196,11 +198,10 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
           {/* 工具使用教学 - 非空时展示，醒目链接区块，不暴露链接 URL */}
           {toolFile.tec_link && (
             <div className="px-5 pt-4">
-              <a
-                href={toolFile.tec_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 rounded-xl p-3.5 bg-gradient-to-r from-purple-600/15 via-pink-500/15 to-purple-600/15 border border-purple-500/30 hover:border-purple-500/60 hover:bg-purple-500/20 transition-all"
+              <button
+                type="button"
+                onClick={() => setTutorialOpen(true)}
+                className="group flex w-full items-center gap-3 rounded-xl p-3.5 text-left bg-gradient-to-r from-purple-600/15 via-pink-500/15 to-purple-600/15 border border-purple-500/30 hover:border-purple-500/60 hover:bg-purple-500/20 transition-all"
               >
                 <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-600 to-pink-500 text-white shadow-md shadow-purple-500/30 group-hover:scale-105 transition-transform">
                   <GraduationCap className="h-5 w-5" />
@@ -210,7 +211,7 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
                   <p className="text-xs text-slate-400 mt-0.5">不清楚怎么用？点击查看教学指引</p>
                 </div>
                 <ExternalLink className="h-4 w-4 text-purple-300 group-hover:text-white flex-shrink-0" />
-              </a>
+              </button>
             </div>
           )}
 
@@ -336,6 +337,12 @@ export function ToolDownloadDialog({ open, onOpenChange, toolFile }: ToolDownloa
           </div>
         </DialogContent>
       </Dialog>
+
+      <ExternalLinkDialog
+        open={tutorialOpen}
+        onOpenChange={setTutorialOpen}
+        url={toolFile.tec_link?.trim() ?? ''}
+      />
 
       {/* 网盘跳转二次确认弹窗 */}
       <Dialog open={redirectOpen} onOpenChange={setRedirectOpen}>
