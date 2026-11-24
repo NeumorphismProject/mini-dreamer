@@ -65,10 +65,13 @@ export function ExternalLinkDialog({
   };
 
   const handleConfirm = () => {
-    const urlText = url.trim();
+    let urlText = url.trim();
     if (!urlText) return;
 
     try {
+      if (!urlText.startsWith('http://') && !urlText.startsWith('https://')) {
+        urlText = 'https://' + urlText;
+      }
       const parsedUrl = new URL(urlText);
       if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
         throw new Error('unsupported protocol');
